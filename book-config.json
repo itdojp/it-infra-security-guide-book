@@ -11,47 +11,47 @@
         "description": "本書の目的と構成"
       },
       {
-        "id": "chapter01",
+        "id": "chapter-chapter01",
         "title": "第1章：情報セキュリティの基礎概念",
         "description": "情報セキュリティの基本概念、CIA Triad、脅威とリスク、攻撃手法の分類と進化"
       },
       {
-        "id": "chapter02",
+        "id": "chapter-chapter02",
         "title": "第2章：インフラエンジニアのためのセキュリティ設計",
         "description": "多層防御の概念、セキュリティフレームワーク、インフラエンジニアの役割"
       },
       {
-        "id": "chapter03",
+        "id": "chapter-chapter03",
         "title": "第3章：セキュリティ要件の定義と実装計画",
         "description": "セキュリティ要件のシステム要件化、リスクベースアプローチ、セキュリティ・バイ・デザイン"
       },
       {
-        "id": "chapter04",
+        "id": "chapter-chapter04",
         "title": "第4章：ネットワークセキュリティの実装",
         "description": "ファイアウォール設計、VPN構築、ネットワークセグメンテーション、ゼロトラスト"
       },
       {
-        "id": "chapter05",
+        "id": "chapter-chapter05",
         "title": "第5章：サーバーとOSのセキュリティ強化",
         "description": "OS Hardening、パッチ管理、アクセス制御と特権管理"
       },
       {
-        "id": "chapter06",
+        "id": "chapter-chapter06",
         "title": "第6章：クラウドインフラのセキュリティ",
         "description": "クラウドセキュリティの責任共有モデル、IAM、データ保護"
       },
       {
-        "id": "chapter07",
+        "id": "chapter-chapter07",
         "title": "第7章：コンテナとKubernetesのセキュリティ",
         "description": "コンテナセキュリティ、Kubernetesのセキュリティ機能、ランタイム保護"
       },
       {
-        "id": "chapter08",
+        "id": "chapter-chapter08",
         "title": "第8章：セキュリティ監視と自動化",
         "description": "ログ管理、SIEM、セキュリティ自動化、脅威検知"
       },
       {
-        "id": "chapter09",
+        "id": "chapter-chapter09",
         "title": "第9章：インシデント対応と継続的改善",
         "description": "インシデント対応プロセス、フォレンジック、改善サイクル"
       }
