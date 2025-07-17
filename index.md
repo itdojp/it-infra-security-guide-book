@@ -27,23 +27,23 @@ layout: book
 ## 目次
 
 ### はじめに
-- [はじめに](src/chapter-introduction/index.html) - 本書の目的と構成
+- [はじめに](src/chapter-introduction/) - 本書の目的と構成
 
 ### Part I: セキュリティ基礎
 
-**第1章: [情報セキュリティの基礎概念](src/chapter-chapter01/index.html)**  
+**第1章: [情報セキュリティの基礎概念](src/chapter-chapter01/)**  
 CIA Triad、リスク評価、脅威モデリング
 - 機密性・完全性・可用性の実装
 - リスクの定量化手法
 - 脅威とリスクの基本概念
 
-**第2章: [インフラエンジニアのためのセキュリティ設計](src/chapter-chapter02/index.html)**  
+**第2章: [インフラエンジニアのためのセキュリティ設計](src/chapter-chapter02/)**  
 多層防御、セキュリティフレームワーク
 - 多層防御の設計原理
 - セキュリティフレームワークの実装アプローチ
 - インフラエンジニアの役割と責任
 
-**第3章: [セキュリティ要件の定義と実装計画](src/chapter-chapter03/index.html)**  
+**第3章: [セキュリティ要件の定義と実装計画](src/chapter-chapter03/)**  
 要件定義、リスクベースアプローチ
 - ビジネス要件からセキュリティ要件への変換
 - リスクベースアプローチによる実装優先度
@@ -51,25 +51,25 @@ CIA Triad、リスク評価、脅威モデリング
 
 ### Part II: 技術実装
 
-**第4章: [ネットワークセキュリティの実装](src/chapter-chapter04/index.html)**  
+**第4章: [ネットワークセキュリティの実装](src/chapter-chapter04/)**  
 ファイアウォール、VPN、ゼロトラスト
 - ファイアウォール設計と最適化
 - VPN構築と管理
 - ネットワークセグメンテーション戦略
 
-**第5章: [サーバーとOSのセキュリティ強化](src/chapter-chapter05/index.html)**  
+**第5章: [サーバーとOSのセキュリティ強化](src/chapter-chapter05/)**  
 OS Hardening、パッチ管理
 - OS Hardening の実践
 - パッチ管理システムの構築
 - アクセス制御と特権管理
 
-**第6章: [クラウドインフラのセキュリティ](src/chapter-chapter06/index.html)**  
+**第6章: [クラウドインフラのセキュリティ](src/chapter-chapter06/)**  
 責任共有モデル、IAM、データ保護
 - クラウドセキュリティの責任共有モデル
 - IAM（Identity and Access Management）の設計と運用
 - クラウドネイティブなデータ保護
 
-**第7章: [コンテナとKubernetesのセキュリティ](src/chapter-chapter07/index.html)**  
+**第7章: [コンテナとKubernetesのセキュリティ](src/chapter-chapter07/)**  
 コンテナセキュリティ、K8sセキュリティ
 - コンテナセキュリティの基盤
 - Kubernetesクラスターのセキュリティ強化
@@ -77,22 +77,22 @@ OS Hardening、パッチ管理
 
 ### Part III: 統合運用
 
-**第8章: [継続的セキュリティ運用](src/chapter-chapter08/index.html)**  
+**第8章: [継続的セキュリティ運用](src/chapter-chapter08/)**  
 SOC、SIEM、自動化
 - SOC（Security Operations Center）の設計と構築
 - SIEM・SOAR統合による高度な脅威検知
 - セキュリティメトリクスと継続的改善
 
-**第9章: [インシデント対応と継続的改善](src/chapter-chapter09/index.html)**  
+**第9章: [インシデント対応と継続的改善](src/chapter-chapter09/)**  
 インシデント対応、フォレンジック
 - インシデント対応プロセスの体系化
 - デジタルフォレンジックと証拠保全
 - セキュリティ成熟度の継続的向上
 
 ### 付録
-- [付録A：セキュリティチェックリスト](src/appendices/appendix-a.html)
-- [付録B：参考文献とリソース](src/appendices/appendix-b.html)
-- [あとがき](src/appendices/afterword.html)
+- [付録A：セキュリティチェックリスト](src/appendices/appendix-a.md)
+- [付録B：参考文献とリソース](src/appendices/appendix-b.md)
+- [あとがき](src/appendices/afterword.md)
 
 ## 想定読者
 
@@ -109,7 +109,7 @@ SOC、SIEM、自動化
 
 ---
 
-[はじめにお読みください](src/chapter-introduction/index.html){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[はじめにお読みください](src/chapter-introduction/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
 
 
