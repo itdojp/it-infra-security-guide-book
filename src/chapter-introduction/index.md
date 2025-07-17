@@ -1,6 +1,6 @@
 ---
-layout: page
-title: はじめに
+title: "はじめに"
+chapter: introduction
 ---
 
 # はじめに
