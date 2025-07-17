@@ -22,8 +22,8 @@ exclude:
   - package-lock.json
   - scripts/
   - tests/
-  - "*.md"
-  - "README.md"
+  - README.md
+  - CLAUDE.md
 
 # 日本語対応
 kramdown:
