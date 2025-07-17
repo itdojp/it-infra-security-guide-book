@@ -2,7 +2,7 @@
 <html lang="{{ page.lang | default: site.lang | default: 'ja' }}" data-theme="light">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="{{ page.description | default: site.description | escape }}">
     <meta name="author" content="{{ site.author | escape }}">
     
@@ -105,13 +105,6 @@
         <!-- Main Content -->
         <main class="book-main" id="main">
             <div class="book-content">
-                <!-- Breadcrumb -->
-                {% if page.url != '/' %}
-                <nav class="breadcrumb" aria-label="Breadcrumb">
-                    {% include breadcrumb.html %}
-                </nav>
-                {% endif %}
-
                 <!-- Page Content -->
                 <article class="page-content">
                     {{ content }}
@@ -149,8 +142,9 @@
     <!-- Scripts -->
     <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/sidebar.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/code-copy.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+    <!-- Temporarily disabled to fix performance issues -->
+    <!-- <script src="{{ '/assets/js/search.js' | relative_url }}"></script> -->
+    <!-- <script src="{{ '/assets/js/code-copy.js' | relative_url }}"></script> -->
+    <!-- <script src="{{ '/assets/js/main.js' | relative_url }}"></script> -->
 </body>
 </html>

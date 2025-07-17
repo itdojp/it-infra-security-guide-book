@@ -3,17 +3,37 @@ description: "インフラエンジニアが日常的に直面する横断的な
 author: "株式会社アイティードゥ"
 version: "1.0.0"
 lang: "ja"
+url: "https://itdojp.github.io"
+baseurl: "/it-infra-security-guide-book"
+
+# リポジトリ情報
+repository:
+  github: "https://github.com/itdojp/it-infra-security-guide-book"
+  name: "it-infra-security-guide-book"
 
 # Jekyll設定
 markdown: kramdown
 highlighter: rouge
-theme: minima
+# GitHub Pages標準テーマを使用しない
+# theme: minima
 
 # プラグイン
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+
+# デフォルト設定
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "book"
+  - scope:
+      path: "src"
+    values:
+      layout: "book"
 
 # 除外ファイル
 exclude:
@@ -24,13 +44,17 @@ exclude:
   - tests/
   - README.md
   - CLAUDE.md
+  - book-config.json
+  - templates/
 
 # 日本語対応
 kramdown:
   input: GFM
   syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    line_numbers: false
   
 # GitHub Pages設定
-
-repository: "itdojp/it-infra-security-guide-book"
+github:
+  is_project_page: true
 
