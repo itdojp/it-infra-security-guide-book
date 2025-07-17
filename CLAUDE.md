@@ -109,7 +109,7 @@ Based on project_handover_document.md:
 
 ## Contact Information
 
-**Author**: 太田和彦（株式会社アイティードゥ）  
+**Author**: 株式会社アイティードゥ  
 **Email**: knowledge@itdo.jp  
 **GitHub**: [@itdojp](https://github.com/itdojp)  
 **Organization**: 株式会社アイティードゥ
