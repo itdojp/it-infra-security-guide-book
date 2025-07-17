@@ -1,0 +1,90 @@
+# Book metadata
+title: "インフラエンジニアのための情報セキュリティ実装ガイド"
+subtitle: "設計・構築・運用の実践手法"
+author: "太田和彦"
+organization: "株式会社アイティードゥ"
+email: knowledge@itdo.jp
+description: >-
+  インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書。
+  設定の背景にある設計思想と実装判断の根拠を丁寧に言葉で説明することに重点を置いています。
+
+# Build settings
+source: src
+destination: docs
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+
+# Theme
+theme: null
+
+# Collections
+collections:
+  chapters:
+    output: true
+    permalink: /chapters/:name/
+  introduction:
+    output: true
+    permalink: /:name/
+  appendices:
+    output: true
+    permalink: /appendices/:name/
+  afterword:
+    output: true
+    permalink: /:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "chapters"
+    values:
+      layout: "chapter"
+  - scope:
+      path: ""
+      type: "introduction"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "appendices"
+    values:
+      layout: "appendix"
+  - scope:
+      path: ""
+      type: "afterword"
+    values:
+      layout: "page"
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-include-cache
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .bundle
+  - .jekyll-cache
+  - .gitignore
+  - package.json
+  - package-lock.json
+  - README.md
+  - CLAUDE.md
+  - book-config.json
+
+# Include in build
+include:
+  - .nojekyll
+
+# GitHub Pages
+baseurl: "/it-infra-security-guide-book"
+url: "https://itdojp.github.io"

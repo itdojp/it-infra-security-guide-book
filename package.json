@@ -1,0 +1,24 @@
+{
+  "name": "it-infra-security-guide-book",
+  "version": "1.0.0",
+  "description": "インフラエンジニアのための情報セキュリティ実装ガイド：設計・構築・運用の実践手法",
+  "private": true,
+  "scripts": {
+    "install": "bundle install",
+    "start": "bundle exec jekyll serve --config _config.yml,_config_dev.yml --livereload",
+    "build": "bundle exec jekyll build",
+    "build:production": "JEKYLL_ENV=production bundle exec jekyll build",
+    "preview": "bundle exec jekyll serve",
+    "clean": "bundle exec jekyll clean",
+    "test": "echo 'No tests configured'",
+    "check-conflicts": "node scripts/jekyll-conflict-detector.js",
+    "build:safe": "npm run check-conflicts && npm run build"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itdojp/it-infra-security-guide-book.git"
+  },
+  "author": "株式会社アイティードゥ",
+  "license": "MIT"
+}

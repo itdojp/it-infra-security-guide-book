@@ -1,0 +1,47 @@
+{
+  "title": "インフラエンジニアのための情報セキュリティ実装ガイド",
+  "subtitle": "設計・構築・運用の実践手法",
+  "author": "太田和彦",
+  "organization": "株式会社アイティードゥ",
+  "language": "ja",
+  "description": "インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書。設定の背景にある設計思想と実装判断の根拠を丁寧に言葉で説明することに重点を置いています。",
+  "keywords": ["情報セキュリティ", "インフラ", "設計", "実装", "運用"],
+  "isbn": "",
+  "publishDate": "",
+  "edition": "初版",
+  "parts": [
+    {
+      "title": "セキュリティの基礎と原則",
+      "chapters": ["chapter01", "chapter02", "chapter03"]
+    },
+    {
+      "title": "技術実装編",
+      "chapters": ["chapter04", "chapter05", "chapter06", "chapter07"]
+    },
+    {
+      "title": "統合運用編",
+      "chapters": ["chapter08", "chapter09"]
+    }
+  ],
+  "structure": {
+    "src": "src",
+    "output": "docs",
+    "chapters": "chapters",
+    "introduction": "introduction",
+    "afterword": "afterword",
+    "appendices": "appendices"
+  },
+  "build": {
+    "formats": ["html", "pdf", "epub"],
+    "theme": "technical",
+    "codeHighlight": true,
+    "mathSupport": false,
+    "diagramSupport": true
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "",
+    "copyright": "© 2025 株式会社アイティードゥ",
+    "license": "All rights reserved"
+  }
+}

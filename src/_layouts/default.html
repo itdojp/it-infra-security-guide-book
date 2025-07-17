@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {% seo %}
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <h1 class="site-title">
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      </h1>
+      <p class="site-subtitle">{{ site.subtitle }}</p>
+    </header>
+
+    <nav class="site-nav">
+      <ul>
+        <li><a href="{{ '/' | relative_url }}">目次</a></li>
+        <li><a href="{{ '/introduction/' | relative_url }}">はじめに</a></li>
+        <li><a href="{{ '/chapters/chapter01/' | relative_url }}">第1章</a></li>
+      </ul>
+    </nav>
+
+    <main class="site-content">
+      {{ content }}
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2025 {{ site.organization }}. All rights reserved.</p>
+      <p>著者: {{ site.author }}</p>
+    </footer>
+  </div>
+</body>
+</html>
