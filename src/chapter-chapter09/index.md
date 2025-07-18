@@ -1,6 +1,7 @@
 ---
 title: "第9章：インシデント対応と継続的改善"
 chapter: chapter09
+layout: book
 ---
 
 # 第9章：インシデント対応と継続的改善

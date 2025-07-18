@@ -1,6 +1,7 @@
 ---
 title: "第8章：継続的セキュリティ運用"
 chapter: chapter08
+layout: book
 ---
 
 # 第8章：継続的セキュリティ運用

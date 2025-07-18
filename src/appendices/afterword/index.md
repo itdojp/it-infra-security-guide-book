@@ -1,6 +1,7 @@
 ---
 title: "あとがき"
 appendix: afterword
+layout: book
 ---
 
 # あとがき

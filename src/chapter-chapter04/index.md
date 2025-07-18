@@ -1,6 +1,7 @@
 ---
 title: "第4章：ネットワークセキュリティの実装"
 chapter: chapter04
+layout: book
 ---
 
 # 第4章：ネットワークセキュリティの実装

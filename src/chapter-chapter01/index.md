@@ -1,6 +1,7 @@
 ---
 title: "第1章：情報セキュリティの基礎概念"
 chapter: chapter01
+layout: book
 ---
 
 # 第1章：情報セキュリティの基礎概念

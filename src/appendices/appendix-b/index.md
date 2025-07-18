@@ -1,6 +1,7 @@
 ---
 title: "付録B：参考文献とリソース"
 appendix: appendix-b
+layout: book
 ---
 
 # 付録B：参考文献とリソース

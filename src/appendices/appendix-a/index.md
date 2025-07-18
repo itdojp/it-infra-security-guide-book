@@ -1,6 +1,7 @@
 ---
 title: "付録A：セキュリティチェックリスト"
 appendix: appendix-a
+layout: book
 ---
 
 # 付録A：セキュリティチェックリスト

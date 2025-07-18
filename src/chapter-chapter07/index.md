@@ -1,6 +1,7 @@
 ---
 title: "第7章：コンテナとKubernetesのセキュリティ"
 chapter: chapter07
+layout: book
 ---
 
 # 第7章：コンテナとKubernetesのセキュリティ

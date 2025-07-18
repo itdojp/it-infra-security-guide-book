@@ -1,6 +1,7 @@
 ---
 title: "はじめに"
 chapter: introduction
+layout: book
 ---
 
 # はじめに

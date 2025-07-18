@@ -1,6 +1,7 @@
 ---
 title: "第6章：クラウドインフラのセキュリティ"
 chapter: chapter06
+layout: book
 ---
 
 # 第6章：クラウドインフラのセキュリティ

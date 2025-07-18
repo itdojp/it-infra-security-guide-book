@@ -1,6 +1,7 @@
 ---
 title: "第5章：サーバーとOSのセキュリティ強化"
 chapter: chapter05
+layout: book
 ---
 
 # 第5章：サーバーとOSのセキュリティ強化
