@@ -47,6 +47,270 @@ NGFWの主要な利点の一つは、従来のポート番号ベースの制御�
 
 **設定変更の自動検証**では、ポリシー変更後に自動的に動作テストを実行し、意図した通りの動作をしていることを確認します。設定ミスによる通信断や想定外のトラフィック遮断を事前に検知し、問題がある場合は自動的にロールバックを実行します。
 
+#### ファイアウォール設定の検証可能な実装例
+
+**基本ファイアウォール設定のBefore/After実装**
+
+実装前の状態確認：
+```bash
+# 現在のファイアウォール状態確認
+sudo ufw status verbose
+
+# 期待される出力（実装前）:
+# Status: inactive
+# または
+# Status: active
+# Default: deny (incoming), allow (outgoing), disabled (routed)
+
+# 現在のiptablesルール確認
+sudo iptables -L -n -v --line-numbers
+```
+
+セキュリティ強化設定の実装：
+```bash
+#!/bin/bash
+# firewall_hardening.sh - ファイアウォール強化スクリプト
+
+echo "=== ファイアウォール基本設定を実装中 ==="
+
+# UFW基本設定
+sudo ufw --force reset
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw default deny routed
+
+# 必要最小限のサービス許可
+sudo ufw allow 22/tcp comment 'SSH'
+sudo ufw allow 80/tcp comment 'HTTP'
+sudo ufw allow 443/tcp comment 'HTTPS'
+
+# 特定IPからの管理アクセス許可
+ADMIN_IP="192.168.1.100"
+sudo ufw allow from $ADMIN_IP to any port 22 comment 'Admin SSH'
+
+# ログ設定
+sudo ufw logging on
+
+# ファイアウォール有効化
+sudo ufw --force enable
+```
+
+実装後の検証：
+```bash
+# 設定変更の確認
+sudo ufw status numbered
+
+# 期待される出力（実装後）:
+# Status: active
+# 
+#      To                         Action      From
+#      --                         ------      ----
+# [ 1] 22/tcp                     ALLOW IN    192.168.1.100
+# [ 2] 22/tcp                     ALLOW IN    Anywhere
+# [ 3] 80/tcp                     ALLOW IN    Anywhere
+# [ 4] 443/tcp                    ALLOW IN    Anywhere
+
+# ログ機能の確認
+sudo tail -f /var/log/ufw.log &
+# 別ターミナルでテスト用接続を試行して、ログ出力を確認
+
+# 設定のバックアップ
+sudo cp /etc/ufw/user.rules /etc/ufw/user.rules.backup.$(date +%Y%m%d)
+```
+
+**NGFWアプリケーション制御の実装例（Palo Alto Networks）**
+
+設定前の状態確認：
+```bash
+# 既存ポリシーの確認
+curl -k "https://firewall-mgmt/api/?type=config&action=get&xpath=/config/devices/entry/vsys/entry/rulebase/security" \
+  -H "X-PAN-KEY: $API_KEY"
+
+# アプリケーション使用状況の確認
+curl -k "https://firewall-mgmt/api/?type=report&reporttype=predefined&reportname=top-applications" \
+  -H "X-PAN-KEY: $API_KEY"
+```
+
+アプリケーション制御ポリシーの実装：
+```xml
+<!-- application_control_policy.xml -->
+<security>
+  <rules>
+    <entry name="Block-P2P-Applications">
+      <from>
+        <member>internal-zone</member>
+      </from>
+      <to>
+        <member>external-zone</member>
+      </to>
+      <source>
+        <member>192.168.0.0/16</member>
+      </source>
+      <destination>
+        <member>any</member>
+      </destination>
+      <application>
+        <member>bittorrent</member>
+        <member>limewire</member>
+        <member>kazaa</member>
+      </application>
+      <action>deny</action>
+      <log-end>yes</log-end>
+    </entry>
+    <entry name="Allow-Business-Apps">
+      <from>
+        <member>internal-zone</member>
+      </from>
+      <to>
+        <member>external-zone</member>
+      </to>
+      <source>
+        <member>192.168.0.0/16</member>
+      </source>
+      <destination>
+        <member>any</member>
+      </destination>
+      <application>
+        <member>office365</member>
+        <member>salesforce</member>
+        <member>box</member>
+      </application>
+      <action>allow</action>
+      <log-end>yes</log-end>
+    </entry>
+  </rules>
+</security>
+```
+
+設定適用と検証：
+```bash
+# 設定のインポート
+curl -k "https://firewall-mgmt/api/?type=import&category=configuration" \
+  -H "X-PAN-KEY: $API_KEY" \
+  -F "file=@application_control_policy.xml"
+
+# 設定のコミット
+curl -k "https://firewall-mgmt/api/?type=commit&cmd=<commit></commit>" \
+  -H "X-PAN-KEY: $API_KEY"
+
+# ポリシー適用結果の確認
+curl -k "https://firewall-mgmt/api/?type=report&reporttype=predefined&reportname=blocked-applications" \
+  -H "X-PAN-KEY: $API_KEY"
+```
+
+**ファイアウォール設定検証スクリプト**
+
+```bash
+#!/bin/bash
+# firewall_verification.sh - ファイアウォール設定総合チェック
+
+echo "=== ファイアウォール設定検証 ==="
+
+# 基本状態チェック
+check_firewall_status() {
+    echo "1. ファイアウォール基本状態"
+    
+    if command -v ufw &> /dev/null; then
+        local status=$(sudo ufw status | grep "Status:" | awk '{print $2}')
+        if [ "$status" = "active" ]; then
+            echo "✅ UFW: 有効"
+        else
+            echo "❌ UFW: 無効 (sudo ufw enable で有効化)"
+        fi
+    fi
+    
+    # iptables確認
+    local rule_count=$(sudo iptables -L INPUT | wc -l)
+    echo "📊 INPUT チェーンルール数: $rule_count"
+}
+
+# ポート開放状況チェック
+check_open_ports() {
+    echo -e "\n2. 開放ポート状況"
+    
+    # リスニングポート一覧
+    echo "=== TCP リスニングポート ==="
+    sudo netstat -tlnp | grep LISTEN | while read line; do
+        port=$(echo $line | awk '{print $4}' | cut -d: -f2)
+        process=$(echo $line | awk '{print $7}' | cut -d/ -f2)
+        echo "ポート $port: $process"
+    done
+}
+
+# 設定不備チェック
+check_common_issues() {
+    echo -e "\n3. 一般的な設定不備チェック"
+    
+    # デフォルトポリシー確認
+    local default_input=$(sudo iptables -L | grep "Chain INPUT" | grep -o "policy [A-Z]*" | awk '{print $2}')
+    if [ "$default_input" = "DROP" ] || [ "$default_input" = "REJECT" ]; then
+        echo "✅ INPUT デフォルトポリシー: $default_input (セキュア)"
+    else
+        echo "⚠️  INPUT デフォルトポリシー: $default_input (要確認)"
+    fi
+    
+    # SSH設定確認（ポート22が制限されているか）
+    local ssh_rules=$(sudo iptables -L | grep -c ":22 ")
+    if [ $ssh_rules -gt 0 ]; then
+        echo "✅ SSH ポート22にルールが設定されています"
+    else
+        echo "⚠️  SSH ポート22のルールが見つかりません"
+    fi
+}
+
+# パフォーマンス確認
+check_performance() {
+    echo -e "\n4. ファイアウォール パフォーマンス"
+    
+    # ルール数確認
+    local total_rules=$(sudo iptables-save | grep -c "^-A")
+    echo "📊 総ルール数: $total_rules"
+    
+    if [ $total_rules -gt 1000 ]; then
+        echo "⚠️  ルール数が多すぎる可能性があります (最適化を検討)"
+    else
+        echo "✅ ルール数は適切な範囲内です"
+    fi
+}
+
+# ログ設定確認
+check_logging() {
+    echo -e "\n5. ログ設定確認"
+    
+    if [ -f /var/log/ufw.log ]; then
+        local log_size=$(du -h /var/log/ufw.log | awk '{print $1}')
+        echo "📊 UFWログサイズ: $log_size"
+        
+        # 最近のブロックされた接続を表示
+        echo "=== 最近のブロック記録（上位5件）==="
+        sudo tail -n 100 /var/log/ufw.log | grep "BLOCK" | tail -5
+    else
+        echo "⚠️  UFWログファイルが見つかりません"
+    fi
+}
+
+# 全チェック実行
+check_firewall_status
+check_open_ports
+check_common_issues
+check_performance
+check_logging
+
+echo -e "\n=== 検証完了 ==="
+echo "定期的にこのスクリプトを実行してファイアウォール状態を確認してください"
+```
+
+**トラブルシューティングガイド**
+
+よくある問題と解決方法：
+
+| 問題 | 症状 | 診断コマンド | 解決方法 |
+|------|------|-------------|----------|
+| SSH接続不可 | `ssh: connect to host port 22: Connection refused` | `sudo ufw status \| grep 22` | `sudo ufw allow 22/tcp` |
+| Webサイト表示不可 | `ERR_CONNECTION_REFUSED` | `sudo netstat -tlnp \| grep :80` | `sudo ufw allow 80/tcp && sudo ufw allow 443/tcp` |
+| パフォーマンス低下 | 通信速度が異常に遅い | `sudo iptables -L -n -v` | ルール最適化、不要ルール削除 |
+| ログ容量不足 | `/var/log/ フル` | `du -sh /var/log/ufw.log` | ログローテーション設定 |
+
 ### 高可用性とディザスタリカバリ
 
 ファイアウォールは組織の通信の要となるため、その停止は事業継続に直接的な影響を与えます。適切な高可用性設計とディザスタリカバリ計画により、システムの可用性を最大化します。
