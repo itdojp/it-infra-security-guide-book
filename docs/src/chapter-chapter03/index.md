@@ -69,11 +69,116 @@ chapter: chapter03
 
 脅威モデリングは、システムに対する潜在的な脅威を体系的に分析し、適切な対策を計画するための手法です。理論的なモデルではなく、実際のシステム設計と運用に直結する実践的なアプローチとして活用することが重要です。
 
-**資産とデータフローの可視化**から始めます。保護対象となる情報資産（データベース、ファイルサーバ、アプリケーション等）を特定し、これらの間でのデータフローを図式化します。単純なネットワーク図ではなく、データの機密度レベル、アクセス権限、処理の種類なども含めた包括的な可視化が必要です。
+#### データフロー図（DFD）による資産とデータフローの可視化
+
+**データフロー図の作成**から始めます。保護対象となる情報資産（データベース、ファイルサーバ、アプリケーション等）を特定し、これらの間でのデータフローを図式化します。単純なネットワーク図ではなく、データの機密度レベル、アクセス権限、処理の種類なども含めた包括的な可視化が必要です。
+
+```
+典型的なWebアプリケーションのデータフロー図：
+
+[ユーザー] --HTTPS--> [ロードバランサー] --HTTP--> [Webサーバー]
+                            |                      |
+                            v                      v
+                     [WAFサーバー]          [アプリケーションサーバー]
+                                                   |
+                                                   v
+                                            [データベースサーバー]
+                                                   |
+                                                   v
+                                              [バックアップサーバー]
+
+信頼境界線：
+- インターネット ⟷ DMZ（ロードバランサー、WAF）
+- DMZ ⟷ 内部ネットワーク（Webサーバー、アプリ）
+- アプリケーション層 ⟷ データ層（データベース）
+```
+
+#### STRIDE分析による脅威の体系的評価
+
+**STRIDE手法の適用**により、各コンポーネントに対する脅威を体系的に評価します。STRIDEは、なりすまし（Spoofing）、改ざん（Tampering）、否認（Repudiation）、情報漏洩（Information Disclosure）、サービス拒否（Denial of Service）、権限昇格（Elevation of Privilege）の6つのカテゴリで脅威を分類する手法です。
+
+**STRIDE分析マトリクス**
+
+| コンポーネント | S (なりすまし) | T (改ざん) | R (否認) | I (情報漏洩) | D (サービス拒否) | E (権限昇格) |
+|---------------|---------------|-----------|----------|-------------|-----------------|-------------|
+| **Webサーバー** | セッション乗っ取り | コンテンツ改ざん | アクセスログ改ざん | 設定ファイル盗取 | DDoS攻撃 | 管理者権限取得 |
+| **データベース** | 認証迂回 | データ改ざん | 監査ログ無効化 | SQLインジェクション | リソース枯渇 | 特権アカウント取得 |
+| **ネットワーク** | ARP spoofing | パケット改ざん | 通信ログ削除 | 通信傍受 | 帯域占有攻撃 | VLAN間移動 |
+
+#### 攻撃ツリー分析による攻撃シナリオの可視化
+
+**攻撃ツリー**を用いて、攻撃者の視点から想定される攻撃経路を階層的に可視化します。
+
+```
+データベース不正アクセスの攻撃ツリー：
+
+                [データベース侵害]
+                        |
+        ┌──────────────┼──────────────┐
+        |              |              |
+    [外部攻撃]      [内部攻撃]      [物理攻撃]
+        |              |              |
+    ┌───┼───┐      ┌───┼───┐      ┌───┼───┐
+    |   |   |      |   |   |      |   |   |
+  [Web] [SQL] [Brute] [権限] [横移] [物理] [盗難] [改ざん]
+  脆弱性 インジ  Force  昇格  動    アクセス
+```
+
+#### 脅威対策マトリクスによる対応策の整理
+
+**脅威対策マトリクス**により、特定された脅威に対する対策を体系的に整理します。
+
+| 脅威カテゴリ | 具体的脅威 | 現在の対策 | 対策状況 | 追加対策 | 優先度 |
+|-------------|------------|------------|----------|----------|--------|
+| **Spoofing** | セッション乗っ取り | SSL/TLS、セッション管理 | 🟡 部分実装 | MFA、CSRF対策 | 高 |
+| **Tampering** | データ改ざん | デジタル署名、ハッシュ値 | 🟢 実装済み | リアルタイム監視 | 中 |
+| **Repudiation** | ログ改ざん | 監査ログ、タイムスタンプ | 🔴 未実装 | ログ署名、外部保存 | 高 |
+| **Info Disclosure** | 情報漏洩 | 暗号化、アクセス制御 | 🟡 部分実装 | DLP、データ分類 | 最高 |
+| **DoS** | サービス停止 | 負荷分散、レート制限 | 🟢 実装済み | DDoS対策サービス | 中 |
+| **Elevation** | 権限昇格 | 最小権限、権限分離 | 🟡 部分実装 | PAM、ゼロトラスト | 高 |
+
+#### リスクヒートマップによる優先度の可視化
+
+**リスクヒートマップ**により、脅威の発生確率と影響度を視覚的に整理し、対策の優先順位を決定します。
+
+```
+リスクヒートマップ（発生確率 × 影響度）：
+
+影響度
+  高  ┌─────┬─────┬─────┐
+      │ 中  │ 高  │最高 │ 
+      │     │ DB  │個人 │
+  中  ├─────┼─────┼─────┤
+      │ 低  │ 中  │ 高  │
+      │     │Web改│SQL  │
+  低  ├─────┼─────┼─────┤
+      │最低 │ 低  │ 中  │
+      │設定 │DoS  │     │
+      └─────┴─────┴─────┘
+        低    中    高   発生確率
+
+色分け：
+🔴 最高リスク：即座の対応が必要
+🟠 高リスク：3ヶ月以内の対応
+🟡 中リスク：半年以内の対応  
+🟢 低リスク：年次レビューで検討
+```
+
+#### 攻撃ベクトルの多角的分析
 
 **攻撃ベクトルの識別**では、可視化されたシステムに対して想定される攻撃経路を洗い出します。外部攻撃者の視点では、インターネット経由でのアクセスポイント、DMZ内のサーバ、Webアプリケーションの脆弱性などを検討します。内部脅威の視点では、権限昇格の可能性、横方向移動の経路、データ抽出の手段などを分析します。
 
-**STRIDE手法の適用**により、各コンポーネントに対する脅威を体系的に評価します。STRIDEは、なりすまし（Spoofing）、改ざん（Tampering）、否認（Repudiation）、情報漏洩（Information Disclosure）、サービス拒否（Denial of Service）、権限昇格（Elevation of Privilege）の6つのカテゴリで脅威を分類する手法です。
+**攻撃経路マップ**
+
+```
+外部攻撃者の侵入経路：
+
+インターネット → WAF迂回 → Webサーバー → アプリ脆弱性 → DB接続
+     ↓              ↓           ↓            ↓           ↓
+  DNS攻撃        SQLインジェクション   権限昇格      横方向移動    データ窃取
+  メール攻撃      XSS攻撃          セッション劫取   ネットワーク探索 バックドア設置
+  ソーシャル      CSRF攻撃         認証迂回        特権アカウント  データ暗号化
+```
 
 例えば、Webアプリケーションのログイン機能に対しては、なりすまし（認証迂回）、改ざん（セッション固定）、否認（ログの改ざん）、情報漏洩（認証情報の盗取）、サービス拒否（総当たり攻撃）、権限昇格（管理者権限の不正取得）などの脅威が考えられます。
 
@@ -105,6 +210,50 @@ ROI = （リスク軽減効果による利益 - 対策実装コスト）/ 対策
 
 **ポートフォリオ最適化アプローチ**により、個別対策の費用対効果だけでなく、対策間の相互作用も考慮して最適な組み合わせを決定します。例えば、ファイアウォールとIDS/IPSの組み合わせは、単独導入よりも高い効果を発揮する場合があります。
 
+#### セキュリティメトリクスとKPIの設定
+
+**測定可能なセキュリティ指標**を設定することで、対策の効果を定量的に評価し、継続的な改善を実現します。
+
+**技術的指標**：
+- 脆弱性検出数と修正率（月次）
+- セキュリティインシデント発生件数（重要度別）
+- 平均検知時間（MTTD: Mean Time To Detection）
+- 平均復旧時間（MTTR: Mean Time To Recovery）
+- システム可用性（99.9%以上の維持）
+
+**運用効率指標**：
+- セキュリティ教育受講率
+- パッチ適用率と平均適用時間
+- アクセスレビュー完了率
+- インシデント対応訓練実施回数
+
+**ビジネス影響指標**：
+- セキュリティ投資ROI
+- 規制遵守スコア
+- 顧客信頼度指標
+- ブランドリスク評価
+
+**リスクトレンド分析ダッシュボード**
+
+```
+月次セキュリティダッシュボード例：
+
+┌─────────────────┬─────────────────┬─────────────────┐
+│ 脆弱性スコア    │ インシデント    │ 対策実装率      │
+│ 7.2 → 5.8 ↓    │ 3件 → 1件 ↓    │ 78% → 85% ↑    │
+├─────────────────┼─────────────────┼─────────────────┤
+│ 高リスク資産    │ MTTD/MTTR      │ 予算消化率      │
+│ 12個 → 8個 ↓   │ 4h/8h → 2h/4h ↓│ 65% (Q3時点)    │
+└─────────────────┴─────────────────┴─────────────────┘
+
+トレンドグラフ：
+リスクレベル推移 (過去12ヶ月)
+  高  ■■■■□□□□□□□□
+  中  ████████████
+  低  ■■■■■■■■■■■■
+      J F M A M J J A S O N D
+```
+
 ### 段階的実装戦略の策定
 
 リスクレベルと実装容易性を考慮して、現実的で持続可能な実装計画を策定します。
@@ -116,6 +265,96 @@ ROI = （リスク軽減効果による利益 - 対策実装コスト）/ 対策
 **フェーズ3：中長期改善（1-3年）**では、抜本的なアーキテクチャ変更や大規模システム更新を伴う対策を実施します。ゼロトラストアーキテクチャの導入、レガシーシステムの刷新、クラウド移行などが含まれます。
 
 各フェーズで達成すべきセキュリティレベルを明確に定義し、進捗を定量的に測定できるKPI（Key Performance Indicator）を設定します。これにより、継続的な改善サイクルを確立できます。
+
+#### 実装手順の検証可能な実践例
+
+**フェーズ1の具体的実装例：SSH設定強化**
+
+実装前の設定確認：
+```bash
+# 現在のSSH設定を確認
+sudo sshd -T | grep -E "(passwordauthentication|permitrootlogin|protocol)"
+
+# 期待される出力（実装前）:
+# passwordauthentication yes
+# permitrootlogin yes
+# protocol 2
+```
+
+強化設定の実装：
+```bash
+# SSH設定ファイルのバックアップ
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup.$(date +%Y%m%d)
+
+# セキュリティ強化設定の適用
+sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sudo sed -i 's/#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+echo "MaxAuthTries 3" | sudo tee -a /etc/ssh/sshd_config
+echo "ClientAliveInterval 300" | sudo tee -a /etc/ssh/sshd_config
+```
+
+実装後の検証：
+```bash
+# 設定変更の確認
+sudo sshd -T | grep -E "(passwordauthentication|permitrootlogin|maxauthtries|clientaliveinterval)"
+
+# 期待される出力（実装後）:
+# passwordauthentication no
+# permitrootlogin no  
+# maxauthtries 3
+# clientaliveinterval 300
+
+# SSH設定の構文チェック
+sudo sshd -t && echo "SSH設定OK" || echo "SSH設定エラー"
+
+# サービス再起動（現在のセッションは維持される）
+sudo systemctl reload sshd
+```
+
+**設定検証スクリプト例**
+
+```bash
+#!/bin/bash
+# ssh_security_check.sh - SSH設定セキュリティチェック
+
+echo "=== SSH セキュリティ設定チェック ==="
+
+# 重要な設定項目をチェック
+check_ssh_setting() {
+    local setting=$1
+    local expected=$2
+    local actual=$(sudo sshd -T | grep "^$setting " | awk '{print $2}')
+    
+    if [ "$actual" = "$expected" ]; then
+        echo "✅ $setting: $actual (OK)"
+    else
+        echo "❌ $setting: $actual (期待値: $expected)"
+    fi
+}
+
+check_ssh_setting "passwordauthentication" "no"
+check_ssh_setting "permitrootlogin" "no"
+check_ssh_setting "maxauthtries" "3"
+check_ssh_setting "clientaliveinterval" "300"
+
+# ポート状況確認
+echo -e "\n=== SSH接続状況 ==="
+ss -tlnp | grep ':22 ' && echo "SSH稼働中" || echo "SSH停止中"
+
+# 失敗ログの確認
+echo -e "\n=== 最近のSSH失敗ログ（過去24時間）==="
+sudo journalctl -u sshd --since "24 hours ago" | grep "Failed password" | tail -5
+```
+
+**フェーズ1実装チェックリスト**
+
+| 対策項目 | 実装コマンド | 検証方法 | 完了 |
+|----------|-------------|----------|------|
+| SSH強化 | `sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config` | `sshd -T \| grep passwordauthentication` | ☐ |
+| ファイアウォール | `ufw enable && ufw default deny incoming` | `ufw status verbose` | ☐ |
+| 自動更新 | `dpkg-reconfigure -plow unattended-upgrades` | `systemctl status unattended-upgrades` | ☐ |
+| 監査ログ | `auditctl -e 1` | `auditctl -s` | ☐ |
+| NTP同期 | `timedatectl set-ntp true` | `timedatectl status` | ☐ |
 
 ## 3.3 セキュリティ・バイ・デザインの実装手法
 
@@ -156,6 +395,208 @@ ROI = （リスク軽減効果による利益 - 対策実装コスト）/ 対策
 **依存関係管理とサプライチェーンセキュリティ**では、使用するライブラリやコンポーネントの脆弱性を継続的に監視し、脆弱なコンポーネントの使用を自動的に検知・警告するシステムを構築します。Software Bill of Materials（SBOM）の管理により、サプライチェーン攻撃への対策を強化します。
 
 **セキュリティコードレビュー**の自動化では、機械学習技術を活用してコードレビューの効率と品質を向上させます。過去の脆弱性パターンから学習したモデルにより、レビューポイントを自動的に特定し、レビュアーの負荷を軽減しながら見落としを防止します。
+
+### 環境別実装ガイドとベストプラクティス
+
+実際のインフラ環境は多様であり、オンプレミス、パブリッククラウド、ハイブリッドクラウド、マルチクラウドなど、それぞれ固有のセキュリティ課題と最適な実装方法があります。
+
+#### オンプレミス vs クラウド環境の実装差異
+
+**ネットワーク境界制御の実装**
+
+オンプレミス環境：
+```bash
+# 物理ファイアウォール設定例（iptables）
+# DMZ用ルール
+iptables -A FORWARD -i eth0 -o eth1 -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -i eth0 -o eth1 -p tcp --dport 443 -j ACCEPT
+iptables -A FORWARD -i eth1 -o eth2 -p tcp --dport 3306 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# 内部セグメント間の制御
+iptables -A FORWARD -s 192.168.1.0/24 -d 192.168.2.0/24 -p tcp --dport 22 -j ACCEPT
+```
+
+AWS環境：
+```yaml
+# Security Group設定例（CloudFormation）
+WebTierSecurityGroup:
+  Type: AWS::EC2::SecurityGroup
+  Properties:
+    GroupDescription: Web tier security group
+    VpcId: !Ref VPC
+    SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+      - IpProtocol: tcp
+        FromPort: 443
+        ToPort: 443
+        SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+    SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 3306
+        ToPort: 3306
+        DestinationSecurityGroupId: !Ref DatabaseSecurityGroup
+```
+
+#### AWS環境での具体的な実装例
+
+**AWS WAF + CloudFront実装**
+```bash
+# AWS CLI を使用したWAF設定
+aws wafv2 create-web-acl \
+  --name "ProductionWebACL" \
+  --scope CLOUDFRONT \
+  --default-action Allow={} \
+  --rules file://waf-rules.json \
+  --visibility-config SampledRequestsEnabled=true,CloudWatchMetricsEnabled=true,MetricName=ProductionWebACL
+
+# WAFルール例（JSON）
+{
+  "Name": "SQLInjectionRule",
+  "Priority": 1,
+  "Statement": {
+    "SqliMatchStatement": {
+      "FieldToMatch": {
+        "Body": {}
+      },
+      "TextTransformations": [
+        {
+          "Priority": 0,
+          "Type": "URL_DECODE"
+        }
+      ]
+    }
+  },
+  "Action": {
+    "Block": {}
+  },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "SQLInjectionRule"
+  }
+}
+```
+
+**Amazon GuardDuty + Security Hub統合**
+```bash
+# GuardDutyの有効化（全リージョン）
+for region in $(aws ec2 describe-regions --query 'Regions[].RegionName' --output text); do
+  aws guardduty create-detector --enable --region $region
+done
+
+# Security Hubの有効化と標準の適用
+aws securityhub enable-security-hub \
+  --enable-default-standards \
+  --control-finding-generator SECURITY_CONTROL
+
+# CIS AWS Foundations Benchmarkの有効化
+aws securityhub batch-enable-standards \
+  --standards-subscription-requests StandardsArn=arn:aws:securityhub:::ruleset/finding-format/aws-foundational-security-best-practices/v/1.0.0
+```
+
+#### Azure環境での実装例
+
+**Azure Security Center + Sentinel統合**
+```powershell
+# Azure Security Center Advanced Threat Protection有効化
+az security pricing create \
+  --name VirtualMachines \
+  --tier Standard
+
+# Azure Sentinelワークスペース作成
+az sentinel workspace create \
+  --resource-group myResourceGroup \
+  --workspace-name mySentinelWorkspace \
+  --location eastus
+
+# Key Vault高度な脅威保護
+az keyvault update \
+  --name myKeyVault \
+  --resource-group myResourceGroup \
+  --enable-advanced-threat-protection true
+```
+
+#### Google Cloud Platform（GCP）での実装例
+
+**Cloud Security Command Center + Binary Authorization**
+```bash
+# Security Command Center APIの有効化
+gcloud services enable securitycenter.googleapis.com
+
+# Binary Authorization政策の設定
+gcloud container binauthz policy import policy.yaml
+
+# Cloud Armor WAFポリシー作成
+gcloud compute security-policies create webapp-security-policy \
+  --description "Security policy for web application"
+
+# SQLインジェクション対策ルール
+gcloud compute security-policies rules create 1000 \
+  --security-policy webapp-security-policy \
+  --expression "evaluatePreconfiguredExpr('sqli-stable')" \
+  --action "deny-403"
+```
+
+#### ハイブリッドクラウド環境の統一セキュリティ管理
+
+**統一ID管理とSSO実装**
+```yaml
+# Azure AD Connect + ADFS設定例
+version: "3.8"
+services:
+  azure-ad-connect:
+    image: microsoft/aad-connect
+    environment:
+      - TENANT_ID=${AZURE_TENANT_ID}
+      - APPLICATION_ID=${AZURE_APP_ID}
+      - CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+    volumes:
+      - ./config:/opt/microsoft/config
+    networks:
+      - secure-network
+
+  adfs-proxy:
+    image: microsoft/adfs-proxy
+    ports:
+      - "443:443"
+    environment:
+      - ADFS_SERVER=${ADFS_INTERNAL_SERVER}
+      - SSL_CERT=/etc/ssl/certs/adfs.crt
+    volumes:
+      - ./certs:/etc/ssl/certs
+    networks:
+      - secure-network
+      - dmz-network
+```
+
+**マルチクラウド統合監視設定**
+```bash
+#!/bin/bash
+# multi-cloud-security-setup.sh
+
+# Splunk Universal Forwarder設定（共通ログ収集）
+wget -O splunkforwarder.tgz "https://download.splunk.com/products/universalforwarder/releases/8.2.6/linux/splunkforwarder-8.2.6-a6fe1ee8894b-Linux-x86_64.tgz"
+tar xzf splunkforwarder.tgz -C /opt/
+
+# AWS CloudTrailログ転送設定
+aws logs create-log-group --log-group-name /aws/security/cloudtrail
+aws logs put-retention-policy --log-group-name /aws/security/cloudtrail --retention-in-days 365
+
+# Azure Activity Log転送設定
+az monitor diagnostic-settings create \
+  --name "SecurityHub-Diagnostics" \
+  --resource "/subscriptions/{subscription-id}" \
+  --logs '[{"category":"Administrative","enabled":true}]' \
+  --storage-account "securitylogs"
+
+# GCP Cloud Logging転送設定
+gcloud logging sinks create security-sink \
+  storage.googleapis.com/security-logs-bucket \
+  --log-filter='protoPayload.authenticationInfo.principalEmail!=""'
+```
 
 ### 継続的セキュリティ評価の組み込み
 
