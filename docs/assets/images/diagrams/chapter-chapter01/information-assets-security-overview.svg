@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="1200" viewBox="0 0 800 1200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --strategic-bg: #ffebee;
+        --business-bg: #fff3e0;
+        --public-bg: #e8f5e8;
+        --insider-bg: #fce4ec;
+        --external-bg: #e1f5fe;
+        --confidentiality-bg: #f3e5f5;
+        --integrity-bg: #e0f2f1;
+        --availability-bg: #fff8e1;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --strategic-bg: #B71C1C;
+          --business-bg: #E65100;
+          --public-bg: #1B5E20;
+          --insider-bg: #880E4F;
+          --external-bg: #01579B;
+          --confidentiality-bg: #4A148C;
+          --integrity-bg: #004D40;
+          --availability-bg: #FF6F00;
+        }
+      }
+      
+      /* Typography */
+      .title-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .section-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .label-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .description-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      .item-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-primary);
+      }
+      
+      /* Node Styles */
+      .strategic-node {
+        fill: var(--strategic-bg);
+        stroke: var(--error);
+        stroke-width: 1.5;
+      }
+      
+      .business-node {
+        fill: var(--business-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .public-node {
+        fill: var(--public-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      .insider-node {
+        fill: var(--insider-bg);
+        stroke: var(--error);
+        stroke-width: 1.5;
+      }
+      
+      .external-node {
+        fill: var(--external-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .confidentiality-node {
+        fill: var(--confidentiality-bg);
+        stroke: var(--neutral);
+        stroke-width: 1.5;
+      }
+      
+      .integrity-node {
+        fill: var(--integrity-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      .availability-node {
+        fill: var(--availability-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      /* Connection Lines */
+      .hierarchy-line {
+        stroke: var(--primary);
+        stroke-width: 2;
+        marker-end: url(#arrow);
+      }
+      
+      .attack-line {
+        stroke: var(--error);
+        stroke-width: 2;
+        stroke-dasharray: 4,4;
+        marker-end: url(#arrow-red);
+      }
+      
+      .impact-line {
+        stroke: var(--warning);
+        stroke-width: 1.5;
+        stroke-dasharray: 8,4;
+        marker-end: url(#arrow-orange);
+      }
+      
+      .protection-line {
+        stroke: var(--success);
+        stroke-width: 2;
+        marker-end: url(#arrow-green);
+      }
+    </style>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--primary)"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--error)"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--warning)"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--success)"/>
+    </marker>
+  </defs>
+  
+  <title>情報資産とセキュリティの全体像</title>
+  <desc>階層的な情報資産、脅威エージェント、セキュリティ要素、実装レイヤーの包括的ビュー</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Main Title -->
+  <text x="400" y="24" class="title-text">情報資産とセキュリティの全体像</text>
+  
+  <!-- Information Assets Hierarchy -->
+  <rect x="50" y="60" width="300" height="20" rx="3" fill="var(--strategic-bg)" stroke="var(--error)" stroke-width="1"/>
+  <text x="200" y="74" class="section-title">情報資産の階層構造</text>
+  
+  <!-- Strategic Level -->
+  <rect x="70" y="100" width="260" height="80" rx="4" class="strategic-node"/>
+  <text x="200" y="120" class="label-text">最高機密レベル</text>
+  <text x="80" y="140" class="item-text">• 戦略計画 • 顧客個人情報</text>
+  <text x="80" y="155" class="item-text">• 財務機密 • 技術機密</text>
+  
+  <!-- Business Level -->
+  <rect x="70" y="200" width="260" height="80" rx="4" class="business-node"/>
+  <text x="200" y="220" class="label-text">業務レベル</text>
+  <text x="80" y="240" class="item-text">• 業務データ • プロジェクト情報</text>
+  <text x="80" y="255" class="item-text">• 内部文書 • システム設定</text>
+  
+  <!-- Public Level -->
+  <rect x="70" y="300" width="260" height="80" rx="4" class="public-node"/>
+  <text x="200" y="320" class="label-text">一般レベル</text>
+  <text x="80" y="340" class="item-text">• 公開可能情報 • マニュアル</text>
+  <text x="80" y="355" class="item-text">• ガイドライン • FAQ</text>
+  
+  <!-- Threat Agents -->
+  <rect x="450" y="60" width="300" height="20" rx="3" fill="var(--external-bg)" stroke="var(--primary)" stroke-width="1"/>
+  <text x="600" y="74" class="section-title">脅威エージェント</text>
+  
+  <!-- Insider Threat -->
+  <rect x="470" y="100" width="260" height="60" rx="4" class="insider-node"/>
+  <text x="600" y="120" class="label-text">内部脅威</text>
+  <text x="480" y="140" class="item-text">• 不正従業員 • 特権乱用 • 意図しないミス</text>
+  
+  <!-- External Attacker -->
+  <rect x="470" y="180" width="260" height="60" rx="4" class="external-node"/>
+  <text x="600" y="200" class="label-text">外部攻撃者</text>
+  <text x="480" y="220" class="item-text">• サイバー犯罪 • 国家攻撃 • ハクティビスト</text>
+  
+  <!-- Natural Disaster -->
+  <rect x="470" y="260" width="260" height="60" rx="4" class="business-node"/>
+  <text x="600" y="280" class="label-text">自然災害</text>
+  <text x="480" y="300" class="item-text">• 地震・火災 • 洪水・停電 • インフラ障害</text>
+  
+  <!-- Human Error -->
+  <rect x="470" y="340" width="260" height="60" rx="4" class="availability-node"/>
+  <text x="600" y="360" class="label-text">人的ミス</text>
+  <text x="480" y="380" class="item-text">• 設定ミス • 操作ミス • 判断ミス</text>
+  
+  <!-- Security Elements -->
+  <rect x="50" y="440" width="300" height="20" rx="3" fill="var(--confidentiality-bg)" stroke="var(--neutral)" stroke-width="1"/>
+  <text x="200" y="454" class="section-title">セキュリティ要素</text>
+  
+  <!-- Confidentiality -->
+  <rect x="70" y="480" width="260" height="60" rx="4" class="confidentiality-node"/>
+  <text x="200" y="500" class="label-text">機密性</text>
+  <text x="80" y="520" class="item-text">• アクセス制御 • 暗号化 • 認証</text>
+  
+  <!-- Integrity -->
+  <rect x="70" y="560" width="260" height="60" rx="4" class="integrity-node"/>
+  <text x="200" y="580" class="label-text">完全性</text>
+  <text x="80" y="600" class="item-text">• データ保護 • 改ざん検知 • バックアップ</text>
+  
+  <!-- Availability -->
+  <rect x="70" y="640" width="260" height="60" rx="4" class="availability-node"/>
+  <text x="200" y="660" class="label-text">可用性</text>
+  <text x="80" y="680" class="item-text">• 冗長化 • 監視 • 復旧</text>
+  
+  <!-- Implementation Layers -->
+  <rect x="450" y="440" width="300" height="20" rx="3" fill="var(--integrity-bg)" stroke="var(--success)" stroke-width="1"/>
+  <text x="600" y="454" class="section-title">実装レイヤー</text>
+  
+  <!-- Physical Layer -->
+  <rect x="470" y="480" width="260" height="60" rx="4" class="strategic-node"/>
+  <text x="600" y="500" class="label-text">物理層</text>
+  <text x="480" y="520" class="item-text">• データセンター • 施設セキュリティ • 機器保護</text>
+  
+  <!-- Network Layer -->
+  <rect x="470" y="560" width="260" height="60" rx="4" class="external-node"/>
+  <text x="600" y="580" class="label-text">ネットワーク層</text>
+  <text x="480" y="600" class="item-text">• ファイアウォール • VPN • セグメンテーション</text>
+  
+  <!-- System Layer -->
+  <rect x="470" y="640" width="260" height="60" rx="4" class="business-node"/>
+  <text x="600" y="660" class="label-text">システム層</text>
+  <text x="480" y="680" class="item-text">• OS設定 • アプリケーション • データベース</text>
+  
+  <!-- Application Layer -->
+  <rect x="470" y="720" width="260" height="60" rx="4" class="public-node"/>
+  <text x="600" y="740" class="label-text">アプリケーション層</text>
+  <text x="480" y="760" class="item-text">• 認証・認可 • 入力検証 • セッション管理</text>
+  
+  <!-- Management Layer -->
+  <rect x="470" y="800" width="260" height="60" rx="4" class="confidentiality-node"/>
+  <text x="600" y="820" class="label-text">管理層</text>
+  <text x="480" y="840" class="item-text">• ポリシー • 手順 • 監査</text>
+  
+  <!-- Connection Lines -->
+  <!-- Asset Hierarchy -->
+  <line x1="200" y1="180" x2="200" y2="200" class="hierarchy-line"/>
+  <line x1="200" y1="280" x2="200" y2="300" class="hierarchy-line"/>
+  
+  <!-- Threat to Asset Attacks -->
+  <line x1="470" y1="130" x2="330" y2="130" class="attack-line"/>
+  <line x1="470" y1="210" x2="330" y2="240" class="attack-line"/>
+  <line x1="470" y1="290" x2="600" y2="480" class="impact-line"/>
+  <line x1="470" y1="370" x2="600" y2="640" class="impact-line"/>
+  
+  <!-- Security Elements to Implementation -->
+  <line x1="330" y1="510" x2="470" y2="510" class="protection-line"/>
+  <line x1="330" y1="590" x2="470" y2="590" class="protection-line"/>
+  <line x1="330" y1="670" x2="470" y2="670" class="protection-line"/>
+  
+  <!-- Implementation Layer Hierarchy -->
+  <line x1="600" y1="540" x2="600" y2="560" class="hierarchy-line"/>
+  <line x1="600" y1="620" x2="600" y2="640" class="hierarchy-line"/>
+  <line x1="600" y1="700" x2="600" y2="720" class="hierarchy-line"/>
+  <line x1="600" y1="780" x2="600" y2="800" class="hierarchy-line"/>
+  
+  <!-- Implementation Strategy -->
+  <rect x="50" y="920" width="700" height="160" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="940" class="section-title">セキュリティ実装戦略</text>
+  
+  <text x="70" y="965" class="label-text" text-anchor="start">多層防御アプローチ:</text>
+  <text x="80" y="980" class="description-text">• 単一防御に依存せず複数の防御層を組み合わせ • 攻撃者が一つの層を突破しても他の層で阻止</text>
+  
+  <text x="70" y="1005" class="label-text" text-anchor="start">リスクベース管理:</text>
+  <text x="80" y="1020" class="description-text">• 資産価値と脅威レベルに応じた適切な保護レベル • コスト効率を考慮した優先順位付け</text>
+  
+  <text x="70" y="1045" class="label-text" text-anchor="start">継続的改善:</text>
+  <text x="80" y="1060" class="description-text">• 脅威環境の変化に対応 • 定期的な見直しと更新 • 組織の成長に応じた拡張</text>
+  
+</svg>
