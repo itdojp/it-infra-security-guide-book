@@ -124,11 +124,11 @@ sudo cp /etc/ufw/user.rules /etc/ufw/user.rules.backup.$(date +%Y%m%d)
 ```bash
 # 既存ポリシーの確認
 curl -k "https://firewall-mgmt/api/?type=config&action=get&xpath=/config/devices/entry/vsys/entry/rulebase/security" \
-  -H "X-PAN-KEY: $API_KEY"
+  -H "X-PAN-KEY: $API_KEY" # Ensure API_KEY is stored securely (e.g., AWS Secrets Manager, HashiCorp Vault)
 
 # アプリケーション使用状況の確認
 curl -k "https://firewall-mgmt/api/?type=report&reporttype=predefined&reportname=top-applications" \
-  -H "X-PAN-KEY: $API_KEY"
+  -H "X-PAN-KEY: $API_KEY" # Ensure API_KEY is stored securely (e.g., AWS Secrets Manager, HashiCorp Vault)
 ```
 
 アプリケーション制御ポリシーの実装：
