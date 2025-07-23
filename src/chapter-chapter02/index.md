@@ -24,6 +24,84 @@ layout: book
 
 この設計思想をITインフラに適用すると、以下のような防御層が考えられます。
 
+```mermaid
+graph TB
+    subgraph "多層防御アーキテクチャの詳細設計"
+        subgraph "攻撃フロー"
+            Attacker["攻撃者<br/>・外部犯罪グループ<br/>・内部不正ユーザー<br/>・マルウェア<br/>・自動攻撃ツール"]
+        end
+        
+        subgraph "第1層：外郭防御層"
+            Firewall["ファイアウォール<br/>・パケットフィルタリング<br/>・ステートフルインスペクション<br/>・DDoS防御"]
+            IDS_IPS["侵入検知防御<br/>・IDS: ネットワーク監視<br/>・IPS: 自動ブロック<br/>・シグネチャーベース検知"]
+            WAF["アプリケーションファイアウォール<br/>・SQLインジェクション防御<br/>・XSS防御<br/>・OWASP Top 10対策"]
+        end
+        
+        subgraph "第2層：境界防御層"
+            DMZ["非武装地帯(DMZ)<br/>・公開サーバーの隔離<br/>・リバースプロキシ<br/>・ロードバランサー"]
+            Segmentation["ネットワークセグメンテーション<br/>・VLAN分離<br/>・マイクロセグメンテーション<br/>・ゼロトラストアーキテクチャ"]
+            VPN["セキュアアクセス<br/>・VPNゲートウェイ<br/>・多要素認証<br/>・証明書ベース認証"]
+        end
+        
+        subgraph "第3層：内部防御層"
+            AccessControl["アクセス制御<br/>・RBAC(ロールベース)<br/>・ABAC(属性ベース)<br/>・最小権限の原則"]
+            PrivilegeManagement["特権管理<br/>・PAM(特権アカウント管理)<br/>・JIT(ジャストインタイム)アクセス<br/>・セッション監視"]
+            Encryption["暮号化保護<br/>・保存時暗号化<br/>・転送時暗号化<br/>・鍵管理システム"]
+        end
+        
+        subgraph "第4層：データ防御層"
+            DatabaseSecurity["データベースセキュリティ<br/>・カラムレベル暗号化<br/>・データベース活動監視<br/>・データマスキング"]
+            Backup["バックアップ・復元<br/>・暗号化バックアップ<br/>・オフサイト保存<br/>・定期的復元テスト"]
+            DLP["データ漏洩防止<br/>・機密データの流出監視<br/>・USBメモリ制御<br/>・メール添付ファイルスキャン"]
+        end
+        
+        subgraph "第5層：監視・対応層"
+            SIEM["統合ログ管理<br/>・SIEMシステム<br/>・リアルタイム監視<br/>・相関分析"]
+            SOC["セキュリティ運用センター<br/>・24/7監視体制<br/>・インシデント対応<br/>・脅威ハンティング"]
+            ThreatIntel["脅威インテリジェンス<br/>・最新脅威情報<br/>・IOC(侵害指標)管理<br/>・自動的ブロック更新"]
+        end
+        
+        subgraph "攻撃の進行と防御ポイント"
+            Attack1["攻撃フェーズ1<br/>偵察・情報収集"]
+            Attack2["攻撃フェーズ2<br/>初期侵入"]
+            Attack3["攻撃フェーズ3<br/>権限昇格"]
+            Attack4["攻撃フェーズ4<br/>横展開"]
+            Attack5["攻撃フェーズ5<br/>データ抽出"]
+        end
+        
+        Attacker --> Attack1
+        Attack1 --> Attack2
+        Attack2 --> Attack3
+        Attack3 --> Attack4
+        Attack4 --> Attack5
+        
+        Attack1 -.防御.-> Firewall
+        Attack2 -.防御.-> IDS_IPS
+        Attack2 -.防御.-> WAF
+        Attack2 -.防御.-> DMZ
+        Attack3 -.防御.-> AccessControl
+        Attack3 -.防御.-> PrivilegeManagement
+        Attack4 -.防御.-> Segmentation
+        Attack4 -.防御.-> Encryption
+        Attack5 -.防御.-> DatabaseSecurity
+        Attack5 -.防御.-> DLP
+        
+        SIEM -.監視.-> Firewall
+        SIEM -.監視.-> AccessControl
+        SIEM -.監視.-> DatabaseSecurity
+        SOC -.対応.-> SIEM
+        ThreatIntel -.情報.-> SOC
+    end
+    
+    style Attacker fill:#ffebee
+    style Firewall fill:#e8f5e8
+    style IDS_IPS fill:#e3f2fd
+    style WAF fill:#fff3e0
+    style AccessControl fill:#f3e5f5
+    style DatabaseSecurity fill:#ffe0b2
+    style SIEM fill:#e1f5fe
+```
+
 **外郭防御層**：ファイアウォール、IDS/IPS、WAFなど、外部からの攻撃を最初に迎撃する層です。大量の攻撃トラフィックを識別・遮断し、明らかに悪意のあるアクセスを排除します。
 
 **境界防御層**：DMZ設計、ネットワークセグメンテーション、プロキシサーバなど、内部ネットワークへの侵入を制御する層です。必要最小限の通信のみを許可し、不正なネットワーク移動を防ぎます。
@@ -62,6 +140,70 @@ layout: book
 技術的実装として、SIEM（Security Information and Event Management）システムの導入、ネットワークトラフィックの行動分析、異常検知アルゴリズムの活用、自動化されたインシデント対応フローの構築などを行います。
 
 この優先度に基づく実装アプローチは[第3章のセキュリティ要件設計](../chapter-chapter03/index.md#リスクベースアプローチによる実装優先度)で詳細に解説します。
+
+```mermaid
+flowchart LR
+    subgraph "実装優先度フレームワーク"
+        subgraph "第1優先：クリティカルパスの保護"
+            CriticalAssets["重要資産の特定<br/>・顧客データベース<br/>・決済システム<br/>・核心業務API"]
+            CriticalProtection["重点的防御実装<br/>・DB暗号化<br/>・APIゲートウェイ<br/>・冗長化構成"]
+            CriticalMonitoring["専用監視<br/>・リアルタイムアラート<br/>・異常検知<br/>・迅速対応"]
+        end
+        
+        subgraph "第2優先：攻撃経路の遮断"
+            AttackVectors["攻撃ベクター分析<br/>・外部接続ポイント<br/>・特権アカウント<br/>・管理インターフェース"]
+            PathBlocking["経路遮断実装<br/>・ファイアウォール強化<br/>・VPN多要素認証<br/>・踏み台サーバー"]
+            AccessRestriction["アクセス制御<br/>・管理ネットワーク分離<br/>・時間制限アクセス<br/>・承認フロー"]
+        end
+        
+        subgraph "第3優先：検知・対応力強化"
+            DetectionCapability["検知能力構築<br/>・SIEMシステム<br/>・行動分析<br/>・MLベース異常検知"]
+            ResponseCapability["対応能力構築<br/>・SOARシステム<br/>・プレイブック作成<br/>・自動対応"]
+            RecoveryCapability["復旧能力構築<br/>・スナップショットバックアップ<br/>・DRサイト<br/>・復旧手順自動化"]
+        end
+        
+        subgraph "成熟度レベル"
+            Level1["レベル1：基本的防御<br/>・ファイアウォール<br/>・ウイルス対策<br/>・パッチ管理"]
+            Level2["レベル2：管理された防御<br/>・アクセス制御<br/>・監視システム<br/>・インシデント対応"]
+            Level3["レベル3：定義された防御<br/>・リスクベース管理<br/>・継続的監視<br/>・予防的対策"]
+            Level4["レベル4：適応的防御<br/>・脅威インテリジェンス<br/>・自動対応<br/>・進化する防御"]
+            Level5["レベル5：最適化された防御<br/>・予測的防御<br/>・AIベース異常検知<br/>・自律的セキュリティ"]
+        end
+        
+        subgraph "リソース配分戦略"
+            Budget["予算制約<br/>・初期投資<br/>・運用コスト<br/>・ROI計算"]
+            Workforce["人的リソース<br/>・スキルレベル<br/>・教育コスト<br/>・外部パートナー"]
+            Technology["技術スタック<br/>・既存インフラ<br/>・統合要件<br/>・技術的互換性"]
+        end
+        
+        CriticalAssets --> CriticalProtection
+        CriticalProtection --> CriticalMonitoring
+        
+        AttackVectors --> PathBlocking
+        PathBlocking --> AccessRestriction
+        
+        DetectionCapability --> ResponseCapability
+        ResponseCapability --> RecoveryCapability
+        
+        Level1 --> Level2
+        Level2 --> Level3
+        Level3 --> Level4
+        Level4 --> Level5
+        
+        Budget --> CriticalAssets
+        Workforce --> AttackVectors
+        Technology --> DetectionCapability
+        
+        CriticalMonitoring -.> AttackVectors
+        AccessRestriction -.> DetectionCapability
+    end
+    
+    style CriticalAssets fill:#ffebee
+    style AttackVectors fill:#fff3e0
+    style DetectionCapability fill:#e8f5e8
+    style Level5 fill:#e3f2fd
+    style Budget fill:#f3e5f5
+```
 
 ## 2.2 セキュリティアーキテクチャの構成要素
 
@@ -111,6 +253,66 @@ layout: book
 
 これらの運用的要素は[第8章の継続的セキュリティ運用](../chapter-chapter08/index.md#soc-security-operations-center-の設計と構築)で詳細に解説します。
 
+```mermaid
+graph TD
+    subgraph "セキュリティアーキテクチャの三要素統合"
+        subgraph "技術的要素 (Technology)"
+            AuthSystem["認証・認可システム<br/>・SSO・SAML認証<br/>・MFA実装<br/>・RBAC/ABAC<br/>・IDaaS連携"]
+            CryptoSystem["暗号化システム<br/>・保存時暗号化<br/>・転送時暗号化<br/>・HSM連携<br/>・Keyローテーション"]
+            MonitoringSystem["監視・検知システム<br/>・SIEM統合<br/>・EDRシステム<br/>・NDRシステム<br/>・UEBA分析"]
+        end
+        
+        subgraph "組織的要素 (Organization)"
+            Separation["職務分離<br/>・開発 vs 運用<br/>・承認 vs 実行<br/>・監視 vs 実装<br/>・チェックアンドバランス"]
+            LeastPrivilege["最小権限の原則<br/>・JITアクセス<br/>・定期的権限見直し<br/>・承認ベース権限昇格<br/>・ロールベースアクセス"]
+            ApprovalProcess["承認プロセス<br/>・本番環境変更<br/>・特権アカウント使用<br/>・機密データアクセス<br/>・緊急時対応手順"]
+        end
+        
+        subgraph "運用的要素 (Operations)"
+            PatchManagement["パッチ管理プロセス<br/>・脆弱性情報収集<br/>・影響評価<br/>・テスト環境検証<br/>・本番環境適用"]
+            ConfigManagement["設定管理プロセス<br/>・IaC実装<br/>・設定標準化<br/>・変更管理<br/>・ドリフト検知"]
+            IncidentResponse["インシデント対応<br/>・検知・分析<br/>・封じ込め・除去<br/>・復旧・事後分析<br/>・改善策実装"]
+        end
+        
+        subgraph "統合ポイント"
+            Integration1["技術×組織<br/>・自動化ツールで人的ミス減少<br/>・SSOでアクセス制御実装<br/>・モニタリングで職務分離サポート"]
+            Integration2["技術×運用<br/>・CI/CDでパッチ管理自動化<br/>・IaCで設定管理統合<br/>・SOARでインシデント対応自動化"]
+            Integration3["組織×運用<br/>・承認プロセスで変更管理<br/>・職務分離でインシデント対応品質向上<br/>・最小権限でリスク減少"]
+        end
+        
+        subgraph "継続的改善サイクル"
+            Plan["計画 (Plan)<br/>・リスクアセスメント<br/>・セキュリティ方針策定<br/>・実装計画作成"]
+            Do["実行 (Do)<br/>・セキュリティ対策実装<br/>・システム構築<br/>・手順書整備"]
+            Check["確認 (Check)<br/>・セキュリティメトリクス測定<br/>・脆弱性テスト<br/>・内部監査"]
+            Act["改善 (Act)<br/>・差異分析<br/>・改善策実装<br/>・次期計画反映"]
+        end
+        
+        AuthSystem --> Integration1
+        Separation --> Integration1
+        
+        MonitoringSystem --> Integration2
+        PatchManagement --> Integration2
+        
+        ApprovalProcess --> Integration3
+        IncidentResponse --> Integration3
+        
+        Integration1 --> Plan
+        Integration2 --> Do
+        Integration3 --> Check
+        
+        Plan --> Do
+        Do --> Check
+        Check --> Act
+        Act --> Plan
+    end
+    
+    style AuthSystem fill:#e3f2fd
+    style Separation fill:#fff3e0
+    style PatchManagement fill:#e8f5e8
+    style Integration1 fill:#f3e5f5
+    style Plan fill:#ffe0b2
+```
+
 ## 2.3 インフラエンジニアの役割と責任範囲
 
 現代のITインフラにおいて、インフラエンジニアが担うセキュリティの役割は多岐にわたります。単なる技術的実装者ではなく、セキュリティアーキテクチャの設計者、運用の実践者、そして組織のセキュリティ文化の推進者としての役割を理解することが重要です。
@@ -156,6 +358,73 @@ layout: book
 **サポート責任範囲**：ユーザー教育、ポリシー策定、コンプライアンス対応など、セキュリティ専門部門や法務部門が主導し、インフラエンジニアがサポートする領域を定義します。
 
 この責任範囲の明確化により、組織全体でのセキュリティガバナンスが向上し、効率的なセキュリティ管理が可能になります。
+
+```mermaid
+flowchart TB
+    subgraph "インフラエンジニアのセキュリティ役割と責任範囲"
+        subgraph "セキュリティアーキテクト機能"
+            RequirementAnalysis["要件分析・設計判断<br/>・ビジネス要件分析<br/>・コンプライアンス要件理解<br/>・技術的制約考慮<br/>・パフォーマンスバランス"]
+            TechSelection["技術選定・統合設計<br/>・セキュリティ製品選定<br/>・クラウドサービス選択<br/>・ベストオブブリード判断<br/>・統合アーキテクチャ設計"]
+            Standardization["標準化・ガイドライン策定<br/>・セキュリティ設定標準化<br/>・セキュア構成テンプレート<br/>・設計ガイドライン作成<br/>・ベストプラクティス策定"]
+        end
+        
+        subgraph "システムインテグレータ機能"
+            SystemIntegration["システム間連携設計<br/>・異システム間データ交換<br/>・認証情報共有<br/>・ログ情報統合<br/>・APIゲートウェイ設計"]
+            ToolChain["セキュリティツールチェーン<br/>・開発～運用統合<br/>・脆弱性スキャン統合<br/>・静的・動的解析<br/>・CI/CDパイプライン統合"]
+            LegacyIntegration["レガシーシステム統合<br/>・段階的移行計画<br/>・ブリッジソリューション<br/>・リスク軽減策<br/>・合併プラン"]
+        end
+        
+        subgraph "運用リーダー機能"
+            OperationStandardization["セキュリティ運用標準化<br/>・監視手順策定<br/>・インシデント対応手順<br/>・変更管理手順<br/>・教育プログラム"]
+            MetricsManagement["メトリクス管理・改善提案<br/>・KPI設定・測定<br/>・インシデント対応時間<br/>・脆弱性修正期間<br/>・データドリブン改善"]
+            CrossTeamCoordination["組織横断連携推進<br/>・開発チーム連携<br/>・ビジネス部門連携<br/>・監査部門連携<br/>・セキュリティ文化構築"]
+        end
+        
+        subgraph "責任範囲の分類"
+            TechnicalResponsibility["技術的責任範囲<br/>・ネットワークセキュリティ<br/>・サーバセキュリティ<br/>・クラウドセキュリティ<br/>・インフラ監視"]
+            CollaborativeResponsibility["協働責任範囲<br/>・アプリケーションセキュリティ<br/>・データセキュリティ<br/>・エンドポイントセキュリティ<br/>・DevSecOps"]
+            SupportResponsibility["サポート責任範囲<br/>・ユーザー教育サポート<br/>・ポリシー策定サポート<br/>・コンプライアンス対応<br/>・リスクアセスメント"]
+        end
+        
+        subgraph "スキルマトリックス"
+            TechnicalSkills["技術スキル<br/>・ネットワークアーキテクチャ<br/>・クラウドプラットフォーム<br/>・セキュリティツール<br/>・コンテナ技術"]
+            ManagementSkills["マネジメントスキル<br/>・プロジェクト管理<br/>・リスク管理<br/>・チームマネジメント<br/>・ステークホルダー管理"]
+            CommunicationSkills["コミュニケーションスキル<br/>・技術的内容の平易化<br/>・ステークホルダー対応<br/>・ドキュメント作成<br/>・プレゼンテーション"]
+        end
+        
+        subgraph "キャリアパス"
+            Junior["ジュニアレベル<br/>(～2年)<br/>・基本的セキュリティ設定<br/>・ガイドライン遵守<br/>・監視ツール操作"]
+            Mid["ミドルレベル<br/>(2～5年)<br/>・セキュリティ設計<br/>・インシデント対応<br/>・ツール選定"]
+            Senior["シニアレベル<br/>(5～10年)<br/>・アーキテクチャ設計<br/>・リスク管理<br/>・チームリード"]
+            Expert["エキスパートレベル<br/>(10年～)<br/>・戦略的計画<br/>・組織変革<br/>・業界リーダーシップ"]
+        end
+        
+        RequirementAnalysis --> TechnicalResponsibility
+        SystemIntegration --> CollaborativeResponsibility
+        OperationStandardization --> SupportResponsibility
+        
+        TechnicalSkills --> Junior
+        ManagementSkills --> Mid
+        CommunicationSkills --> Senior
+        TechnicalSkills --> Expert
+        ManagementSkills --> Expert
+        CommunicationSkills --> Expert
+        
+        Junior --> Mid
+        Mid --> Senior
+        Senior --> Expert
+        
+        TechnicalResponsibility -.> TechnicalSkills
+        CollaborativeResponsibility -.> ManagementSkills
+        SupportResponsibility -.> CommunicationSkills
+    end
+    
+    style RequirementAnalysis fill:#e3f2fd
+    style SystemIntegration fill:#fff3e0
+    style OperationStandardization fill:#e8f5e8
+    style TechnicalResponsibility fill:#f3e5f5
+    style Expert fill:#ffe0b2
+```
 
 ## 2.4 セキュリティフレームワークの実装アプローチ
 
@@ -214,6 +483,81 @@ ISO27001は情報セキュリティマネジメントシステム（ISMS）の�
 ユーザー管理、アクセス制御、データ分類などが主な責任範囲となります。SaaSベンダーのセキュリティレポートを定期的に確認し、適切な設定管理を行います。
 
 これらのクラウドセキュリティの詳細は[第6章のクラウドセキュリティ](../chapter-chapter06/index.md)で解説します。
+
+```mermaid
+flowchart TD
+    subgraph "セキュリティフレームワークの実装アプローチ"
+        subgraph "NIST Cybersecurity Framework 実装"
+            Identify["識別 (Identify)<br/>・CMDB構築<br/>・ネットワーク図作成<br/>・データフロー図整備<br/>・重要度分類"]
+            Protect["保護 (Protect)<br/>・IAM実装<br/>・暗号化適用<br/>・Zero Trust導入<br/>・ベースライン定義"]
+            Detect["検知 (Detect)<br/>・SIEMシステム<br/>・UEBA分析<br/>・脅威インテリジェンス<br/>・異常検知"]
+            Respond["対応 (Respond)<br/>・インシデント対応計画<br/>・SOAR自動化<br/>・証拠保全<br/>・コミュニケーション"]
+            Recover["復旧 (Recover)<br/>・DRサイト<br/>・バックアップシステム<br/>・BC計画<br/>・復旧手順"]
+        end
+        
+        subgraph "ISO27001/27002 実装戦略"
+            Phase1["フェーズ1：基盤整備<br/>・情報セキュリティポリシー<br/>・資産管理体制<br/>・リスクマネジメント<br/>・現状評価"]
+            Phase2["フェーズ2：技術的管理策<br/>・アクセス制御(A.9)<br/>・暗号化(A.10)<br/>・システムセキュリティ(A.12)<br/>・通信セキュリティ(A.13)"]
+            Phase3["フェーズ3：運用的管理策<br/>・インシデント管理(A.16)<br/>・事業継続(A.17)<br/>・監査(A.18)<br/>・コンプライアンス"]
+            Phase4["フェーズ4：継続的改善<br/>・定期的内部監査<br/>・マネジメントレビュー<br/>・改善活動<br/>・ISMS向上"]
+        end
+        
+        subgraph "クラウド環境でのフレームワーク適用"
+            IaaS["アイアース(IaaS)<br/>・OS以上の管理責任<br/>・ゲストOS設定<br/>・アプリケーション設定<br/>・ネットワーク設定"]
+            PaaS["プラットフォーム(PaaS)<br/>・アプリケーション管理<br/>・API設定<br/>・権限管理<br/>・ログ設定"]
+            SaaS["サービス(SaaS)<br/>・ユーザー管理<br/>・アクセス制御<br/>・データ分類<br/>・ベンダー管理"]
+        end
+        
+        subgraph "責任共有モデル"
+            CloudProvider["クラウドプロバイダー責任<br/>・物理インフラ<br/>・ハイパーバイザー<br/>・ネットワーク制御<br/>・サービス可用性"]
+            SharedResponsibility["共有責任<br/>・パッチ管理<br/>・設定管理<br/>・アクセス管理<br/>・データ保護"]
+            CustomerResponsibility["顧客責任<br/>・データ分類<br/>・ID・認証管理<br/>・アプリケーションレベルセキュリティ<br/>・OS・ネットワークファイアウォール"]
+        end
+        
+        subgraph "実装成功要因"
+            ExecutiveCommitment["経営層コミット<br/>・投資承認<br/>・リソース配分<br/>・組織文化変革<br/>・コンプライアンスサポート"]
+            PhaseApproach["段階的実装<br/>・リスクベース優先度<br/>・実装容易性考慮<br/>・Quick Winsの実現<br/>・順次拡張"]
+            Practicality["実用性重視<br/>・組織実情合わせ<br/>・カスタマイズ<br/>・業務効率バランス<br/>・漸進的改善"]
+            ContinuousImprovement["継続的改善<br/>・脅威環境監視<br/>・定期的再評価<br/>・フィードバックループ<br/>・組織成長対応"]
+        end
+        
+        Identify --> Protect
+        Protect --> Detect
+        Detect --> Respond
+        Respond --> Recover
+        Recover -.> Identify
+        
+        Phase1 --> Phase2
+        Phase2 --> Phase3
+        Phase3 --> Phase4
+        Phase4 -.> Phase1
+        
+        CloudProvider --> SharedResponsibility
+        SharedResponsibility --> CustomerResponsibility
+        
+        IaaS --> CustomerResponsibility
+        PaaS --> SharedResponsibility
+        SaaS --> CloudProvider
+        
+        ExecutiveCommitment --> PhaseApproach
+        PhaseApproach --> Practicality
+        Practicality --> ContinuousImprovement
+        
+        Protect -.> Phase2
+        Detect -.> Phase3
+        Respond -.> Phase4
+        
+        IaaS -.> ExecutiveCommitment
+        PaaS -.> PhaseApproach
+        SaaS -.> Practicality
+    end
+    
+    style Identify fill:#e3f2fd
+    style Phase1 fill:#fff3e0
+    style IaaS fill:#e8f5e8
+    style CloudProvider fill:#f3e5f5
+    style ExecutiveCommitment fill:#ffe0b2
+```
 
 ### フレームワーク実装の成功要因
 
