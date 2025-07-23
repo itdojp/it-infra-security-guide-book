@@ -84,8 +84,8 @@ sudo ufw allow 22/tcp comment 'SSH'
 sudo ufw allow 80/tcp comment 'HTTP'
 sudo ufw allow 443/tcp comment 'HTTPS'
 
-# 特定IPからの管理アクセス許可
-ADMIN_IP="192.168.1.100"
+# 特定IPからの管理アクセス許可（環境変数で管理）
+ADMIN_IP="${ADMIN_IP:-192.168.1.0/24}"  # デフォルト値は例示、実際は環境に応じて設定
 sudo ufw allow from $ADMIN_IP to any port 22 comment 'Admin SSH'
 
 # ログ設定
@@ -110,9 +110,12 @@ sudo ufw status numbered
 # [ 3] 80/tcp                     ALLOW IN    Anywhere
 # [ 4] 443/tcp                    ALLOW IN    Anywhere
 
-# ログ機能の確認
+# ログ機能の確認（バックグラウンドプロセス管理）
+LOG_PID=""
 sudo tail -f /var/log/ufw.log &
+LOG_PID=$!
 # 別ターミナルでテスト用接続を試行して、ログ出力を確認
+# 確認後はプロセスを適切にクリーンアップ: kill $LOG_PID
 
 # 設定のバックアップ
 sudo cp /etc/ufw/user.rules /etc/ufw/user.rules.backup.$(date +%Y%m%d)
@@ -122,13 +125,14 @@ sudo cp /etc/ufw/user.rules /etc/ufw/user.rules.backup.$(date +%Y%m%d)
 
 設定前の状態確認：
 ```bash
-# 既存ポリシーの確認
+# 既存ポリシーの確認（API_KEYは環境変数から取得）
+# 事前に: export API_KEY=$(vault kv get -field=api_key secret/firewall/api)
 curl -k "https://firewall-mgmt/api/?type=config&action=get&xpath=/config/devices/entry/vsys/entry/rulebase/security" \
-  -H "X-PAN-KEY: $API_KEY" # Ensure API_KEY is stored securely (e.g., AWS Secrets Manager, HashiCorp Vault)
+  -H "X-PAN-KEY: ${API_KEY:?API_KEY環境変数が設定されていません}"
 
 # アプリケーション使用状況の確認
 curl -k "https://firewall-mgmt/api/?type=report&reporttype=predefined&reportname=top-applications" \
-  -H "X-PAN-KEY: $API_KEY" # Ensure API_KEY is stored securely (e.g., AWS Secrets Manager, HashiCorp Vault)
+  -H "X-PAN-KEY: ${API_KEY:?API_KEY環境変数が設定されていません}"
 ```
 
 アプリケーション制御ポリシーの実装：
@@ -186,16 +190,16 @@ curl -k "https://firewall-mgmt/api/?type=report&reporttype=predefined&reportname
 ```bash
 # 設定のインポート
 curl -k "https://firewall-mgmt/api/?type=import&category=configuration" \
-  -H "X-PAN-KEY: $API_KEY" \
+  -H "X-PAN-KEY: ${API_KEY:?API_KEY環境変数が設定されていません}" \
   -F "file=@application_control_policy.xml"
 
 # 設定のコミット
 curl -k "https://firewall-mgmt/api/?type=commit&cmd=<commit></commit>" \
-  -H "X-PAN-KEY: $API_KEY"
+  -H "X-PAN-KEY: ${API_KEY:?API_KEY環境変数が設定されていません}"
 
 # ポリシー適用結果の確認
 curl -k "https://firewall-mgmt/api/?type=report&reporttype=predefined&reportname=blocked-applications" \
-  -H "X-PAN-KEY: $API_KEY"
+  -H "X-PAN-KEY: ${API_KEY:?API_KEY環境変数が設定されていません}"
 ```
 
 **ファイアウォール設定検証スクリプト**

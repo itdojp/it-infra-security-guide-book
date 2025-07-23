@@ -138,7 +138,7 @@ OSハードニングの実装過程では、設定ミスやシステム固有の
 
 症状：
 ```bash
-ssh: connect to host 192.168.1.100 port 22: Connection refused
+ssh: connect to host $TARGET_HOST port 22: Connection refused
 # または
 Permission denied (publickey).
 ```
