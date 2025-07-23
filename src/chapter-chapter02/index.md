@@ -257,7 +257,7 @@ flowchart LR
 graph TD
     subgraph "セキュリティアーキテクチャの三要素統合"
         subgraph "技術的要素 (Technology)"
-            AuthSystem["認証・認可システム<br/>・SSO・サムル成估<br/>・MFA実装<br/>・RBAC/ABAC<br/>・IDaaS連携"]
+            AuthSystem["認証・認可システム<br/>・SSO・SAML認証<br/>・MFA実装<br/>・RBAC/ABAC<br/>・IDaaS連携"]
             CryptoSystem["暗号化システム<br/>・保存時暗号化<br/>・転送時暗号化<br/>・HSM連携<br/>・Keyローテーション"]
             MonitoringSystem["監視・検知システム<br/>・SIEM統合<br/>・EDRシステム<br/>・NDRシステム<br/>・UEBA分析"]
         end
