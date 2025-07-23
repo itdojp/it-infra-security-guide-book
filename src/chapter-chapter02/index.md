@@ -46,7 +46,7 @@ graph TB
         subgraph "第3層：内部防御層"
             AccessControl["アクセス制御<br/>・RBAC(ロールベース)<br/>・ABAC(属性ベース)<br/>・最小権限の原則"]
             PrivilegeManagement["特権管理<br/>・PAM(特権アカウント管理)<br/>・JIT(ジャストインタイム)アクセス<br/>・セッション監視"]
-            Encryption["暮号化保護<br/>・保存時暗号化<br/>・転送時暗号化<br/>・鍵管理システム"]
+            Encryption["暗号化保護<br/>・保存時暗号化<br/>・転送時暗号化<br/>・鍵管理システム"]
         end
         
         subgraph "第4層：データ防御層"
