@@ -511,7 +511,7 @@ flowchart TD
         subgraph "責任共有モデル"
             CloudProvider["クラウドプロバイダー責任<br/>・物理インフラ<br/>・ハイパーバイザー<br/>・ネットワーク制御<br/>・サービス可用性"]
             SharedResponsibility["共有責任<br/>・パッチ管理<br/>・設定管理<br/>・アクセス管理<br/>・データ保護"]
-            CustomerResponsibility["顺客責任<br/>・データ分類<br/>・ID・認証管理<br/>・アプリケーションレベルセキュリティ<br/>・OS・ネットワークファイアウォール"]
+            CustomerResponsibility["顧客責任<br/>・データ分類<br/>・ID・認証管理<br/>・アプリケーションレベルセキュリティ<br/>・OS・ネットワークファイアウォール"]
         end
         
         subgraph "実装成功要因"
