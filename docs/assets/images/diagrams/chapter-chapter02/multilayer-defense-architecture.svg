@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="1400" viewBox="0 0 800 1400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --attacker-bg: #ffebee;
+        --firewall-bg: #e8f5e8;
+        --ids-bg: #e3f2fd;
+        --waf-bg: #fff3e0;
+        --access-bg: #f3e5f5;
+        --database-bg: #ffe0b2;
+        --siem-bg: #e1f5fe;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --attacker-bg: #B71C1C;
+          --firewall-bg: #1B5E20;
+          --ids-bg: #1A237E;
+          --waf-bg: #E65100;
+          --access-bg: #4A148C;
+          --database-bg: #8B4513;
+          --siem-bg: #01579B;
+        }
+      }
+      
+      /* Typography */
+      .title-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .section-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .layer-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .component-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .description-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      .detail-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 8px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-primary);
+      }
+      
+      /* Node Styles */
+      .attacker-node {
+        fill: var(--attacker-bg);
+        stroke: var(--error);
+        stroke-width: 2;
+      }
+      
+      .firewall-node {
+        fill: var(--firewall-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      .ids-node {
+        fill: var(--ids-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .waf-node {
+        fill: var(--waf-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .access-node {
+        fill: var(--access-bg);
+        stroke: var(--neutral);
+        stroke-width: 1.5;
+      }
+      
+      .database-node {
+        fill: var(--database-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .siem-node {
+        fill: var(--siem-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      /* Connection Lines */
+      .attack-line {
+        stroke: var(--error);
+        stroke-width: 2;
+        marker-end: url(#arrow-red);
+      }
+      
+      .defense-line {
+        stroke: var(--success);
+        stroke-width: 2;
+        stroke-dasharray: 4,4;
+        marker-end: url(#arrow-green);
+      }
+      
+      .monitoring-line {
+        stroke: var(--primary);
+        stroke-width: 1.5;
+        stroke-dasharray: 8,4;
+        marker-end: url(#arrow-blue);
+      }
+      
+      .response-line {
+        stroke: var(--warning);
+        stroke-width: 1.5;
+        marker-end: url(#arrow-orange);
+      }
+    </style>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow-red" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--error)"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--success)"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--primary)"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--warning)"/>
+    </marker>
+  </defs>
+  
+  <title>多層防御アーキテクチャの詳細設計</title>
+  <desc>攻撃フローから最終防御層まで5層の包括的セキュリティアーキテクチャ</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Main Title -->
+  <text x="400" y="24" class="title-text">多層防御アーキテクチャの詳細設計</text>
+  
+  <!-- Attacker Section -->
+  <rect x="50" y="60" width="700" height="20" rx="3" fill="var(--attacker-bg)" stroke="var(--error)" stroke-width="1"/>
+  <text x="400" y="74" class="section-title">攻撃フロー</text>
+  
+  <rect x="250" y="100" width="300" height="80" rx="6" class="attacker-node"/>
+  <text x="400" y="120" class="layer-title">攻撃者</text>
+  <text x="260" y="140" class="detail-text">• 外部犯罪グループ • 内部不正ユーザー</text>
+  <text x="260" y="155" class="detail-text">• マルウェア • 自動攻撃ツール</text>
+  
+  <!-- Layer 1: Perimeter Defense -->
+  <rect x="50" y="220" width="700" height="20" rx="3" fill="var(--firewall-bg)" stroke="var(--success)" stroke-width="1"/>
+  <text x="400" y="234" class="section-title">第1層：外郭防御層</text>
+  
+  <!-- Firewall -->
+  <rect x="70" y="260" width="200" height="100" rx="4" class="firewall-node"/>
+  <text x="170" y="280" class="component-title">ファイアウォール</text>
+  <text x="80" y="300" class="detail-text">• パケットフィルタリング</text>
+  <text x="80" y="315" class="detail-text">• ステートフルインスペクション</text>
+  <text x="80" y="330" class="detail-text">• DDoS防御</text>
+  
+  <!-- IDS/IPS -->
+  <rect x="290" y="260" width="200" height="100" rx="4" class="ids-node"/>
+  <text x="390" y="280" class="component-title">侵入検知防御</text>
+  <text x="300" y="300" class="detail-text">• IDS: ネットワーク監視</text>
+  <text x="300" y="315" class="detail-text">• IPS: 自動ブロック</text>
+  <text x="300" y="330" class="detail-text">• シグネチャーベース検知</text>
+  
+  <!-- WAF -->
+  <rect x="510" y="260" width="200" height="100" rx="4" class="waf-node"/>
+  <text x="610" y="280" class="component-title">Webアプリケーション</text>
+  <text x="610" y="295" class="component-title">ファイアウォール</text>
+  <text x="520" y="315" class="detail-text">• SQLインジェクション防御</text>
+  <text x="520" y="330" class="detail-text">• XSS防御 • OWASP Top 10対策</text>
+  
+  <!-- Layer 2: Boundary Defense -->
+  <rect x="50" y="400" width="700" height="20" rx="3" fill="var(--ids-bg)" stroke="var(--primary)" stroke-width="1"/>
+  <text x="400" y="414" class="section-title">第2層：境界防御層</text>
+  
+  <!-- DMZ -->
+  <rect x="70" y="440" width="200" height="100" rx="4" class="access-node"/>
+  <text x="170" y="460" class="component-title">非武装地帯(DMZ)</text>
+  <text x="80" y="480" class="detail-text">• 公開サーバーの隔離</text>
+  <text x="80" y="495" class="detail-text">• リバースプロキシ</text>
+  <text x="80" y="510" class="detail-text">• ロードバランサー</text>
+  
+  <!-- Segmentation -->
+  <rect x="290" y="440" width="200" height="100" rx="4" class="firewall-node"/>
+  <text x="390" y="460" class="component-title">ネットワーク</text>
+  <text x="390" y="475" class="component-title">セグメンテーション</text>
+  <text x="300" y="495" class="detail-text">• VLAN分離</text>
+  <text x="300" y="510" class="detail-text">• マイクロセグメンテーション</text>
+  <text x="300" y="525" class="detail-text">• ゼロトラストアーキテクチャ</text>
+  
+  <!-- VPN -->
+  <rect x="510" y="440" width="200" height="100" rx="4" class="waf-node"/>
+  <text x="610" y="460" class="component-title">セキュアアクセス</text>
+  <text x="520" y="480" class="detail-text">• VPNゲートウェイ</text>
+  <text x="520" y="495" class="detail-text">• 多要素認証</text>
+  <text x="520" y="510" class="detail-text">• 証明書ベース認証</text>
+  
+  <!-- Layer 3: Internal Defense -->
+  <rect x="50" y="580" width="700" height="20" rx="3" fill="var(--access-bg)" stroke="var(--neutral)" stroke-width="1"/>
+  <text x="400" y="594" class="section-title">第3層：内部防御層</text>
+  
+  <!-- Access Control -->
+  <rect x="70" y="620" width="200" height="100" rx="4" class="access-node"/>
+  <text x="170" y="640" class="component-title">アクセス制御</text>
+  <text x="80" y="660" class="detail-text">• RBAC(ロールベース)</text>
+  <text x="80" y="675" class="detail-text">• ABAC(属性ベース)</text>
+  <text x="80" y="690" class="detail-text">• 最小権限の原則</text>
+  
+  <!-- Privilege Management -->
+  <rect x="290" y="620" width="200" height="100" rx="4" class="database-node"/>
+  <text x="390" y="640" class="component-title">特権管理</text>
+  <text x="300" y="660" class="detail-text">• PAM(特権アカウント管理)</text>
+  <text x="300" y="675" class="detail-text">• JIT(ジャストインタイム)アクセス</text>
+  <text x="300" y="690" class="detail-text">• セッション監視</text>
+  
+  <!-- Encryption -->
+  <rect x="510" y="620" width="200" height="100" rx="4" class="ids-node"/>
+  <text x="610" y="640" class="component-title">暗号化保護</text>
+  <text x="520" y="660" class="detail-text">• 保存時暗号化</text>
+  <text x="520" y="675" class="detail-text">• 転送時暗号化</text>
+  <text x="520" y="690" class="detail-text">• 鍵管理システム</text>
+  
+  <!-- Layer 4: Data Defense -->
+  <rect x="50" y="760" width="700" height="20" rx="3" fill="var(--database-bg)" stroke="var(--warning)" stroke-width="1"/>
+  <text x="400" y="774" class="section-title">第4層：データ防御層</text>
+  
+  <!-- Database Security -->
+  <rect x="70" y="800" width="200" height="100" rx="4" class="database-node"/>
+  <text x="170" y="820" class="component-title">データベース</text>
+  <text x="170" y="835" class="component-title">セキュリティ</text>
+  <text x="80" y="855" class="detail-text">• カラムレベル暗号化</text>
+  <text x="80" y="870" class="detail-text">• データベース活動監視</text>
+  <text x="80" y="885" class="detail-text">• データマスキング</text>
+  
+  <!-- Backup -->
+  <rect x="290" y="800" width="200" height="100" rx="4" class="access-node"/>
+  <text x="390" y="820" class="component-title">バックアップ・復元</text>
+  <text x="300" y="840" class="detail-text">• 暗号化バックアップ</text>
+  <text x="300" y="855" class="detail-text">• オフサイト保存</text>
+  <text x="300" y="870" class="detail-text">• 定期的復元テスト</text>
+  
+  <!-- DLP -->
+  <rect x="510" y="800" width="200" height="100" rx="4" class="firewall-node"/>
+  <text x="610" y="820" class="component-title">データ漏洩防止</text>
+  <text x="520" y="840" class="detail-text">• 機密データの流出監視</text>
+  <text x="520" y="855" class="detail-text">• USBメモリ制御</text>
+  <text x="520" y="870" class="detail-text">• メール添付ファイルスキャン</text>
+  
+  <!-- Layer 5: Monitoring and Response -->
+  <rect x="50" y="940" width="700" height="20" rx="3" fill="var(--siem-bg)" stroke="var(--primary)" stroke-width="1"/>
+  <text x="400" y="954" class="section-title">第5層：監視・対応層</text>
+  
+  <!-- SIEM -->
+  <rect x="70" y="980" width="200" height="100" rx="4" class="siem-node"/>
+  <text x="170" y="1000" class="component-title">統合ログ管理</text>
+  <text x="80" y="1020" class="detail-text">• SIEMシステム</text>
+  <text x="80" y="1035" class="detail-text">• リアルタイム監視</text>
+  <text x="80" y="1050" class="detail-text">• 相関分析</text>
+  
+  <!-- SOC -->
+  <rect x="290" y="980" width="200" height="100" rx="4" class="waf-node"/>
+  <text x="390" y="1000" class="component-title">セキュリティ運用</text>
+  <text x="390" y="1015" class="component-title">センター</text>
+  <text x="300" y="1035" class="detail-text">• 24/7監視体制</text>
+  <text x="300" y="1050" class="detail-text">• インシデント対応</text>
+  <text x="300" y="1065" class="detail-text">• 脅威ハンティング</text>
+  
+  <!-- Threat Intel -->
+  <rect x="510" y="980" width="200" height="100" rx="4" class="access-node"/>
+  <text x="610" y="1000" class="component-title">脅威インテリジェンス</text>
+  <text x="520" y="1020" class="detail-text">• 最新脅威情報</text>
+  <text x="520" y="1035" class="detail-text">• IOC(侵害指標)管理</text>
+  <text x="520" y="1050" class="detail-text">• 自動的ブロック更新</text>
+  
+  <!-- Attack Phases -->
+  <rect x="50" y="1120" width="700" height="80" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="1140" class="section-title">攻撃の進行と防御ポイント</text>
+  
+  <text x="70" y="1160" class="component-title" text-anchor="start">攻撃フェーズ1: 偵察・情報収集</text>
+  <text x="70" y="1175" class="component-title" text-anchor="start">攻撃フェーズ2: 初期侵入 → 攻撃フェーズ3: 権限昇格 → 攻撃フェーズ4: 横展開 → 攻撃フェーズ5: データ抽出</text>
+  
+  <!-- Connection Lines -->
+  <!-- Attack flow -->
+  <line x1="400" y1="180" x2="170" y2="260" class="attack-line"/>
+  <line x1="400" y1="180" x2="390" y2="260" class="attack-line"/>
+  <line x1="400" y1="180" x2="610" y2="260" class="attack-line"/>
+  
+  <!-- Defense connections -->
+  <line x1="170" y1="360" x2="170" y2="440" class="defense-line"/>
+  <line x1="390" y1="360" x2="390" y2="440" class="defense-line"/>
+  <line x1="610" y1="360" x2="610" y2="440" class="defense-line"/>
+  
+  <line x1="170" y1="540" x2="170" y2="620" class="defense-line"/>
+  <line x1="390" y1="540" x2="390" y2="620" class="defense-line"/>
+  <line x1="610" y1="540" x2="610" y2="620" class="defense-line"/>
+  
+  <line x1="170" y1="720" x2="170" y2="800" class="defense-line"/>
+  <line x1="390" y1="720" x2="390" y2="800" class="defense-line"/>
+  <line x1="610" y1="720" x2="610" y2="800" class="defense-line"/>
+  
+  <!-- Monitoring connections -->
+  <line x1="170" y1="980" x2="170" y2="360" class="monitoring-line"/>
+  <line x1="170" y1="980" x2="170" y2="720" class="monitoring-line"/>
+  <line x1="170" y1="980" x2="170" y2="900" class="monitoring-line"/>
+  
+  <!-- Response connections -->
+  <line x1="390" y1="980" x2="170" y2="980" class="response-line"/>
+  <line x1="610" y1="980" x2="390" y2="980" class="response-line"/>
+  
+  <!-- Integration Points -->
+  <rect x="50" y="1240" width="700" height="120" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="1260" class="section-title">統合ポイントと相互連携</text>
+  
+  <text x="70" y="1285" class="component-title" text-anchor="start">脅威インテリジェンス共有:</text>
+  <text x="80" y="1300" class="description-text">• 各層での検知結果を統合 • リアルタイム脅威情報更新 • 自動的防御反応</text>
+  
+  <text x="70" y="1325" class="component-title" text-anchor="start">段階的対応自動化:</text>
+  <text x="80" y="1340" class="description-text">• 異常検知レベルに応じた対応 • エスカレーション機能 • 自動隔離・遮断</text>
+  
+</svg>
