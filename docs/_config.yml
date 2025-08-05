@@ -1,27 +1,22 @@
 title: "インフラエンジニアのための情報セキュリティ実装ガイド"
 description: "インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書。設定の背景にある設計思想と実装判断の根拠を丁寧に言葉で説明することに重点を置いています。"
 author: "株式会社アイティードゥ"
-version: "1.0.0"
 lang: "ja"
 url: "https://itdojp.github.io"
 baseurl: "/it-infra-security-guide-book"
-
-# リポジトリ情報
-repository:
-  github: "https://github.com/itdojp/it-infra-security-guide-book"
-  name: "it-infra-security-guide-book"
+repository: "https://github.com/itdojp/it-infra-security-guide-book"
 
 # Jekyll設定
 markdown: kramdown
 highlighter: rouge
-# GitHub Pages標準テーマを使用しない
-# theme: minima
 
 # プラグイン
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
 
 # デフォルト設定
 defaults:

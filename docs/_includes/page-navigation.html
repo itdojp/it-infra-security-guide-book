@@ -1,83 +1,40 @@
 <!-- Page Navigation (Previous/Next) -->
-{% assign current_url = page.url %}
-{% assign previous_page = nil %}
-{% assign next_page = nil %}
+{% assign current_index = nil %}
+{% assign all_pages = site.pages | where: "layout", "book" | where_exp: "page", "page.order" | sort: 'order' %}
 
-<!-- Define page order manually -->
-{% if current_url contains '/chapter-introduction/' %}
-    {% assign next_page_url = '/src/chapter-chapter01/index.html' %}
-    {% assign next_page_title = '第1章 情報セキュリティの基礎概念' %}
-{% elsif current_url contains '/chapter-chapter01/' %}
-    {% assign previous_page_url = '/src/chapter-introduction/index.html' %}
-    {% assign previous_page_title = 'はじめに' %}
-    {% assign next_page_url = '/src/chapter-chapter02/index.html' %}
-    {% assign next_page_title = '第2章 インフラエンジニアのためのセキュリティ設計' %}
-{% elsif current_url contains '/chapter-chapter02/' %}
-    {% assign previous_page_url = '/src/chapter-chapter01/index.html' %}
-    {% assign previous_page_title = '第1章 情報セキュリティの基礎概念' %}
-    {% assign next_page_url = '/src/chapter-chapter03/index.html' %}
-    {% assign next_page_title = '第3章 セキュリティ要件の定義と実装計画' %}
-{% elsif current_url contains '/chapter-chapter03/' %}
-    {% assign previous_page_url = '/src/chapter-chapter02/index.html' %}
-    {% assign previous_page_title = '第2章 インフラエンジニアのためのセキュリティ設計' %}
-    {% assign next_page_url = '/src/chapter-chapter04/index.html' %}
-    {% assign next_page_title = '第4章 ネットワークセキュリティの実装' %}
-{% elsif current_url contains '/chapter-chapter04/' %}
-    {% assign previous_page_url = '/src/chapter-chapter03/index.html' %}
-    {% assign previous_page_title = '第3章 セキュリティ要件の定義と実装計画' %}
-    {% assign next_page_url = '/src/chapter-chapter05/index.html' %}
-    {% assign next_page_title = '第5章 サーバーとOSのセキュリティ強化' %}
-{% elsif current_url contains '/chapter-chapter05/' %}
-    {% assign previous_page_url = '/src/chapter-chapter04/index.html' %}
-    {% assign previous_page_title = '第4章 ネットワークセキュリティの実装' %}
-    {% assign next_page_url = '/src/chapter-chapter06/index.html' %}
-    {% assign next_page_title = '第6章 クラウドインフラのセキュリティ' %}
-{% elsif current_url contains '/chapter-chapter06/' %}
-    {% assign previous_page_url = '/src/chapter-chapter05/index.html' %}
-    {% assign previous_page_title = '第5章 サーバーとOSのセキュリティ強化' %}
-    {% assign next_page_url = '/src/chapter-chapter07/index.html' %}
-    {% assign next_page_title = '第7章 コンテナとKubernetesのセキュリティ' %}
-{% elsif current_url contains '/chapter-chapter07/' %}
-    {% assign previous_page_url = '/src/chapter-chapter06/index.html' %}
-    {% assign previous_page_title = '第6章 クラウドインフラのセキュリティ' %}
-    {% assign next_page_url = '/src/chapter-chapter08/index.html' %}
-    {% assign next_page_title = '第8章 継続的セキュリティ運用' %}
-{% elsif current_url contains '/chapter-chapter08/' %}
-    {% assign previous_page_url = '/src/chapter-chapter07/index.html' %}
-    {% assign previous_page_title = '第7章 コンテナとKubernetesのセキュリティ' %}
-    {% assign next_page_url = '/src/chapter-chapter09/index.html' %}
-    {% assign next_page_title = '第9章 インシデント対応と継続的改善' %}
-{% elsif current_url contains '/chapter-chapter09/' %}
-    {% assign previous_page_url = '/src/chapter-chapter08/index.html' %}
-    {% assign previous_page_title = '第8章 継続的セキュリティ運用' %}
-    {% assign next_page_url = '/src/appendices/appendix-a.html' %}
-    {% assign next_page_title = '付録A セキュリティチェックリスト' %}
-{% elsif current_url contains '/appendices/appendix-a' %}
-    {% assign previous_page_url = '/src/chapter-chapter09/index.html' %}
-    {% assign previous_page_title = '第9章 インシデント対応と継続的改善' %}
-    {% assign next_page_url = '/src/appendices/appendix-b.html' %}
-    {% assign next_page_title = '付録B 参考文献とリソース' %}
-{% elsif current_url contains '/appendices/appendix-b' %}
-    {% assign previous_page_url = '/src/appendices/appendix-a.html' %}
-    {% assign previous_page_title = '付録A セキュリティチェックリスト' %}
-    {% assign next_page_url = '/src/appendices/afterword.html' %}
-    {% assign next_page_title = 'あとがき' %}
-{% elsif current_url contains '/appendices/afterword' %}
-    {% assign previous_page_url = '/src/appendices/appendix-b.html' %}
-    {% assign previous_page_title = '付録B 参考文献とリソース' %}
+<!-- Find current page index -->
+{% for p in all_pages %}
+    {% if p.url == page.url %}
+        {% assign current_index = forloop.index0 %}
+        {% break %}
+    {% endif %}
+{% endfor %}
+
+<!-- Calculate previous and next indices -->
+{% if current_index %}
+    {% assign prev_index = current_index | minus: 1 %}
+    {% assign next_index = current_index | plus: 1 %}
+    
+    {% if prev_index >= 0 %}
+        {% assign previous_page = all_pages[prev_index] %}
+    {% endif %}
+    
+    {% if next_index < all_pages.size %}
+        {% assign next_page = all_pages[next_index] %}
+    {% endif %}
 {% endif %}
 
 <div class="page-nav">
     <!-- Previous Page -->
     <div class="page-nav-item page-nav-prev">
-        {% if previous_page_url %}
-        <a href="{{ previous_page_url | relative_url }}" class="page-nav-link">
+        {% if previous_page %}
+        <a href="{{ previous_page.url | relative_url }}" class="page-nav-link">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
             <div class="page-nav-content">
                 <span class="page-nav-label">前のページ</span>
-                <span class="page-nav-title">{{ previous_page_title }}</span>
+                <span class="page-nav-title">{{ previous_page.title }}</span>
             </div>
         </a>
         {% endif %}
@@ -85,11 +42,11 @@
 
     <!-- Next Page -->
     <div class="page-nav-item page-nav-next">
-        {% if next_page_url %}
-        <a href="{{ next_page_url | relative_url }}" class="page-nav-link">
+        {% if next_page %}
+        <a href="{{ next_page.url | relative_url }}" class="page-nav-link">
             <div class="page-nav-content">
                 <span class="page-nav-label">次のページ</span>
-                <span class="page-nav-title">{{ next_page_title }}</span>
+                <span class="page-nav-title">{{ next_page.title }}</span>
             </div>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="9 18 15 12 9 6"></polyline>

@@ -1,0 +1,132 @@
+<!-- Sidebar Navigation - IT Infrastructure Technology Guide -->
+<div class="sidebar-content">
+    <!-- Book Info -->
+    <div class="book-info">
+        <h2 class="book-title">📚 ITインフラストラクチャ技術ガイド</h2>
+        
+        <p class="book-subtitle">ベンダー非依存の観点からインフラストラクチャ技術の本質的な設計原理と実装手法を体系化</p>
+        
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h3 class="toc-title">目次</h3>
+        
+        <!-- Introduction -->
+        <div class="toc-section">
+            <ul class="toc-list">
+                <li class="toc-item">
+                    <a href="{{ '/' | relative_url }}" class="toc-link {% if page.url == '/' %}active{% endif %}">
+                        🏠 はじめに
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Chapters -->
+        <div class="toc-section">
+            <h3 class="toc-section-title">📖 メインコンテンツ</h3>
+            <ul class="toc-list">
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter01/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter01' %}active{% endif %}">
+                        <span class="chapter-number">1.</span>プロトコルスタックの設計思想
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter02/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter02' %}active{% endif %}">
+                        <span class="chapter-number">2.</span>L2ネットワークの設計と実装
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter03/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter03' %}active{% endif %}">
+                        <span class="chapter-number">3.</span>L3ネットワークの設計原理
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter04/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter04' %}active{% endif %}">
+                        <span class="chapter-number">4.</span>名前解決とサービス発見
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter05/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter05' %}active{% endif %}">
+                        <span class="chapter-number">5.</span>トランスポート層以上の実装技術
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter06/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter06' %}active{% endif %}">
+                        <span class="chapter-number">6.</span>オペレーティングシステムの内部構造
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter07/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter07' %}active{% endif %}">
+                        <span class="chapter-number">7.</span>ストレージアーキテクチャ
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter08/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter08' %}active{% endif %}">
+                        <span class="chapter-number">8.</span>仮想化技術の実装原理
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter09/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter09' %}active{% endif %}">
+                        <span class="chapter-number">9.</span>システム運用の自動化
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter10/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter10' %}active{% endif %}">
+                        <span class="chapter-number">10.</span>セキュリティアーキテクチャ
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter11/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter11' %}active{% endif %}">
+                        <span class="chapter-number">11.</span>高可用性システムの設計
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter12/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter12' %}active{% endif %}">
+                        <span class="chapter-number">12.</span>エンドツーエンドシステム設計
+                    </a>
+                </li>
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/chapters/chapter13/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter13' %}active{% endif %}">
+                        <span class="chapter-number">13.</span>技術選択のフレームワーク
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Appendices -->
+        <div class="toc-section">
+            <h3 class="toc-section-title">📋 付録</h3>
+            <ul class="toc-list">
+                <li class="toc-item">
+                    <a href="{{ '/appendices/appendix01/index.html' | relative_url }}" class="toc-link {% if page.url contains 'appendix01' %}active{% endif %}">
+                        付録A: 用語集
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="{{ '/appendices/appendix02/index.html' | relative_url }}" class="toc-link {% if page.url contains 'appendix02' %}active{% endif %}">
+                        付録B: トラブルシューティングガイド
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Additional Resources -->
+        <div class="toc-section">
+            <h3 class="toc-section-title">📚 リソース</h3>
+            <ul class="toc-list">
+                <li class="toc-item">
+                    <a href="https://github.com/itdojp/IT-infra-book" class="toc-link" target="_blank" rel="noopener">
+                        💾 GitHubリポジトリ
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="https://itdo.jp" class="toc-link" target="_blank" rel="noopener">
+                        🏢 株式会社アイティードゥ
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
