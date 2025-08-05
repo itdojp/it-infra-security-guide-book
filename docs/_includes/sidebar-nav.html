@@ -1,11 +1,11 @@
-<!-- Sidebar Navigation -->
+<!-- Sidebar Navigation - Infrastructure Security Implementation Guide -->
 <div class="sidebar-content">
     <!-- Book Info -->
     <div class="book-info">
-        <h2 class="book-title">{{ site.title | escape }}</h2>
-        {% if site.subtitle %}
-        <p class="book-subtitle">{{ site.subtitle | escape }}</p>
-        {% endif %}
+        <h2 class="book-title">🔐 インフラエンジニアのための情報セキュリティ実装ガイド</h2>
+        
+        <p class="book-subtitle">インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書</p>
+        
     </div>
 
     <!-- Table of Contents -->
@@ -14,72 +14,81 @@
         
         <!-- Introduction -->
         <div class="toc-section">
-            <h4 class="toc-section-title">はじめに</h4>
             <ul class="toc-list">
                 <li class="toc-item">
-                    <a href="{{ '/src/chapter-introduction/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-introduction/' %}active{% endif %}">
-                        はじめに
+                    <a href="{{ '/' | relative_url }}" class="toc-link {% if page.url == '/' %}active{% endif %}">
+                        🏠 はじめに
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="{{ '/src/chapter-introduction/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-introduction' %}active{% endif %}">
+                        📖 イントロダクション
                     </a>
                 </li>
             </ul>
         </div>
 
-        <!-- Chapters -->
+        <!-- Part I: セキュリティ基盤・原則編 -->
         <div class="toc-section">
-            <h4 class="toc-section-title">本編</h4>
+            <h3 class="toc-section-title">🛡️ Part I: セキュリティ基盤・原則編</h3>
             <ul class="toc-list">
                 <li class="toc-item toc-chapter">
-                    <a href="{{ '/src/chapter-chapter01/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-chapter01/' %}active{% endif %}">
-                        <span class="chapter-number">第1章</span>
-                        <span class="chapter-title">情報セキュリティの基礎概念</span>
+                    <a href="{{ '/src/chapter-chapter01/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-chapter01' %}active{% endif %}">
+                        <span class="chapter-number">1.</span>情報セキュリティの基本原則
                     </a>
                 </li>
                 <li class="toc-item toc-chapter">
-                    <a href="{{ '/src/chapter-chapter02/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-chapter02/' %}active{% endif %}">
-                        <span class="chapter-number">第2章</span>
-                        <span class="chapter-title">インフラエンジニアのためのセキュリティ設計</span>
+                    <a href="{{ '/src/chapter-chapter02/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-chapter02' %}active{% endif %}">
+                        <span class="chapter-number">2.</span>リスクアセスメントと脅威モデル
                     </a>
                 </li>
                 <li class="toc-item toc-chapter">
-                    <a href="{{ '/src/chapter-chapter03/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-chapter03/' %}active{% endif %}">
-                        <span class="chapter-number">第3章</span>
-                        <span class="chapter-title">セキュリティ要件の定義と実装計画</span>
+                    <a href="{{ '/src/chapter-chapter03/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-chapter03' %}active{% endif %}">
+                        <span class="chapter-number">3.</span>セキュリティアーキテクチャ設計
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Part II: 技術実装編 -->
+        <div class="toc-section">
+            <h3 class="toc-section-title">⚙️ Part II: 技術実装編</h3>
+            <ul class="toc-list">
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/src/chapter-chapter04/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-chapter04' %}active{% endif %}">
+                        <span class="chapter-number">4.</span>ネットワークセキュリティ実装
                     </a>
                 </li>
                 <li class="toc-item toc-chapter">
-                    <a href="{{ '/src/chapter-chapter04/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-chapter04/' %}active{% endif %}">
-                        <span class="chapter-number">第4章</span>
-                        <span class="chapter-title">ネットワークセキュリティの実装</span>
+                    <a href="{{ '/src/chapter-chapter05/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-chapter05' %}active{% endif %}">
+                        <span class="chapter-number">5.</span>サーバーセキュリティ強化
                     </a>
                 </li>
                 <li class="toc-item toc-chapter">
-                    <a href="{{ '/src/chapter-chapter05/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-chapter05/' %}active{% endif %}">
-                        <span class="chapter-number">第5章</span>
-                        <span class="chapter-title">サーバーとOSのセキュリティ強化</span>
+                    <a href="{{ '/src/chapter-chapter06/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-chapter06' %}active{% endif %}">
+                        <span class="chapter-number">6.</span>認証・認可システム構築
                     </a>
                 </li>
                 <li class="toc-item toc-chapter">
-                    <a href="{{ '/src/chapter-chapter06/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-chapter06/' %}active{% endif %}">
-                        <span class="chapter-number">第6章</span>
-                        <span class="chapter-title">クラウドインフラのセキュリティ</span>
+                    <a href="{{ '/src/chapter-chapter07/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-chapter07' %}active{% endif %}">
+                        <span class="chapter-number">7.</span>暗号化とデータ保護
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Part III: 統合運用編 -->
+        <div class="toc-section">
+            <h3 class="toc-section-title">🔧 Part III: 統合運用編</h3>
+            <ul class="toc-list">
+                <li class="toc-item toc-chapter">
+                    <a href="{{ '/src/chapter-chapter08/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-chapter08' %}active{% endif %}">
+                        <span class="chapter-number">8.</span>セキュリティ監視と運用
                     </a>
                 </li>
                 <li class="toc-item toc-chapter">
-                    <a href="{{ '/src/chapter-chapter07/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-chapter07/' %}active{% endif %}">
-                        <span class="chapter-number">第7章</span>
-                        <span class="chapter-title">コンテナとKubernetesのセキュリティ</span>
-                    </a>
-                </li>
-                <li class="toc-item toc-chapter">
-                    <a href="{{ '/src/chapter-chapter08/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-chapter08/' %}active{% endif %}">
-                        <span class="chapter-number">第8章</span>
-                        <span class="chapter-title">継続的セキュリティ運用</span>
-                    </a>
-                </li>
-                <li class="toc-item toc-chapter">
-                    <a href="{{ '/src/chapter-chapter09/index.html' | relative_url }}" class="toc-link {% if page.url contains '/chapter-chapter09/' %}active{% endif %}">
-                        <span class="chapter-number">第9章</span>
-                        <span class="chapter-title">インシデント対応と継続的改善</span>
+                    <a href="{{ '/src/chapter-chapter09/index.html' | relative_url }}" class="toc-link {% if page.url contains 'chapter-chapter09' %}active{% endif %}">
+                        <span class="chapter-number">9.</span>インシデント対応と事業継続
                     </a>
                 </li>
             </ul>
@@ -87,41 +96,41 @@
 
         <!-- Appendices -->
         <div class="toc-section">
-            <h4 class="toc-section-title">付録</h4>
+            <h3 class="toc-section-title">📋 付録</h3>
             <ul class="toc-list">
                 <li class="toc-item">
-                    <a href="{{ '/src/appendices/appendix-a.html' | relative_url }}" class="toc-link {% if page.url contains '/appendices/appendix-a' %}active{% endif %}">
-                        <span class="appendix-label">付録A</span>
-                        <span class="appendix-title">セキュリティチェックリスト</span>
+                    <a href="{{ '/src/appendices/appendix-a.html' | relative_url }}" class="toc-link {% if page.url contains 'appendix-a' %}active{% endif %}">
+                        付録A: セキュリティツール一覧
                     </a>
                 </li>
                 <li class="toc-item">
-                    <a href="{{ '/src/appendices/appendix-b.html' | relative_url }}" class="toc-link {% if page.url contains '/appendices/appendix-b' %}active{% endif %}">
-                        <span class="appendix-label">付録B</span>
-                        <span class="appendix-title">参考文献とリソース</span>
+                    <a href="{{ '/src/appendices/appendix-b.html' | relative_url }}" class="toc-link {% if page.url contains 'appendix-b' %}active{% endif %}">
+                        付録B: 設定テンプレート集
                     </a>
                 </li>
                 <li class="toc-item">
-                    <a href="{{ '/src/appendices/afterword.html' | relative_url }}" class="toc-link {% if page.url contains '/appendices/afterword' %}active{% endif %}">
-                        <span class="appendix-label">あとがき</span>
-                        <span class="appendix-title">あとがき</span>
+                    <a href="{{ '/src/appendices/afterword.html' | relative_url }}" class="toc-link {% if page.url contains 'afterword' %}active{% endif %}">
+                        あとがき
                     </a>
                 </li>
             </ul>
         </div>
-    </div>
 
-    <!-- External Links -->
-    <div class="sidebar-footer">
-        <div class="external-links">
-            {% if site.repository.github %}
-            <a href="{{ site.repository.github }}" target="_blank" rel="noopener" class="external-link">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-            </a>
-            {% endif %}
+        <!-- Additional Resources -->
+        <div class="toc-section">
+            <h3 class="toc-section-title">📚 リソース</h3>
+            <ul class="toc-list">
+                <li class="toc-item">
+                    <a href="https://github.com/itdojp/it-infra-security-guide-book" class="toc-link" target="_blank" rel="noopener">
+                        💾 GitHubリポジトリ
+                    </a>
+                </li>
+                <li class="toc-item">
+                    <a href="https://itdo.jp" class="toc-link" target="_blank" rel="noopener">
+                        🏢 株式会社アイティードゥ
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
