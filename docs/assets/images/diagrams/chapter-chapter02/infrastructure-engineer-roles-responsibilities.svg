@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="1200" viewBox="0 0 800 1200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --architect-bg: #e3f2fd;
+        --integrator-bg: #fff3e0;
+        --operation-bg: #e8f5e8;
+        --technical-bg: #f3e5f5;
+        --expert-bg: #ffe0b2;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --architect-bg: #1A237E;
+          --integrator-bg: #E65100;
+          --operation-bg: #1B5E20;
+          --technical-bg: #4A148C;
+          --expert-bg: #8B4513;
+        }
+      }
+      
+      /* Typography */
+      .title-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .section-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .role-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .function-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        text-anchor: start;
+        fill: var(--text-primary);
+      }
+      
+      .description-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      .detail-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 8px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-primary);
+      }
+      
+      /* Node Styles */
+      .architect-node {
+        fill: var(--architect-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .integrator-node {
+        fill: var(--integrator-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .operation-node {
+        fill: var(--operation-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      .technical-node {
+        fill: var(--technical-bg);
+        stroke: var(--neutral);
+        stroke-width: 1.5;
+      }
+      
+      .expert-node {
+        fill: var(--expert-bg);
+        stroke: var(--error);
+        stroke-width: 2;
+      }
+      
+      /* Connection Lines */
+      .responsibility-line {
+        stroke: var(--primary);
+        stroke-width: 2;
+        marker-end: url(#arrow);
+      }
+      
+      .skill-line {
+        stroke: var(--success);
+        stroke-width: 1.5;
+        stroke-dasharray: 4,4;
+        marker-end: url(#arrow-green);
+      }
+      
+      .career-line {
+        stroke: var(--warning);
+        stroke-width: 2;
+        marker-end: url(#arrow-orange);
+      }
+    </style>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--primary)"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--success)"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--warning)"/>
+    </marker>
+  </defs>
+  
+  <title>インフラエンジニアのセキュリティ役割と責任範囲</title>
+  <desc>セキュリティアーキテクト、システムインテグレータ、運用リーダー機能と責任分類</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Main Title -->
+  <text x="400" y="24" class="title-text">インフラエンジニアのセキュリティ役割と責任範囲</text>
+  
+  <!-- Security Architect Function -->
+  <rect x="50" y="60" width="700" height="20" rx="3" fill="var(--architect-bg)" stroke="var(--primary)" stroke-width="1"/>
+  <text x="400" y="74" class="section-title">セキュリティアーキテクト機能</text>
+  
+  <!-- Requirements Analysis -->
+  <rect x="70" y="100" width="200" height="120" rx="4" class="architect-node"/>
+  <text x="170" y="120" class="role-title">要件分析・設計判断</text>
+  <text x="80" y="140" class="detail-text">• ビジネス要件分析</text>
+  <text x="80" y="155" class="detail-text">• コンプライアンス要件理解</text>
+  <text x="80" y="170" class="detail-text">• 技術的制約考慮</text>
+  <text x="80" y="185" class="detail-text">• パフォーマンスバランス</text>
+  
+  <!-- Tech Selection -->
+  <rect x="290" y="100" width="200" height="120" rx="4" class="architect-node"/>
+  <text x="390" y="120" class="role-title">技術選定・統合設計</text>
+  <text x="300" y="140" class="detail-text">• セキュリティ製品選定</text>
+  <text x="300" y="155" class="detail-text">• クラウドサービス選択</text>
+  <text x="300" y="170" class="detail-text">• ベストオブブリード判断</text>
+  <text x="300" y="185" class="detail-text">• 統合アーキテクチャ設計</text>
+  
+  <!-- Standardization -->
+  <rect x="510" y="100" width="200" height="120" rx="4" class="architect-node"/>
+  <text x="610" y="120" class="role-title">標準化・ガイドライン策定</text>
+  <text x="520" y="140" class="detail-text">• セキュリティ設定標準化</text>
+  <text x="520" y="155" class="detail-text">• セキュア構成テンプレート</text>
+  <text x="520" y="170" class="detail-text">• 設計ガイドライン作成</text>
+  <text x="520" y="185" class="detail-text">• ベストプラクティス策定</text>
+  
+  <!-- System Integrator Function -->
+  <rect x="50" y="260" width="700" height="20" rx="3" fill="var(--integrator-bg)" stroke="var(--warning)" stroke-width="1"/>
+  <text x="400" y="274" class="section-title">システムインテグレータ機能</text>
+  
+  <!-- System Integration -->
+  <rect x="70" y="300" width="200" height="120" rx="4" class="integrator-node"/>
+  <text x="170" y="320" class="role-title">システム間連携設計</text>
+  <text x="80" y="340" class="detail-text">• 異システム間データ交換</text>
+  <text x="80" y="355" class="detail-text">• 認証情報共有</text>
+  <text x="80" y="370" class="detail-text">• ログ情報統合</text>
+  <text x="80" y="385" class="detail-text">• APIゲートウェイ設計</text>
+  
+  <!-- Tool Chain -->
+  <rect x="290" y="300" width="200" height="120" rx="4" class="integrator-node"/>
+  <text x="390" y="320" class="role-title">セキュリティツールチェーン</text>
+  <text x="300" y="340" class="detail-text">• 開発～運用統合</text>
+  <text x="300" y="355" class="detail-text">• 脆弱性スキャン統合</text>
+  <text x="300" y="370" class="detail-text">• 静的・動的解析</text>
+  <text x="300" y="385" class="detail-text">• CI/CDパイプライン統合</text>
+  
+  <!-- Legacy Integration -->
+  <rect x="510" y="300" width="200" height="120" rx="4" class="integrator-node"/>
+  <text x="610" y="320" class="role-title">レガシーシステム統合</text>
+  <text x="520" y="340" class="detail-text">• 段階的移行計画</text>
+  <text x="520" y="355" class="detail-text">• ブリッジソリューション</text>
+  <text x="520" y="370" class="detail-text">• リスク軽減策</text>
+  <text x="520" y="385" class="detail-text">• 移行プラン</text>
+  
+  <!-- Operation Leader Function -->
+  <rect x="50" y="460" width="700" height="20" rx="3" fill="var(--operation-bg)" stroke="var(--success)" stroke-width="1"/>
+  <text x="400" y="474" class="section-title">運用リーダー機能</text>
+  
+  <!-- Operation Standardization -->
+  <rect x="70" y="500" width="200" height="120" rx="4" class="operation-node"/>
+  <text x="170" y="520" class="role-title">セキュリティ運用標準化</text>
+  <text x="80" y="540" class="detail-text">• 監視手順策定</text>
+  <text x="80" y="555" class="detail-text">• インシデント対応手順</text>
+  <text x="80" y="570" class="detail-text">• 変更管理手順</text>
+  <text x="80" y="585" class="detail-text">• 教育プログラム</text>
+  
+  <!-- Metrics Management -->
+  <rect x="290" y="500" width="200" height="120" rx="4" class="operation-node"/>
+  <text x="390" y="520" class="role-title">メトリクス管理・改善提案</text>
+  <text x="300" y="540" class="detail-text">• KPI設定・測定</text>
+  <text x="300" y="555" class="detail-text">• インシデント対応時間</text>
+  <text x="300" y="570" class="detail-text">• 脆弱性修正期間</text>
+  <text x="300" y="585" class="detail-text">• データドリブン改善</text>
+  
+  <!-- Cross Team Coordination -->
+  <rect x="510" y="500" width="200" height="120" rx="4" class="operation-node"/>
+  <text x="610" y="520" class="role-title">組織横断連携推進</text>
+  <text x="520" y="540" class="detail-text">• 開発チーム連携</text>
+  <text x="520" y="555" class="detail-text">• ビジネス部門連携</text>
+  <text x="520" y="570" class="detail-text">• 監査部門連携</text>
+  <text x="520" y="585" class="detail-text">• セキュリティ文化構築</text>
+  
+  <!-- Responsibility Classification -->
+  <rect x="50" y="660" width="700" height="20" rx="3" fill="var(--technical-bg)" stroke="var(--neutral)" stroke-width="1"/>
+  <text x="400" y="674" class="section-title">責任範囲の分類</text>
+  
+  <!-- Technical Responsibility -->
+  <rect x="70" y="700" width="200" height="100" rx="4" class="technical-node"/>
+  <text x="170" y="720" class="role-title">技術的責任範囲</text>
+  <text x="80" y="740" class="detail-text">• ネットワークセキュリティ</text>
+  <text x="80" y="755" class="detail-text">• サーバセキュリティ</text>
+  <text x="80" y="770" class="detail-text">• クラウドセキュリティ</text>
+  <text x="80" y="785" class="detail-text">• インフラ監視</text>
+  
+  <!-- Collaborative Responsibility -->
+  <rect x="290" y="700" width="200" height="100" rx="4" class="integrator-node"/>
+  <text x="390" y="720" class="role-title">協働責任範囲</text>
+  <text x="300" y="740" class="detail-text">• アプリケーションセキュリティ</text>
+  <text x="300" y="755" class="detail-text">• データセキュリティ</text>
+  <text x="300" y="770" class="detail-text">• エンドポイントセキュリティ</text>
+  <text x="300" y="785" class="detail-text">• DevSecOps</text>
+  
+  <!-- Support Responsibility -->
+  <rect x="510" y="700" width="200" height="100" rx="4" class="operation-node"/>
+  <text x="610" y="720" class="role-title">サポート責任範囲</text>
+  <text x="520" y="740" class="detail-text">• ユーザー教育サポート</text>
+  <text x="520" y="755" class="detail-text">• ポリシー策定サポート</text>
+  <text x="520" y="770" class="detail-text">• コンプライアンス対応</text>
+  <text x="520" y="785" class="detail-text">• リスクアセスメント</text>
+  
+  <!-- Career Path -->
+  <rect x="50" y="840" width="700" height="20" rx="3" fill="var(--expert-bg)" stroke="var(--error)" stroke-width="1"/>
+  <text x="400" y="854" class="section-title">キャリアパス</text>
+  
+  <!-- Junior -->
+  <rect x="70" y="880" width="140" height="80" rx="4" class="operation-node"/>
+  <text x="140" y="900" class="role-title">ジュニアレベル</text>
+  <text x="140" y="915" class="function-title">(～2年)</text>
+  <text x="80" y="935" class="detail-text">• 基本的セキュリティ設定</text>
+  <text x="80" y="950" class="detail-text">• ガイドライン遵守・監視ツール操作</text>
+  
+  <!-- Mid -->
+  <rect x="230" y="880" width="140" height="80" rx="4" class="integrator-node"/>
+  <text x="300" y="900" class="role-title">ミドルレベル</text>
+  <text x="300" y="915" class="function-title">(2～5年)</text>
+  <text x="240" y="935" class="detail-text">• セキュリティ設計</text>
+  <text x="240" y="950" class="detail-text">• インシデント対応・ツール選定</text>
+  
+  <!-- Senior -->
+  <rect x="390" y="880" width="140" height="80" rx="4" class="architect-node"/>
+  <text x="460" y="900" class="role-title">シニアレベル</text>
+  <text x="460" y="915" class="function-title">(5～10年)</text>
+  <text x="400" y="935" class="detail-text">• アーキテクチャ設計</text>
+  <text x="400" y="950" class="detail-text">• リスク管理・チームリード</text>
+  
+  <!-- Expert -->
+  <rect x="550" y="880" width="140" height="80" rx="4" class="expert-node"/>
+  <text x="620" y="900" class="role-title">エキスパートレベル</text>
+  <text x="620" y="915" class="function-title">(10年～)</text>
+  <text x="560" y="935" class="detail-text">• 戦略的計画・組織変革</text>
+  <text x="560" y="950" class="detail-text">• 業界リーダーシップ</text>
+  
+  <!-- Connection Lines -->
+  <!-- Functions to Responsibilities -->
+  <line x1="170" y1="220" x2="170" y2="700" class="responsibility-line"/>
+  <line x1="390" y1="420" x2="390" y2="700" class="responsibility-line"/>
+  <line x1="610" y1="620" x2="610" y2="700" class="responsibility-line"/>
+  
+  <!-- Career progression -->
+  <line x1="210" y1="920" x2="230" y2="920" class="career-line"/>
+  <line x1="370" y1="920" x2="390" y2="920" class="career-line"/>
+  <line x1="530" y1="920" x2="550" y2="920" class="career-line"/>
+  
+  <!-- Skills to Career -->
+  <line x1="170" y1="800" x2="140" y2="880" class="skill-line"/>
+  <line x1="390" y1="800" x2="300" y2="880" class="skill-line"/>
+  <line x1="610" y1="800" x2="460" y2="880" class="skill-line"/>
+  <line x1="170" y1="800" x2="620" y2="880" class="skill-line"/>
+  <line x1="390" y1="800" x2="620" y2="880" class="skill-line"/>
+  <line x1="610" y1="800" x2="620" y2="880" class="skill-line"/>
+  
+  <!-- Key Success Factors -->
+  <rect x="50" y="1000" width="700" height="140" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="1020" class="section-title">成功要因と重要スキル</text>
+  
+  <text x="70" y="1045" class="role-title" text-anchor="start">技術的専門性:</text>
+  <text x="80" y="1060" class="description-text">• 深い技術理解 • 最新動向把握 • 実装能力 • トラブルシューティング</text>
+  
+  <text x="70" y="1085" class="role-title" text-anchor="start">ビジネス理解:</text>
+  <text x="80" y="1100" class="description-text">• 組織目標の理解 • コスト意識 • リスク判断 • ステークホルダー管理</text>
+  
+  <text x="70" y="1125" class="role-title" text-anchor="start">コミュニケーション:</text>
+  <text x="80" y="1140" class="description-text">• 技術内容の平易化 • チーム連携 • 文書化能力 • プレゼンテーション</text>
+  
+</svg>

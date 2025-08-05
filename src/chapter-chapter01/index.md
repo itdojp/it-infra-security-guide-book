@@ -18,6 +18,64 @@ layout: book
 
 現代の企業活動において、情報は単なるデータではなく、競争優位性を決定する重要な資産となっています。顧客データベース、設計図面、財務情報、戦略計画など、これらの情報が適切に保護されなければ、企業の存続そのものが脅かされる可能性があります。情報セキュリティとは、こうした情報資産を様々な脅威から保護し、その価値を維持し続けるための体系的な取り組みです。
 
+```mermaid
+graph TD
+    subgraph "情報資産とセキュリティの全体像"
+        subgraph "情報資産の階層構造"
+            Strategic["最高機密レベル<br/>・戦略計画<br/>・顧客個人情報<br/>・財務機密<br/>・技術機密"]
+            Business["業務レベル<br/>・業務データ<br/>・プロジェクト情報<br/>・内部文書<br/>・システム設定"]
+            Public["一般レベル<br/>・公開可能情報<br/>・マニュアル<br/>・ガイドライン<br/>・FAQ"]
+        end
+        
+        subgraph "脅威エージェント"
+            InsiderThreat["内部脅威<br/>・不正従業員<br/>・特権乱用<br/>・意図しないミス"]
+            ExternalAttacker["外部攻撃者<br/>・サイバー犯罪<br/>・国家攻撃<br/>・ハクティビスト"]
+            NaturalDisaster["自然災害<br/>・地震・火災<br/>・洪水・停電<br/>・インフラ障害"]
+            HumanError["人的ミス<br/>・設定ミス<br/>・操作ミス<br/>・判断ミス"]
+        end
+        
+        subgraph "セキュリティ要素"
+            Confidentiality["機密性<br/>・アクセス制御<br/>・暗号化<br/>・認証"]
+            Integrity["完全性<br/>・データ保護<br/>・改ざん検知<br/>・バックアップ"]
+            Availability["可用性<br/>・冗長化<br/>・監視<br/>・復旧"]
+        end
+        
+        subgraph "実装レイヤー"
+            Physical["物理層<br/>・データセンター<br/>・施設セキュリティ<br/>・機器保護"]
+            Network["ネットワーク層<br/>・ファイアウォール<br/>・VPN<br/>・セグメンテーション"]
+            System["システム層<br/>・OS設定<br/>・アプリケーション<br/>・データベース"]
+            Application["アプリケーション層<br/>・認証・認可<br/>・入力検証<br/>・セッション管理"]
+            Management["管理層<br/>・ポリシー<br/>・手順<br/>・監査"]
+        end
+        
+        Strategic --> Business
+        Business --> Public
+        
+        InsiderThreat -.攻撃.-> Strategic
+        ExternalAttacker -.攻撃.-> Business
+        NaturalDisaster -.影響.-> Physical
+        HumanError -.影響.-> System
+        
+        Confidentiality --> Physical
+        Integrity --> Network
+        Availability --> System
+        
+        Physical --> Network
+        Network --> System
+        System --> Application
+        Application --> Management
+    end
+    
+    style Strategic fill:#ffebee
+    style Business fill:#fff3e0
+    style Public fill:#e8f5e8
+    style InsiderThreat fill:#fce4ec
+    style ExternalAttacker fill:#e1f5fe
+    style Confidentiality fill:#f3e5f5
+    style Integrity fill:#e0f2f1
+    style Availability fill:#fff8e1
+```
+
 ### 情報資産の価値を理解する
 
 情報資産の価値を考える際、まず重要なのは「なぜその情報を保護する必要があるのか」を明確にすることです。例えば、銀行の顧客口座情報を考えてみましょう。この情報が漏洩すれば、顧客の経済的損失、銀行への信頼失墜、規制当局からの制裁、そして最終的には事業継続への深刻な影響が生じます。つまり、情報の価値は単にその情報そのものの価値ではなく、それが失われたり悪用されたりした場合に生じる影響の大きさによって決まるのです。
@@ -88,6 +146,62 @@ layout: book
 
 CIA Triadの三要素は相互に関連し合い、時として相反することもあります。セキュリティ設計において最も重要なのは、このバランスを適切に取ることです。
 
+```mermaid
+graph TD
+    subgraph "CIA Triad実装とトレードオフ分析"
+        subgraph "CIA Triadの相互関係"
+            C["機密性<br/>(Confidentiality)<br/>・アクセス制御<br/>・暗号化<br/>・認証・認可"]
+            I["完全性<br/>(Integrity)<br/>・データ保護<br/>・改ざん検知<br/>・監査ログ"]
+            A["可用性<br/>(Availability)<br/>・冗長化<br/>・負荷分散<br/>・災害復旧"]
+        end
+        
+        subgraph "実装時のトレードオフ"
+            Security["セキュリティ強化"]
+            Usability["使いやすさ"]
+            Performance["パフォーマンス"]
+            Cost["コスト"]
+            
+            Security -.vs.-> Usability
+            Security -.vs.-> Performance
+            Security -.vs.-> Cost
+        end
+        
+        subgraph "実装レベル別対策"
+            NetworkLevel["ネットワークレベル<br/>・ファイアウォール<br/>・IDS/IPS<br/>・VPN"]
+            SystemLevel["システムレベル<br/>・OS設定<br/>・パッチ管理<br/>・アクセス制御"]
+            ApplicationLevel["アプリケーションレベル<br/>・認証機能<br/>・入力検証<br/>・セッション管理"]
+            DataLevel["データレベル<br/>・暗号化<br/>・バックアップ<br/>・アーカイブ"]
+        end
+        
+        subgraph "業界別要求レベル"
+            Financial["金融業界<br/>・最高レベル<br/>・規制準拠<br/>・監査要求"]
+            Healthcare["医療業界<br/>・高レベル<br/>・患者情報保護<br/>・HIPAA準拠"]
+            General["一般企業<br/>・中レベル<br/>・業務継続<br/>・顧客信頼"]
+            Startup["スタートアップ<br/>・基本レベル<br/>・スピード重視<br/>・コスト効率"]
+        end
+        
+        C --> NetworkLevel
+        I --> SystemLevel
+        A --> ApplicationLevel
+        
+        NetworkLevel --> DataLevel
+        SystemLevel --> DataLevel
+        ApplicationLevel --> DataLevel
+        
+        Financial --> C
+        Healthcare --> I
+        General --> A
+        Startup --> Cost
+    end
+    
+    style C fill:#e3f2fd
+    style I fill:#e8f5e8
+    style A fill:#fff3e0
+    style Security fill:#ffebee
+    style Financial fill:#f3e5f5
+    style Healthcare fill:#e0f2f1
+```
+
 例えば、機密性を極度に高めようとすれば、複雑な認証手続きや厳重なアクセス制御が必要になり、可用性（使いやすさ）が低下する可能性があります。また、完全性を保つためにデータの検証処理を増やせば、システムの応答速度が低下し、やはり可用性に影響します。
 
 実際のシステム設計では、組織の要求、規制要件、リスク許容度、コスト制約などを総合的に考慮して、最適なバランス点を見つける必要があります。このバランス点を見つけるプロセスこそが、インフラエンジニアの専門性が最も発揮される場面なのです。
@@ -114,6 +228,50 @@ CIA Triadの三要素は相互に関連し合い、時として相反するこ�
 - 監視：プロアクティブな障害検知、自動復旧機能
 
 これらの実装指針は[第4章のネットワークセキュリティ](../chapter-chapter04/index.md)から[第7章のコンテナセキュリティ](../chapter-chapter07/index.md)で詳細に扱います。
+
+```mermaid
+mindmap
+  root((インフラセキュリティ実装))
+    CIA実装指針
+      機密性
+        ネットワーク暗号化
+        アクセス制御
+        セグメンテーション
+      完全性
+        デジタル署名
+        チェックサム
+        バージョン管理
+      可用性
+        冗長化設計
+        負荷分散
+        自動復旧
+    技術領域別実装
+      ネットワーク
+        ファイアウォール
+        IDS/IPS
+        VPN
+      サーバー
+        OS強化
+        パッチ管理
+        監視
+      クラウド
+        IAM
+        暗号化
+        コンプライアンス
+      コンテナ
+        イメージ管理
+        ランタイム保護
+        オーケストレーション
+    運用プロセス
+      監視・検知
+        ログ分析
+        異常検知
+        アラート
+      インシデント対応
+        初動対応
+        調査・分析
+        復旧・改善
+```
 
 ## 1.3 脅威とリスクの理解
 
@@ -144,6 +302,55 @@ CIA Triadの三要素は相互に関連し合い、時として相反するこ�
 **ビジネスインパクト**：最終的に、組織の事業活動に対する影響が生じます。経済的損失、信頼失墜、規制当局からの制裁、競争優位性の喪失などが含まれます。
 
 このプロセスの各段階で防御ポイントが存在します。脅威エージェントの活動を制限する、脆弱性を修正する、攻撃の検知と阻止を行う、被害の拡大を防ぐ、迅速な復旧を行うなど、多層的な防御が可能です。
+
+```mermaid
+flowchart LR
+    subgraph "脅威からビジネスインパクトまでのプロセスと防御ポイント"
+        subgraph "攻撃フェーズ"
+            ThreatAgent["脅威エージェント<br/>・内部犯行者<br/>・外部攻撃者<br/>・自然災害<br/>・人的ミス"]
+            Vulnerability["脆弱性の悪用<br/>・技術的脆弱性<br/>・設定不備<br/>・手順の欠陥<br/>・人的要因"]
+            RiskMaterial["リスク顕在化<br/>・データ漏洩<br/>・システム停止<br/>・情報改ざん<br/>・権限昇格"]
+            BusinessImpact["ビジネスインパクト<br/>・経済的損失<br/>・信頼失墜<br/>・規制制裁<br/>・競争力低下"]
+        end
+        
+        subgraph "防御ポイント"
+            Prevention1["脅威制限<br/>・アクセス制御<br/>・境界防御<br/>・監視体制"]
+            Prevention2["脆弱性管理<br/>・パッチ管理<br/>・設定強化<br/>・教育・訓練"]
+            Detection["攻撃検知<br/>・IDS/IPS<br/>・ログ監視<br/>・異常検知"]
+            Response["被害制限<br/>・インシデント対応<br/>・隔離・遮断<br/>・迅速復旧"]
+        end
+        
+        subgraph "多層防御戦略"
+            Layer1["第1層：境界防御<br/>・ファイアウォール<br/>・DMZ設計<br/>・外部接続制御"]
+            Layer2["第2層：内部防御<br/>・セグメンテーション<br/>・認証・認可<br/>・権限管理"]
+            Layer3["第3層：データ保護<br/>・暗号化<br/>・バックアップ<br/>・完全性保護"]
+            Layer4["第4層：監視・対応<br/>・リアルタイム監視<br/>・インシデント対応<br/>・復旧手順"]
+        end
+        
+        ThreatAgent --> Vulnerability
+        Vulnerability --> RiskMaterial
+        RiskMaterial --> BusinessImpact
+        
+        ThreatAgent -.防御.-> Prevention1
+        Vulnerability -.防御.-> Prevention2
+        RiskMaterial -.防御.-> Detection
+        BusinessImpact -.防御.-> Response
+        
+        Prevention1 --> Layer1
+        Prevention2 --> Layer2
+        Detection --> Layer3
+        Response --> Layer4
+    end
+    
+    style ThreatAgent fill:#ffebee
+    style Vulnerability fill:#fff3e0
+    style RiskMaterial fill:#fce4ec
+    style BusinessImpact fill:#e1f5fe
+    style Layer1 fill:#e8f5e8
+    style Layer2 fill:#e3f2fd
+    style Layer3 fill:#f3e5f5
+    style Layer4 fill:#fff8e1
+```
 
 ### リスクの定量化手法
 
@@ -187,6 +394,59 @@ CIA Triadの三要素は相互に関連し合い、時として相反するこ�
 受容可能リスクレベルを超えるリスクに対して、適切な対策を選択・実装します。対策の効果とコストを考慮して最適解を選択します。
 
 この手順は[第3章のセキュリティ要件設計](../chapter-chapter03/index.md#リスクベースアプローチによる実装優先度)で詳細に解説します。
+
+```mermaid
+flowchart TD
+    subgraph "リスクベースアプローチ実装手順"
+        Start(["リスクアセスメント開始"])
+        
+        Step1["ステップ1：資産識別・価値評価<br/>・システム構成要素の洗い出し<br/>・ビジネス価値の評価<br/>・重要度の階層化"]
+        
+        Step2["ステップ2：脅威分析<br/>・内部脅威の識別<br/>・外部攻撃の想定<br/>・自然災害・人的ミスの評価"]
+        
+        Step3["ステップ3：脆弱性評価<br/>・技術的脆弱性の調査<br/>・運用手順の評価<br/>・人的要因の分析"]
+        
+        Step4["ステップ4：リスク算定<br/>・脅威発生確率の算定<br/>・脆弱性悪用確率の評価<br/>・影響度の定量化"]
+        
+        Decision{"受容可能リスク<br/>レベル以下？"}
+        
+        Step5["ステップ5：対策選択・実装<br/>・リスク軽減策の検討<br/>・コスト効果分析<br/>・実装計画の策定"]
+        
+        Monitor["継続的監視・見直し<br/>・脅威環境の変化監視<br/>・対策効果の測定<br/>・定期的な再評価"]
+        
+        Accept["リスク受容<br/>・経営層承認<br/>・文書化<br/>・定期見直し"]
+        
+        subgraph "リスク計算式"
+            Formula["リスク = 脅威発生確率 × 脆弱性悪用確率 × 影響度"]
+            
+            Threat["脅威発生確率<br/>・過去の実績<br/>・業界動向<br/>・環境変化"]
+            Vuln["脆弱性悪用確率<br/>・技術的難易度<br/>・公開情報<br/>・攻撃ツール"]
+            Impact["影響度<br/>・直接的損失<br/>・間接的損失<br/>・規制影響"]
+        end
+        
+        Start --> Step1
+        Step1 --> Step2
+        Step2 --> Step3
+        Step3 --> Step4
+        Step4 --> Decision
+        Decision -->|"高リスク"| Step5
+        Decision -->|"低リスク"| Accept
+        Step5 --> Monitor
+        Monitor --> Step2
+        
+        Formula --> Threat
+        Formula --> Vuln
+        Formula --> Impact
+        
+        Step4 -.計算.-> Formula
+    end
+    
+    style Start fill:#e8f5e8
+    style Decision fill:#fff3e0
+    style Accept fill:#e3f2fd
+    style Monitor fill:#f3e5f5
+    style Formula fill:#ffebee
+```
 
 ## 1.4 攻撃手法の分類と進化
 
@@ -239,6 +499,49 @@ CIA Triadの三要素は相互に関連し合い、時として相反するこ�
 **攻撃者の制約の活用**：攻撃者にも制約があります。時間的制約（検知されるまでの時間）、技術的制約（利用可能なツールや技術）、リスク制約（発覚時の影響）などです。これらの制約を活用することで、攻撃を困難にする設計が可能になります。
 
 この攻撃者視点に基づく防御設計は[第2章の多層防御](../chapter-chapter02/index.md#多層防御の設計原理)で詳しく解説します。
+
+```mermaid
+sequenceDiagram
+    participant Attacker as 攻撃者
+    participant Perimeter as 境界防御
+    participant Internal as 内部システム
+    participant Critical as 重要データ
+    participant Defense as 防御システム
+    
+    Note over Attacker, Defense: 現代的サイバー攻撃の典型的フロー
+    
+    Attacker->>Perimeter: 1. 偵察・情報収集
+    Note right of Attacker: ・公開情報調査<br/>・ネットワークスキャン<br/>・ソーシャルエンジニアリング
+    Defense-->>Defense: 偵察活動の検知・記録
+    
+    Attacker->>Perimeter: 2. 初期侵入
+    Note right of Attacker: ・フィッシング攻撃<br/>・脆弱性悪用<br/>・認証情報窃取
+    Perimeter-->>Defense: 侵入試行の検知
+    
+    alt 侵入成功
+        Attacker->>Internal: 3. 権限昇格・横展開
+        Note right of Attacker: ・ローカル権限昇格<br/>・内部ネットワーク探索<br/>・追加システム侵害
+        Internal-->>Defense: 異常活動の監視
+        
+        Attacker->>Critical: 4. 目標到達・データ窃取
+        Note right of Attacker: ・機密データアクセス<br/>・データ抽出<br/>・痕跡隠滅
+        Critical-->>Defense: データアクセス監視
+        
+        Defense->>Defense: 5. インシデント対応
+        Note right of Defense: ・被害範囲調査<br/>・証拠保全<br/>・システム復旧
+    else 侵入阻止
+        Perimeter-->>Attacker: アクセス拒否
+        Defense->>Defense: 攻撃パターン学習
+    end
+    
+    rect rgb(255, 240, 240)
+        Note over Attacker, Defense: 攻撃者の制約を活用した防御設計
+    end
+    
+    Note over Defense: 時間的制約の活用<br/>・迅速な検知・対応<br/>・攻撃経路の複雑化
+    Note over Defense: 技術的制約の活用<br/>・多様な防御技術<br/>・未知の攻撃への対応
+    Note over Defense: リスク制約の活用<br/>・攻撃コストの増大<br/>・発覚リスクの向上
+```
 
 > **注意**: セキュリティ設計では、攻撃者の視点を理解することが重要ですが、この知識を悪用してはいけません。防御目的のみに活用してください。
 

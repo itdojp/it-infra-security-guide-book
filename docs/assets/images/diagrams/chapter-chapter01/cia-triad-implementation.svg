@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --confidentiality-bg: #e3f2fd;
+        --integrity-bg: #e8f5e8;
+        --availability-bg: #fff3e0;
+        --security-bg: #ffebee;
+        --financial-bg: #f3e5f5;
+        --healthcare-bg: #e0f2f1;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --confidentiality-bg: #1A237E;
+          --integrity-bg: #1B5E20;
+          --availability-bg: #E65100;
+          --security-bg: #B71C1C;
+          --financial-bg: #4A148C;
+          --healthcare-bg: #004D40;
+        }
+      }
+      
+      /* Typography */
+      .title-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .section-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .element-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .description-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      .item-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-primary);
+      }
+      
+      /* Node Styles */
+      .confidentiality-node {
+        fill: var(--confidentiality-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .integrity-node {
+        fill: var(--integrity-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      .availability-node {
+        fill: var(--availability-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .security-node {
+        fill: var(--security-bg);
+        stroke: var(--error);
+        stroke-width: 1.5;
+      }
+      
+      .financial-node {
+        fill: var(--financial-bg);
+        stroke: var(--neutral);
+        stroke-width: 1.5;
+      }
+      
+      .healthcare-node {
+        fill: var(--healthcare-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      /* Connection Lines */
+      .relation-line {
+        stroke: var(--primary);
+        stroke-width: 2;
+        marker-end: url(#arrow);
+      }
+      
+      .vs-line {
+        stroke: var(--error);
+        stroke-width: 2;
+        stroke-dasharray: 4,4;
+      }
+      
+      .implementation-line {
+        stroke: var(--success);
+        stroke-width: 1.5;
+        marker-end: url(#arrow-green);
+      }
+    </style>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--primary)"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--success)"/>
+    </marker>
+  </defs>
+  
+  <title>CIA Triad実装とトレードオフ分析</title>
+  <desc>機密性・完全性・可用性の相互関係とトレードオフ、業界別要求レベル</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Main Title -->
+  <text x="400" y="24" class="title-text">CIA Triad実装とトレードオフ分析</text>
+  
+  <!-- CIA Triad Core Elements -->
+  <rect x="50" y="60" width="700" height="20" rx="3" fill="var(--primary)" fill-opacity="0.1" stroke="var(--primary)" stroke-width="1"/>
+  <text x="400" y="74" class="section-title">CIA Triadの相互関係</text>
+  
+  <!-- Confidentiality -->
+  <rect x="100" y="110" width="180" height="120" rx="6" class="confidentiality-node"/>
+  <text x="190" y="130" class="element-title">機密性</text>
+  <text x="190" y="145" class="element-title">(Confidentiality)</text>
+  <text x="110" y="165" class="item-text">• アクセス制御</text>
+  <text x="110" y="180" class="item-text">• 暗号化</text>
+  <text x="110" y="195" class="item-text">• 認証・認可</text>
+  
+  <!-- Integrity -->
+  <rect x="310" y="110" width="180" height="120" rx="6" class="integrity-node"/>
+  <text x="400" y="130" class="element-title">完全性</text>
+  <text x="400" y="145" class="element-title">(Integrity)</text>
+  <text x="320" y="165" class="item-text">• データ保護</text>
+  <text x="320" y="180" class="item-text">• 改ざん検知</text>
+  <text x="320" y="195" class="item-text">• 監査ログ</text>
+  
+  <!-- Availability -->
+  <rect x="520" y="110" width="180" height="120" rx="6" class="availability-node"/>
+  <text x="610" y="130" class="element-title">可用性</text>
+  <text x="610" y="145" class="element-title">(Availability)</text>
+  <text x="530" y="165" class="item-text">• 冗長化</text>
+  <text x="530" y="180" class="item-text">• 負荷分散</text>
+  <text x="530" y="195" class="item-text">• 災害復旧</text>
+  
+  <!-- Tradeoffs Section -->
+  <rect x="50" y="270" width="700" height="20" rx="3" fill="var(--security-bg)" stroke="var(--error)" stroke-width="1"/>
+  <text x="400" y="284" class="section-title">実装時のトレードオフ</text>
+  
+  <!-- Security vs others -->
+  <rect x="100" y="320" width="150" height="80" rx="4" class="security-node"/>
+  <text x="175" y="340" class="element-title">セキュリティ強化</text>
+  <text x="110" y="365" class="item-text">• 多層防御</text>
+  <text x="110" y="380" class="item-text">• 厳密な認証</text>
+  <text x="110" y="395" class="item-text">• 詳細監視</text>
+  
+  <!-- Usability -->
+  <rect x="280" y="320" width="120" height="80" rx="4" class="availability-node"/>
+  <text x="340" y="345" class="element-title">使いやすさ</text>
+  <text x="290" y="365" class="item-text">• シンプルUI</text>
+  <text x="290" y="380" class="item-text">• 高速アクセス</text>
+  
+  <!-- Performance -->
+  <rect x="430" y="320" width="120" height="80" rx="4" class="integrity-node"/>
+  <text x="490" y="345" class="element-title">パフォーマンス</text>
+  <text x="440" y="365" class="item-text">• 高速処理</text>
+  <text x="440" y="380" class="item-text">• 最小遅延</text>
+  
+  <!-- Cost -->
+  <rect x="580" y="320" width="120" height="80" rx="4" class="financial-node"/>
+  <text x="640" y="345" class="element-title">コスト</text>
+  <text x="590" y="365" class="item-text">• 低初期投資</text>
+  <text x="590" y="380" class="item-text">• 運用効率</text>
+  
+  <!-- Implementation Levels -->
+  <rect x="50" y="440" width="700" height="20" rx="3" fill="var(--integrity-bg)" stroke="var(--success)" stroke-width="1"/>
+  <text x="400" y="454" class="section-title">実装レベル別対策</text>
+  
+  <!-- Network Level -->
+  <rect x="70" y="480" width="150" height="80" rx="4" class="confidentiality-node"/>
+  <text x="145" y="500" class="element-title">ネットワークレベル</text>
+  <text x="80" y="520" class="item-text">• ファイアウォール</text>
+  <text x="80" y="535" class="item-text">• IDS/IPS</text>
+  <text x="80" y="550" class="item-text">• VPN</text>
+  
+  <!-- System Level -->
+  <rect x="240" y="480" width="150" height="80" rx="4" class="integrity-node"/>
+  <text x="315" y="500" class="element-title">システムレベル</text>
+  <text x="250" y="520" class="item-text">• OS設定</text>
+  <text x="250" y="535" class="item-text">• パッチ管理</text>
+  <text x="250" y="550" class="item-text">• アクセス制御</text>
+  
+  <!-- Application Level -->
+  <rect x="410" y="480" width="150" height="80" rx="4" class="availability-node"/>
+  <text x="485" y="500" class="element-title">アプリケーション</text>
+  <text x="420" y="520" class="item-text">• 認証機能</text>
+  <text x="420" y="535" class="item-text">• 入力検証</text>
+  <text x="420" y="550" class="item-text">• セッション管理</text>
+  
+  <!-- Data Level -->
+  <rect x="580" y="480" width="150" height="80" rx="4" class="financial-node"/>
+  <text x="655" y="500" class="element-title">データレベル</text>
+  <text x="590" y="520" class="item-text">• 暗号化</text>
+  <text x="590" y="535" class="item-text">• バックアップ</text>
+  <text x="590" y="550" class="item-text">• アーカイブ</text>
+  
+  <!-- Industry Requirements -->
+  <rect x="50" y="600" width="700" height="20" rx="3" fill="var(--financial-bg)" stroke="var(--neutral)" stroke-width="1"/>
+  <text x="400" y="614" class="section-title">業界別要求レベル</text>
+  
+  <!-- Financial -->
+  <rect x="70" y="640" width="150" height="100" rx="4" class="financial-node"/>
+  <text x="145" y="660" class="element-title">金融業界</text>
+  <text x="80" y="680" class="item-text">• 最高レベル</text>
+  <text x="80" y="695" class="item-text">• 規制準拠</text>
+  <text x="80" y="710" class="item-text">• 監査要求</text>
+  <text x="80" y="725" class="item-text">• リアルタイム監視</text>
+  
+  <!-- Healthcare -->
+  <rect x="240" y="640" width="150" height="100" rx="4" class="healthcare-node"/>
+  <text x="315" y="660" class="element-title">医療業界</text>
+  <text x="250" y="680" class="item-text">• 高レベル</text>
+  <text x="250" y="695" class="item-text">• 患者情報保護</text>
+  <text x="250" y="710" class="item-text">• HIPAA準拠</text>
+  <text x="250" y="725" class="item-text">• プライバシー重視</text>
+  
+  <!-- General -->
+  <rect x="410" y="640" width="150" height="100" rx="4" class="integrity-node"/>
+  <text x="485" y="660" class="element-title">一般企業</text>
+  <text x="420" y="680" class="item-text">• 中レベル</text>
+  <text x="420" y="695" class="item-text">• 業務継続</text>
+  <text x="420" y="710" class="item-text">• 顧客信頼</text>
+  <text x="420" y="725" class="item-text">• バランス重視</text>
+  
+  <!-- Startup -->
+  <rect x="580" y="640" width="150" height="100" rx="4" class="availability-node"/>
+  <text x="655" y="660" class="element-title">スタートアップ</text>
+  <text x="590" y="680" class="item-text">• 基本レベル</text>
+  <text x="590" y="695" class="item-text">• スピード重視</text>
+  <text x="590" y="710" class="item-text">• コスト効率</text>
+  <text x="590" y="725" class="item-text">• 最小限防御</text>
+  
+  <!-- Connection Lines -->
+  <!-- CIA Relationships -->
+  <line x1="190" y1="170" x2="145" y2="480" class="implementation-line"/>
+  <line x1="400" y1="170" x2="315" y2="480" class="implementation-line"/>
+  <line x1="610" y1="170" x2="485" y2="480" class="implementation-line"/>
+  
+  <!-- All to Data Level -->
+  <line x1="145" y1="560" x2="655" y2="560" class="implementation-line"/>
+  <line x1="315" y1="560" x2="655" y2="560" class="implementation-line"/>
+  <line x1="485" y1="560" x2="655" y2="560" class="implementation-line"/>
+  
+  <!-- Industry connections -->
+  <line x1="145" y1="640" x2="190" y2="230" class="relation-line"/>
+  <line x1="315" y1="640" x2="400" y2="230" class="relation-line"/>
+  <line x1="485" y1="640" x2="610" y2="230" class="relation-line"/>
+  <line x1="655" y1="640" x2="640" y2="400" class="relation-line"/>
+  
+  <!-- Tradeoff vs lines -->
+  <line x1="250" y1="360" x2="280" y2="360" class="vs-line"/>
+  <line x1="250" y1="360" x2="430" y2="360" class="vs-line"/>
+  <line x1="250" y1="360" x2="580" y2="360" class="vs-line"/>
+  
+  <!-- Implementation Guidelines -->
+  <rect x="50" y="780" width="700" height="160" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="800" class="section-title">実装ガイドライン</text>
+  
+  <text x="70" y="825" class="element-title" text-anchor="start">リスクベースアプローチ:</text>
+  <text x="80" y="840" class="description-text">• 資産価値に応じたセキュリティレベル • コスト効果を考慮した実装優先度</text>
+  
+  <text x="70" y="865" class="element-title" text-anchor="start">段階的実装:</text>
+  <text x="80" y="880" class="description-text">• 基本的防御から開始 • 成熟度に応じた拡張 • 継続的改善</text>
+  
+  <text x="70" y="905" class="element-title" text-anchor="start">バランス重視:</text>
+  <text x="80" y="920" class="description-text">• セキュリティと利便性の両立 • ビジネス要件との調和 • 実用性確保</text>
+  
+</svg>
