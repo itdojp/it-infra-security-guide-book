@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: 'Noto Sans JP', sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; }
+      .layer-title { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .control-text { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; fill: #2c3e50; }
+      .small-text { font-family: 'Noto Sans JP', sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .outer-layer { fill: #e74c3c; stroke: #c0392b; stroke-width: 2; opacity: 0.7; }
+      .network-layer { fill: #f39c12; stroke: #e67e22; stroke-width: 2; opacity: 0.7; }
+      .host-layer { fill: #3498db; stroke: #2980b9; stroke-width: 2; opacity: 0.7; }
+      .app-layer { fill: #2ecc71; stroke: #27ae60; stroke-width: 2; opacity: 0.7; }
+      .data-layer { fill: #9b59b6; stroke: #8e44ad; stroke-width: 2; opacity: 0.7; }
+      .attacker { fill: #e74c3c; }
+      .arrow { stroke: #e74c3c; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" class="title" text-anchor="middle">多層防御（Defense in Depth）</text>
+
+  <!-- Concentric Layers -->
+  <g id="layers">
+    <!-- Physical/Perimeter Layer -->
+    <ellipse cx="400" cy="320" rx="350" ry="250" class="outer-layer"/>
+    <text x="400" y="90" class="layer-title" text-anchor="middle">物理・境界セキュリティ</text>
+    <text x="200" y="110" class="control-text">• 物理アクセス制御</text>
+    <text x="200" y="125" class="control-text">• 監視カメラ</text>
+    <text x="500" y="110" class="control-text">• ファイアウォール</text>
+    <text x="500" y="125" class="control-text">• IDS/IPS</text>
+
+    <!-- Network Layer -->
+    <ellipse cx="400" cy="320" rx="280" ry="200" class="network-layer"/>
+    <text x="400" y="150" class="layer-title" text-anchor="middle">ネットワークセキュリティ</text>
+    <text x="250" y="170" class="control-text">• VLAN分離</text>
+    <text x="250" y="185" class="control-text">• VPN</text>
+    <text x="480" y="170" class="control-text">• ネットワークセグメンテーション</text>
+    <text x="480" y="185" class="control-text">• DDoS対策</text>
+
+    <!-- Host Layer -->
+    <ellipse cx="400" cy="320" rx="210" ry="150" class="host-layer"/>
+    <text x="400" y="210" class="layer-title" text-anchor="middle">ホストセキュリティ</text>
+    <text x="300" y="230" class="control-text">• OS強化</text>
+    <text x="300" y="245" class="control-text">• パッチ管理</text>
+    <text x="450" y="230" class="control-text">• エンドポイント保護</text>
+    <text x="450" y="245" class="control-text">• ホストファイアウォール</text>
+
+    <!-- Application Layer -->
+    <ellipse cx="400" cy="320" rx="140" ry="100" class="app-layer"/>
+    <text x="400" y="270" class="layer-title" text-anchor="middle">アプリケーションセキュリティ</text>
+    <text x="340" y="290" class="control-text">• WAF</text>
+    <text x="340" y="305" class="control-text">• 入力検証</text>
+    <text x="430" y="290" class="control-text">• セキュアコーディング</text>
+    <text x="430" y="305" class="control-text">• 認証・認可</text>
+
+    <!-- Data Layer -->
+    <ellipse cx="400" cy="320" rx="70" ry="50" class="data-layer"/>
+    <text x="400" y="320" class="layer-title" text-anchor="middle">データ</text>
+    <text x="400" y="340" class="control-text" text-anchor="middle">暗号化</text>
+    <text x="400" y="355" class="control-text" text-anchor="middle">アクセス制御</text>
+  </g>
+
+  <!-- Attacker -->
+  <g id="attacker">
+    <circle cx="50" cy="320" r="20" class="attacker"/>
+    <text x="50" y="355" class="control-text" text-anchor="middle">攻撃者</text>
+    <path d="M 70 320 L 120 320" class="arrow"/>
+  </g>
+
+  <!-- Security Controls Legend -->
+  <g id="legend">
+    <rect x="50" y="480" width="700" height="100" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+    <text x="400" y="505" class="layer-title" text-anchor="middle" fill="#2c3e50">各層の防御メカニズム</text>
+    
+    <text x="70" y="530" class="small-text">物理層: 施設への物理的アクセス制御、環境監視</text>
+    <text x="70" y="545" class="small-text">ネットワーク層: トラフィック制御、侵入検知・防止</text>
+    <text x="70" y="560" class="small-text">ホスト層: システム強化、マルウェア対策</text>
+    
+    <text x="420" y="530" class="small-text">アプリケーション層: コード脆弱性対策、認証強化</text>
+    <text x="420" y="545" class="small-text">データ層: 情報の機密性・完全性・可用性保護</text>
+    <text x="420" y="560" class="small-text">※ 各層が独立して機能し、一つが破られても他層で防御</text>
+  </g>
+</svg>

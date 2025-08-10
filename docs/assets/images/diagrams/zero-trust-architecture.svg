@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="700" viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: 'Noto Sans JP', sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; }
+      .principle-title { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: bold; fill: #34495e; }
+      .component-text { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; fill: #2c3e50; }
+      .small-text { font-family: 'Noto Sans JP', sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .policy-engine { fill: #e74c3c; stroke: #c0392b; stroke-width: 2; }
+      .identity-box { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .device-box { fill: #2ecc71; stroke: #27ae60; stroke-width: 2; }
+      .resource-box { fill: #f39c12; stroke: #e67e22; stroke-width: 2; }
+      .monitor-box { fill: #9b59b6; stroke: #8e44ad; stroke-width: 2; }
+      .component-box { fill: #fff; stroke: #95a5a6; stroke-width: 1; }
+      .verify-arrow { stroke: #e74c3c; stroke-width: 2; stroke-dasharray: 5,3; fill: none; }
+      .access-arrow { stroke: #27ae60; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" class="title" text-anchor="middle">ゼロトラストアーキテクチャ</text>
+
+  <!-- Core Principle -->
+  <rect x="300" y="60" width="300" height="40" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+  <text x="450" y="85" class="principle-title" text-anchor="middle">「決して信頼せず、常に検証する」</text>
+
+  <!-- Policy Decision Point (PDP) / Policy Engine -->
+  <g id="policy-engine">
+    <rect x="350" y="250" width="200" height="100" class="policy-engine" rx="10"/>
+    <text x="450" y="280" class="component-text" text-anchor="middle" fill="#fff" font-weight="bold">ポリシー決定点</text>
+    <text x="450" y="300" class="component-text" text-anchor="middle" fill="#fff">(PDP/PEP)</text>
+    <text x="450" y="320" class="small-text" text-anchor="middle" fill="#fff">• リスク評価</text>
+    <text x="450" y="335" class="small-text" text-anchor="middle" fill="#fff">• アクセス判定</text>
+  </g>
+
+  <!-- Identity -->
+  <g id="identity">
+    <rect x="50" y="150" width="150" height="80" class="identity-box" rx="5"/>
+    <text x="125" y="175" class="component-text" text-anchor="middle" fill="#fff" font-weight="bold">アイデンティティ</text>
+    <text x="125" y="195" class="small-text" text-anchor="middle" fill="#fff">• ユーザー認証</text>
+    <text x="125" y="210" class="small-text" text-anchor="middle" fill="#fff">• MFA</text>
+    <text x="125" y="225" class="small-text" text-anchor="middle" fill="#fff">• 権限管理</text>
+  </g>
+
+  <!-- Device -->
+  <g id="device">
+    <rect x="50" y="350" width="150" height="80" class="device-box" rx="5"/>
+    <text x="125" y="375" class="component-text" text-anchor="middle" fill="#fff" font-weight="bold">デバイス</text>
+    <text x="125" y="395" class="small-text" text-anchor="middle" fill="#fff">• デバイス認証</text>
+    <text x="125" y="410" class="small-text" text-anchor="middle" fill="#fff">• コンプライアンス</text>
+    <text x="125" y="425" class="small-text" text-anchor="middle" fill="#fff">• 健全性チェック</text>
+  </g>
+
+  <!-- Resources -->
+  <g id="resources">
+    <rect x="700" y="150" width="150" height="80" class="resource-box" rx="5"/>
+    <text x="775" y="175" class="component-text" text-anchor="middle" fill="#fff" font-weight="bold">リソース</text>
+    <text x="775" y="195" class="small-text" text-anchor="middle" fill="#fff">• アプリケーション</text>
+    <text x="775" y="210" class="small-text" text-anchor="middle" fill="#fff">• データ</text>
+    <text x="775" y="225" class="small-text" text-anchor="middle" fill="#fff">• サービス</text>
+  </g>
+
+  <!-- Monitoring -->
+  <g id="monitoring">
+    <rect x="700" y="350" width="150" height="80" class="monitor-box" rx="5"/>
+    <text x="775" y="375" class="component-text" text-anchor="middle" fill="#fff" font-weight="bold">監視・分析</text>
+    <text x="775" y="395" class="small-text" text-anchor="middle" fill="#fff">• SIEM</text>
+    <text x="775" y="410" class="small-text" text-anchor="middle" fill="#fff">• 行動分析</text>
+    <text x="775" y="425" class="small-text" text-anchor="middle" fill="#fff">• 脅威インテリジェンス</text>
+  </g>
+
+  <!-- Context Sources -->
+  <g id="context">
+    <rect x="300" y="450" width="300" height="80" class="component-box" rx="5"/>
+    <text x="450" y="475" class="component-text" text-anchor="middle" font-weight="bold">コンテキスト情報源</text>
+    <text x="360" y="495" class="small-text">• ロケーション</text>
+    <text x="360" y="510" class="small-text">• 時間</text>
+    <text x="450" y="495" class="small-text">• ネットワーク</text>
+    <text x="450" y="510" class="small-text">• アプリ状態</text>
+    <text x="540" y="495" class="small-text">• データ分類</text>
+    <text x="540" y="510" class="small-text">• 脅威レベル</text>
+  </g>
+
+  <!-- Verification Flows -->
+  <path d="M 200 190 L 350 280" class="verify-arrow"/>
+  <path d="M 200 390 L 350 320" class="verify-arrow"/>
+  <path d="M 550 280 L 700 190" class="verify-arrow"/>
+  <path d="M 550 320 L 700 390" class="verify-arrow"/>
+  <path d="M 450 350 L 450 450" class="verify-arrow"/>
+
+  <!-- Access Flow -->
+  <path d="M 125 230 Q 450 380 775 230" class="access-arrow" stroke-width="3"/>
+  <text x="450" y="380" class="small-text" text-anchor="middle">継続的な検証とアクセス制御</text>
+
+  <!-- Zero Trust Principles -->
+  <g id="principles">
+    <rect x="50" y="560" width="800" height="120" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+    <text x="450" y="585" class="principle-title" text-anchor="middle">ゼロトラストの基本原則</text>
+    
+    <text x="70" y="610" class="component-text">1. 明示的な検証</text>
+    <text x="80" y="625" class="small-text">すべてのアクセスを検証</text>
+    
+    <text x="250" y="610" class="component-text">2. 最小権限アクセス</text>
+    <text x="260" y="625" class="small-text">必要最小限の権限付与</text>
+    
+    <text x="450" y="610" class="component-text">3. 侵害を前提とする</text>
+    <text x="460" y="625" class="small-text">セグメンテーション強化</text>
+    
+    <text x="650" y="610" class="component-text">4. 継続的な監視</text>
+    <text x="660" y="625" class="small-text">リアルタイム脅威検知</text>
+    
+    <text x="70" y="650" class="small-text">※ 従来の境界型セキュリティから、アイデンティティベースのセキュリティへの転換</text>
+    <text x="70" y="665" class="small-text">※ ネットワークの場所に関係なく、すべてのアクセスを信頼せず検証</text>
+  </g>
+</svg>
