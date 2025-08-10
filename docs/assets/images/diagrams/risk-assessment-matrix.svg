@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <title>セキュリティリスク評価マトリックス</title>
+  <desc>情報セキュリティリスクの可能性と影響度を評価する5x5リスクマトリックスと対策優先度</desc>
+  <defs>
+    <style>
+      :root {
+        --svg-bg: #ffffff;
+        --svg-text: #1a1a1a;
+        --svg-primary: #0066cc;
+        --svg-success: #16a34a;
+        --svg-warning: #ca8a04;
+        --svg-error: #dc2626;
+        --svg-neutral: #6b7280;
+      }
+      .title-text { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: 600; fill: var(--svg-text); }
+      .axis-title { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 500; fill: var(--svg-text); }
+      .cell-text { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 400; fill: var(--svg-text); }
+      .annotation-text { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 400; fill: var(--svg-neutral); }
+      .low-risk { fill: var(--svg-success); fill-opacity: 0.3; stroke: var(--svg-success); stroke-width: 1; }
+      .medium-risk { fill: var(--svg-warning); fill-opacity: 0.3; stroke: var(--svg-warning); stroke-width: 1; }
+      .high-risk { fill: var(--svg-error); fill-opacity: 0.3; stroke: var(--svg-error); stroke-width: 1; }
+      .critical-risk { fill: var(--svg-error); fill-opacity: 0.6; stroke: var(--svg-error); stroke-width: 2; }
+      .threat-marker { fill: var(--svg-primary); stroke: var(--svg-bg); stroke-width: 2; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" class="title-text" text-anchor="middle">セキュリティリスク評価マトリックス</text>
+
+  <!-- Risk Matrix Grid -->
+  <g id="risk-matrix">
+    <!-- Y-axis Label -->
+    <text x="60" y="250" class="axis-title" text-anchor="middle" transform="rotate(-90 60 250)">発生可能性</text>
+    
+    <!-- X-axis Label -->
+    <text x="400" y="480" class="axis-title" text-anchor="middle">影響度</text>
+    
+    <!-- Grid Cells -->
+    <!-- Row 5: 極高 (90-100%) -->
+    <rect x="120" y="100" width="80" height="60" class="low-risk"/>
+    <rect x="200" y="100" width="80" height="60" class="medium-risk"/>
+    <rect x="280" y="100" width="80" height="60" class="high-risk"/>
+    <rect x="360" y="100" width="80" height="60" class="critical-risk"/>
+    <rect x="440" y="100" width="80" height="60" class="critical-risk"/>
+    
+    <!-- Row 4: 高 (70-90%) -->
+    <rect x="120" y="160" width="80" height="60" class="low-risk"/>
+    <rect x="200" y="160" width="80" height="60" class="medium-risk"/>
+    <rect x="280" y="160" width="80" height="60" class="high-risk"/>
+    <rect x="360" y="160" width="80" height="60" class="high-risk"/>
+    <rect x="440" y="160" width="80" height="60" class="critical-risk"/>
+    
+    <!-- Row 3: 中 (40-70%) -->
+    <rect x="120" y="220" width="80" height="60" class="low-risk"/>
+    <rect x="200" y="220" width="80" height="60" class="low-risk"/>
+    <rect x="280" y="220" width="80" height="60" class="medium-risk"/>
+    <rect x="360" y="220" width="80" height="60" class="high-risk"/>
+    <rect x="440" y="220" width="80" height="60" class="high-risk"/>
+    
+    <!-- Row 2: 低 (10-40%) -->
+    <rect x="120" y="280" width="80" height="60" class="low-risk"/>
+    <rect x="200" y="280" width="80" height="60" class="low-risk"/>
+    <rect x="280" y="280" width="80" height="60" class="medium-risk"/>
+    <rect x="360" y="280" width="80" height="60" class="medium-risk"/>
+    <rect x="440" y="280" width="80" height="60" class="high-risk"/>
+    
+    <!-- Row 1: 極低 (0-10%) -->
+    <rect x="120" y="340" width="80" height="60" class="low-risk"/>
+    <rect x="200" y="340" width="80" height="60" class="low-risk"/>
+    <rect x="280" y="340" width="80" height="60" class="low-risk"/>
+    <rect x="360" y="340" width="80" height="60" class="medium-risk"/>
+    <rect x="440" y="340" width="80" height="60" class="medium-risk"/>
+    
+    <!-- Y-axis Labels -->
+    <text x="100" y="135" class="cell-text" text-anchor="end">極高</text>
+    <text x="100" y="195" class="cell-text" text-anchor="end">高</text>
+    <text x="100" y="255" class="cell-text" text-anchor="end">中</text>
+    <text x="100" y="315" class="cell-text" text-anchor="end">低</text>
+    <text x="100" y="375" class="cell-text" text-anchor="end">極低</text>
+    
+    <!-- X-axis Labels -->
+    <text x="160" y="420" class="cell-text" text-anchor="middle">極低</text>
+    <text x="240" y="420" class="cell-text" text-anchor="middle">低</text>
+    <text x="320" y="420" class="cell-text" text-anchor="middle">中</text>
+    <text x="400" y="420" class="cell-text" text-anchor="middle">高</text>
+    <text x="480" y="420" class="cell-text" text-anchor="middle">極高</text>
+    
+    <!-- Risk Scores in Cells -->
+    <text x="160" y="135" class="cell-text" text-anchor="middle" font-weight="500">5</text>
+    <text x="240" y="135" class="cell-text" text-anchor="middle" font-weight="500">10</text>
+    <text x="320" y="135" class="cell-text" text-anchor="middle" font-weight="500">15</text>
+    <text x="400" y="135" class="cell-text" text-anchor="middle" font-weight="500">20</text>
+    <text x="480" y="135" class="cell-text" text-anchor="middle" font-weight="500">25</text>
+    
+    <text x="160" y="195" class="cell-text" text-anchor="middle" font-weight="500">4</text>
+    <text x="240" y="195" class="cell-text" text-anchor="middle" font-weight="500">8</text>
+    <text x="320" y="195" class="cell-text" text-anchor="middle" font-weight="500">12</text>
+    <text x="400" y="195" class="cell-text" text-anchor="middle" font-weight="500">16</text>
+    <text x="480" y="195" class="cell-text" text-anchor="middle" font-weight="500">20</text>
+    
+    <text x="160" y="255" class="cell-text" text-anchor="middle" font-weight="500">3</text>
+    <text x="240" y="255" class="cell-text" text-anchor="middle" font-weight="500">6</text>
+    <text x="320" y="255" class="cell-text" text-anchor="middle" font-weight="500">9</text>
+    <text x="400" y="255" class="cell-text" text-anchor="middle" font-weight="500">12</text>
+    <text x="480" y="255" class="cell-text" text-anchor="middle" font-weight="500">15</text>
+    
+    <text x="160" y="315" class="cell-text" text-anchor="middle" font-weight="500">2</text>
+    <text x="240" y="315" class="cell-text" text-anchor="middle" font-weight="500">4</text>
+    <text x="320" y="315" class="cell-text" text-anchor="middle" font-weight="500">6</text>
+    <text x="400" y="315" class="cell-text" text-anchor="middle" font-weight="500">8</text>
+    <text x="480" y="315" class="cell-text" text-anchor="middle" font-weight="500">10</text>
+    
+    <text x="160" y="375" class="cell-text" text-anchor="middle" font-weight="500">1</text>
+    <text x="240" y="375" class="cell-text" text-anchor="middle" font-weight="500">2</text>
+    <text x="320" y="375" class="cell-text" text-anchor="middle" font-weight="500">3</text>
+    <text x="400" y="375" class="cell-text" text-anchor="middle" font-weight="500">4</text>
+    <text x="480" y="375" class="cell-text" text-anchor="middle" font-weight="500">5</text>
+  </g>
+
+  <!-- Threat Examples -->
+  <g id="threat-examples">
+    <!-- Ransomware -->
+    <circle cx="400" cy="130" r="8" class="threat-marker"/>
+    <text x="410" y="125" class="annotation-text">ランサムウェア</text>
+    
+    <!-- Data Breach -->
+    <circle cx="440" cy="190" r="8" class="threat-marker"/>
+    <text x="450" y="185" class="annotation-text">データ漏洩</text>
+    
+    <!-- DDoS -->
+    <circle cx="320" cy="190" r="8" class="threat-marker"/>
+    <text x="330" y="185" class="annotation-text">DDoS攻撃</text>
+    
+    <!-- Phishing -->
+    <circle cx="280" cy="130" r="8" class="threat-marker"/>
+    <text x="290" y="125" class="annotation-text">フィッシング</text>
+    
+    <!-- Insider Threat -->
+    <circle cx="360" cy="250" r="8" class="threat-marker"/>
+    <text x="370" y="245" class="annotation-text">内部脅威</text>
+    
+    <!-- Malware -->
+    <circle cx="320" cy="250" r="8" class="threat-marker"/>
+    <text x="255" y="245" class="annotation-text">マルウェア</text>
+  </g>
+
+  <!-- Risk Categories Legend -->
+  <g id="risk-legend">
+    <rect x="560" y="100" width="180" height="160" fill="var(--svg-neutral)" fill-opacity="0.05" stroke="var(--svg-text)" stroke-width="2" rx="4"/>
+    <text x="650" y="120" class="axis-title" text-anchor="middle">リスクレベル</text>
+    
+    <!-- Critical -->
+    <rect x="580" y="130" width="30" height="20" class="critical-risk"/>
+    <text x="620" y="145" class="cell-text">致命的 (20-25)</text>
+    
+    <!-- High -->
+    <rect x="580" y="160" width="30" height="20" class="high-risk"/>
+    <text x="620" y="175" class="cell-text">高 (12-19)</text>
+    
+    <!-- Medium -->
+    <rect x="580" y="190" width="30" height="20" class="medium-risk"/>
+    <text x="620" y="205" class="cell-text">中 (6-11)</text>
+    
+    <!-- Low -->
+    <rect x="580" y="220" width="30" height="20" class="low-risk"/>
+    <text x="620" y="235" class="cell-text">低 (1-5)</text>
+  </g>
+
+  <!-- Response Actions -->
+  <g id="response-actions">
+    <rect x="560" y="280" width="180" height="120" fill="var(--svg-primary)" fill-opacity="0.05" stroke="var(--svg-primary)" stroke-width="2" rx="4"/>
+    <text x="650" y="300" class="axis-title" text-anchor="middle">対応措置</text>
+    
+    <text x="570" y="320" class="annotation-text" font-weight="500">致命的:</text>
+    <text x="615" y="320" class="annotation-text">即時対応必須</text>
+    
+    <text x="570" y="340" class="annotation-text" font-weight="500">高:</text>
+    <text x="595" y="340" class="annotation-text">24時間以内対応</text>
+    
+    <text x="570" y="360" class="annotation-text" font-weight="500">中:</text>
+    <text x="595" y="360" class="annotation-text">1週間以内対応</text>
+    
+    <text x="570" y="380" class="annotation-text" font-weight="500">低:</text>
+    <text x="595" y="380" class="annotation-text">定期レビュー</text>
+  </g>
+
+  <!-- Risk Treatment Strategies -->
+  <g id="treatment-strategies">
+    <rect x="80" y="500" width="640" height="80" fill="var(--svg-success)" fill-opacity="0.05" stroke="var(--svg-success)" stroke-width="2" rx="4"/>
+    <text x="400" y="520" class="axis-title" text-anchor="middle">リスク対応戦略</text>
+    
+    <!-- Avoid -->
+    <rect x="100" y="530" width="140" height="40" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="170" y="545" class="cell-text" text-anchor="middle" font-weight="500">回避</text>
+    <text x="170" y="560" class="annotation-text" text-anchor="middle">活動停止・変更</text>
+    
+    <!-- Mitigate -->
+    <rect x="260" y="530" width="140" height="40" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="330" y="545" class="cell-text" text-anchor="middle" font-weight="500">低減</text>
+    <text x="330" y="560" class="annotation-text" text-anchor="middle">制御実装</text>
+    
+    <!-- Transfer -->
+    <rect x="420" y="530" width="140" height="40" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="490" y="545" class="cell-text" text-anchor="middle" font-weight="500">移転</text>
+    <text x="490" y="560" class="annotation-text" text-anchor="middle">保険・外部委託</text>
+    
+    <!-- Accept -->
+    <rect x="580" y="530" width="120" height="40" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="640" y="545" class="cell-text" text-anchor="middle" font-weight="500">受容</text>
+    <text x="640" y="560" class="annotation-text" text-anchor="middle">リスク保有</text>
+  </g>
+</svg>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <title>SOC/SIEMアーキテクチャとワークフロー</title>
+  <desc>セキュリティオペレーションセンター（SOC）とSIEM/SOARの統合アーキテクチャおよび自動化ワークフロー</desc>
+  <defs>
+    <style>
+      :root {
+        --svg-bg: #ffffff;
+        --svg-text: #1a1a1a;
+        --svg-primary: #0066cc;
+        --svg-success: #16a34a;
+        --svg-warning: #ca8a04;
+        --svg-error: #dc2626;
+        --svg-neutral: #6b7280;
+      }
+      .title-text { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: 600; fill: var(--svg-text); }
+      .component-title { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 500; fill: var(--svg-bg); }
+      .process-text { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 400; fill: var(--svg-text); }
+      .annotation-text { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 400; fill: var(--svg-neutral); }
+      .data-source { fill: var(--svg-primary); stroke: var(--svg-primary); stroke-width: 2; }
+      .siem-core { fill: var(--svg-warning); stroke: var(--svg-warning); stroke-width: 2; }
+      .soar-component { fill: var(--svg-success); stroke: var(--svg-success); stroke-width: 2; }
+      .soc-team { fill: var(--svg-error); stroke: var(--svg-error); stroke-width: 2; }
+      .data-flow { stroke: var(--svg-primary); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .automation-flow { stroke: var(--svg-success); stroke-width: 2; stroke-dasharray: 5,3; fill: none; marker-end: url(#arrowhead-green); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="var(--svg-primary)"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="var(--svg-success)"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" class="title-text" text-anchor="middle">SOC/SIEMアーキテクチャとワークフロー</text>
+
+  <!-- Data Sources Layer -->
+  <g id="data-sources">
+    <rect x="60" y="60" width="680" height="80" fill="var(--svg-primary)" fill-opacity="0.05" stroke="var(--svg-primary)" stroke-width="2" rx="4"/>
+    <text x="400" y="80" class="process-text" text-anchor="middle" font-weight="500">データソース層</text>
+    
+    <!-- Network Devices -->
+    <rect x="80" y="90" width="80" height="40" class="data-source" rx="4"/>
+    <text x="120" y="105" class="component-title" text-anchor="middle">ネットワーク</text>
+    <text x="120" y="120" class="annotation-text" text-anchor="middle">FW/IDS/IPS</text>
+    
+    <!-- Servers -->
+    <rect x="180" y="90" width="80" height="40" class="data-source" rx="4"/>
+    <text x="220" y="105" class="component-title" text-anchor="middle">サーバー</text>
+    <text x="220" y="120" class="annotation-text" text-anchor="middle">OS/App logs</text>
+    
+    <!-- Endpoints -->
+    <rect x="280" y="90" width="80" height="40" class="data-source" rx="4"/>
+    <text x="320" y="105" class="component-title" text-anchor="middle">エンドポイント</text>
+    <text x="320" y="120" class="annotation-text" text-anchor="middle">EDR/AV</text>
+    
+    <!-- Cloud -->
+    <rect x="380" y="90" width="80" height="40" class="data-source" rx="4"/>
+    <text x="420" y="105" class="component-title" text-anchor="middle">クラウド</text>
+    <text x="420" y="120" class="annotation-text" text-anchor="middle">AWS/Azure</text>
+    
+    <!-- Applications -->
+    <rect x="480" y="90" width="80" height="40" class="data-source" rx="4"/>
+    <text x="520" y="105" class="component-title" text-anchor="middle">アプリ</text>
+    <text x="520" y="120" class="annotation-text" text-anchor="middle">Web/DB</text>
+    
+    <!-- Threat Intel -->
+    <rect x="580" y="90" width="80" height="40" class="data-source" rx="4"/>
+    <text x="620" y="105" class="component-title" text-anchor="middle">脅威情報</text>
+    <text x="620" y="120" class="annotation-text" text-anchor="middle">TI Feeds</text>
+  </g>
+
+  <!-- SIEM Core -->
+  <g id="siem-core">
+    <rect x="200" y="170" width="400" height="120" class="siem-core" rx="4"/>
+    <text x="400" y="190" class="component-title" text-anchor="middle">SIEM コア機能</text>
+    
+    <!-- Collection -->
+    <rect x="220" y="200" width="80" height="70" fill="var(--svg-bg)" stroke="var(--svg-warning)" stroke-width="1" rx="4"/>
+    <text x="260" y="220" class="process-text" text-anchor="middle" font-weight="500">収集</text>
+    <text x="230" y="235" class="annotation-text">• ログ正規化</text>
+    <text x="230" y="250" class="annotation-text">• パース処理</text>
+    <text x="230" y="265" class="annotation-text">• エンリッチ</text>
+    
+    <!-- Correlation -->
+    <rect x="320" y="200" width="80" height="70" fill="var(--svg-bg)" stroke="var(--svg-warning)" stroke-width="1" rx="4"/>
+    <text x="360" y="220" class="process-text" text-anchor="middle" font-weight="500">相関分析</text>
+    <text x="330" y="235" class="annotation-text">• ルール適用</text>
+    <text x="330" y="250" class="annotation-text">• パターン検知</text>
+    <text x="330" y="265" class="annotation-text">• 機械学習</text>
+    
+    <!-- Detection -->
+    <rect x="420" y="200" width="80" height="70" fill="var(--svg-bg)" stroke="var(--svg-warning)" stroke-width="1" rx="4"/>
+    <text x="460" y="220" class="process-text" text-anchor="middle" font-weight="500">検知</text>
+    <text x="430" y="235" class="annotation-text">• 異常検知</text>
+    <text x="430" y="250" class="annotation-text">• 脅威判定</text>
+    <text x="430" y="265" class="annotation-text">• スコアリング</text>
+    
+    <!-- Alert -->
+    <rect x="520" y="200" width="60" height="70" fill="var(--svg-bg)" stroke="var(--svg-warning)" stroke-width="1" rx="4"/>
+    <text x="550" y="220" class="process-text" text-anchor="middle" font-weight="500">通知</text>
+    <text x="530" y="235" class="annotation-text">• 優先度</text>
+    <text x="530" y="250" class="annotation-text">• 分類</text>
+    <text x="530" y="265" class="annotation-text">• 配信</text>
+  </g>
+
+  <!-- SOAR Automation -->
+  <g id="soar-layer">
+    <rect x="60" y="310" width="320" height="120" class="soar-component" rx="4"/>
+    <text x="220" y="330" class="component-title" text-anchor="middle">SOAR 自動化レスポンス</text>
+    
+    <!-- Orchestration -->
+    <rect x="80" y="340" width="90" height="70" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="125" y="360" class="process-text" text-anchor="middle" font-weight="500">オーケストレーション</text>
+    <text x="90" y="375" class="annotation-text">• プレイブック</text>
+    <text x="90" y="390" class="annotation-text">• ワークフロー</text>
+    <text x="90" y="405" class="annotation-text">• 自動実行</text>
+    
+    <!-- Automated Response -->
+    <rect x="190" y="340" width="90" height="70" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="235" y="360" class="process-text" text-anchor="middle" font-weight="500">自動対応</text>
+    <text x="200" y="375" class="annotation-text">• 隔離</text>
+    <text x="200" y="390" class="annotation-text">• ブロック</text>
+    <text x="200" y="405" class="annotation-text">• 修復</text>
+    
+    <!-- Case Management -->
+    <rect x="300" y="340" width="60" height="70" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="330" y="360" class="process-text" text-anchor="middle" font-weight="500">ケース管理</text>
+    <text x="310" y="375" class="annotation-text">• チケット</text>
+    <text x="310" y="390" class="annotation-text">• 追跡</text>
+    <text x="310" y="405" class="annotation-text">• 報告</text>
+  </g>
+
+  <!-- SOC Team -->
+  <g id="soc-team">
+    <rect x="420" y="310" width="320" height="120" class="soc-team" rx="4"/>
+    <text x="580" y="330" class="component-title" text-anchor="middle">SOCチーム階層</text>
+    
+    <!-- Tier 1 -->
+    <rect x="440" y="340" width="80" height="70" fill="var(--svg-bg)" stroke="var(--svg-error)" stroke-width="1" rx="4"/>
+    <text x="480" y="360" class="process-text" text-anchor="middle" font-weight="500">Tier 1</text>
+    <text x="450" y="375" class="annotation-text">• 初期対応</text>
+    <text x="450" y="390" class="annotation-text">• トリアージ</text>
+    <text x="450" y="405" class="annotation-text">• エスカレーション</text>
+    
+    <!-- Tier 2 -->
+    <rect x="540" y="340" width="80" height="70" fill="var(--svg-bg)" stroke="var(--svg-error)" stroke-width="1" rx="4"/>
+    <text x="580" y="360" class="process-text" text-anchor="middle" font-weight="500">Tier 2</text>
+    <text x="550" y="375" class="annotation-text">• 詳細分析</text>
+    <text x="550" y="390" class="annotation-text">• 調査</text>
+    <text x="550" y="405" class="annotation-text">• 対応策定</text>
+    
+    <!-- Tier 3 -->
+    <rect x="640" y="340" width="80" height="70" fill="var(--svg-bg)" stroke="var(--svg-error)" stroke-width="1" rx="4"/>
+    <text x="680" y="360" class="process-text" text-anchor="middle" font-weight="500">Tier 3</text>
+    <text x="650" y="375" class="annotation-text">• 高度分析</text>
+    <text x="650" y="390" class="annotation-text">• マルウェア解析</text>
+    <text x="650" y="405" class="annotation-text">• 脅威ハンティング</text>
+  </g>
+
+  <!-- KPI Dashboard -->
+  <g id="kpi-dashboard">
+    <rect x="80" y="450" width="640" height="120" fill="var(--svg-neutral)" fill-opacity="0.05" stroke="var(--svg-text)" stroke-width="2" rx="4"/>
+    <text x="400" y="470" class="process-text" text-anchor="middle" font-weight="500">SOCパフォーマンスKPI</text>
+    
+    <!-- MTTD -->
+    <rect x="100" y="490" width="140" height="60" fill="var(--svg-bg)" stroke="var(--svg-neutral)" stroke-width="1" rx="4"/>
+    <text x="170" y="510" class="process-text" text-anchor="middle" font-weight="500">MTTD</text>
+    <text x="170" y="525" class="annotation-text" text-anchor="middle">平均検知時間</text>
+    <text x="170" y="540" class="annotation-text" text-anchor="middle">目標: &lt;15分</text>
+    
+    <!-- MTTR -->
+    <rect x="260" y="490" width="140" height="60" fill="var(--svg-bg)" stroke="var(--svg-neutral)" stroke-width="1" rx="4"/>
+    <text x="330" y="510" class="process-text" text-anchor="middle" font-weight="500">MTTR</text>
+    <text x="330" y="525" class="annotation-text" text-anchor="middle">平均対応時間</text>
+    <text x="330" y="540" class="annotation-text" text-anchor="middle">目標: &lt;60分</text>
+    
+    <!-- False Positive Rate -->
+    <rect x="420" y="490" width="140" height="60" fill="var(--svg-bg)" stroke="var(--svg-neutral)" stroke-width="1" rx="4"/>
+    <text x="490" y="510" class="process-text" text-anchor="middle" font-weight="500">誤検知率</text>
+    <text x="490" y="525" class="annotation-text" text-anchor="middle">False Positive</text>
+    <text x="490" y="540" class="annotation-text" text-anchor="middle">目標: &lt;5%</text>
+    
+    <!-- Coverage -->
+    <rect x="580" y="490" width="120" height="60" fill="var(--svg-bg)" stroke="var(--svg-neutral)" stroke-width="1" rx="4"/>
+    <text x="640" y="510" class="process-text" text-anchor="middle" font-weight="500">カバレッジ</text>
+    <text x="640" y="525" class="annotation-text" text-anchor="middle">監視範囲</text>
+    <text x="640" y="540" class="annotation-text" text-anchor="middle">目標: &gt;95%</text>
+  </g>
+
+  <!-- Data Flow Arrows -->
+  <path d="M 400 140 L 400 170" class="data-flow"/>
+  <path d="M 400 290 L 220 310" class="data-flow"/>
+  <path d="M 400 290 L 580 310" class="data-flow"/>
+  
+  <!-- Automation Flow -->
+  <path d="M 220 310 L 400 290" class="automation-flow"/>
+</svg>
