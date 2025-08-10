@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <title>ネットワークセグメンテーションアーキテクチャ</title>
+  <desc>マイクロセグメンテーション戦略とゼロトラストネットワーク実装の詳細アーキテクチャ図</desc>
+  <defs>
+    <style>
+      :root {
+        --svg-bg: #ffffff;
+        --svg-text: #1a1a1a;
+        --svg-primary: #0066cc;
+        --svg-success: #16a34a;
+        --svg-warning: #ca8a04;
+        --svg-error: #dc2626;
+        --svg-neutral: #6b7280;
+      }
+      .title-text { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: 600; fill: var(--svg-text); }
+      .zone-title { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 500; fill: var(--svg-bg); }
+      .segment-text { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 12px; font-weight: 400; fill: var(--svg-text); }
+      .annotation-text { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 10px; font-weight: 400; fill: var(--svg-neutral); }
+      .dmz-zone { fill: var(--svg-error); stroke: var(--svg-error); stroke-width: 2; }
+      .internal-zone { fill: var(--svg-warning); stroke: var(--svg-warning); stroke-width: 2; }
+      .secure-zone { fill: var(--svg-success); stroke: var(--svg-success); stroke-width: 2; }
+      .micro-segment { fill: var(--svg-primary); stroke: var(--svg-primary); stroke-width: 2; }
+      .firewall-line { stroke: var(--svg-error); stroke-width: 3; stroke-dasharray: 5,3; fill: none; }
+      .data-flow { stroke: var(--svg-primary); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="var(--svg-primary)"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" class="title-text" text-anchor="middle">ネットワークセグメンテーションアーキテクチャ</text>
+
+  <!-- Internet Zone -->
+  <g id="internet-zone">
+    <rect x="60" y="60" width="120" height="80" fill="var(--svg-neutral)" fill-opacity="0.1" stroke="var(--svg-neutral)" stroke-width="2" rx="4"/>
+    <text x="120" y="80" class="segment-text" text-anchor="middle" font-weight="500">インターネット</text>
+    <text x="70" y="100" class="annotation-text">• 外部ユーザー</text>
+    <text x="70" y="115" class="annotation-text">• 攻撃者</text>
+    <text x="70" y="130" class="annotation-text">• パートナー</text>
+  </g>
+
+  <!-- DMZ Zone -->
+  <g id="dmz-zone">
+    <rect x="220" y="60" width="200" height="140" class="dmz-zone" rx="4"/>
+    <text x="320" y="80" class="zone-title" text-anchor="middle">DMZ (非武装地帯)</text>
+    
+    <!-- Web Server -->
+    <rect x="240" y="90" width="70" height="40" fill="var(--svg-bg)" stroke="var(--svg-error)" stroke-width="1" rx="4"/>
+    <text x="275" y="105" class="annotation-text" text-anchor="middle">Webサーバー</text>
+    <text x="275" y="120" class="annotation-text" text-anchor="middle">443/80</text>
+    
+    <!-- Mail Server -->
+    <rect x="330" y="90" width="70" height="40" fill="var(--svg-bg)" stroke="var(--svg-error)" stroke-width="1" rx="4"/>
+    <text x="365" y="105" class="annotation-text" text-anchor="middle">メールサーバー</text>
+    <text x="365" y="120" class="annotation-text" text-anchor="middle">25/587</text>
+    
+    <!-- Reverse Proxy -->
+    <rect x="285" y="145" width="70" height="40" fill="var(--svg-bg)" stroke="var(--svg-error)" stroke-width="1" rx="4"/>
+    <text x="320" y="160" class="annotation-text" text-anchor="middle">リバースプロキシ</text>
+    <text x="320" y="175" class="annotation-text" text-anchor="middle">WAF</text>
+  </g>
+
+  <!-- Internal Network -->
+  <g id="internal-zone">
+    <rect x="460" y="60" width="280" height="200" class="internal-zone" rx="4"/>
+    <text x="600" y="80" class="zone-title" text-anchor="middle">内部ネットワーク</text>
+    
+    <!-- Application Segment -->
+    <rect x="480" y="90" width="110" height="70" class="micro-segment" rx="4"/>
+    <text x="535" y="110" class="zone-title" text-anchor="middle">アプリ層</text>
+    <text x="490" y="125" class="annotation-text">• APIサーバー</text>
+    <text x="490" y="140" class="annotation-text">• マイクロサービス</text>
+    <text x="490" y="155" class="annotation-text">• セグメントA</text>
+    
+    <!-- Database Segment -->
+    <rect x="610" y="90" width="110" height="70" class="micro-segment" rx="4"/>
+    <text x="665" y="110" class="zone-title" text-anchor="middle">データ層</text>
+    <text x="620" y="125" class="annotation-text">• RDS/MySQL</text>
+    <text x="620" y="140" class="annotation-text">• Redis</text>
+    <text x="620" y="155" class="annotation-text">• セグメントB</text>
+    
+    <!-- Management Segment -->
+    <rect x="545" y="180" width="110" height="70" class="micro-segment" rx="4"/>
+    <text x="600" y="200" class="zone-title" text-anchor="middle">管理層</text>
+    <text x="555" y="215" class="annotation-text">• 監視システム</text>
+    <text x="555" y="230" class="annotation-text">• ログ収集</text>
+    <text x="555" y="245" class="annotation-text">• セグメントC</text>
+  </g>
+
+  <!-- Secure Zone -->
+  <g id="secure-zone">
+    <rect x="220" y="280" width="520" height="120" class="secure-zone" rx="4"/>
+    <text x="480" y="300" class="zone-title" text-anchor="middle">セキュアゾーン（高機密）</text>
+    
+    <!-- Critical Systems -->
+    <rect x="240" y="310" width="100" height="70" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="290" y="330" class="segment-text" text-anchor="middle" font-weight="500">重要システム</text>
+    <text x="250" y="345" class="annotation-text">• 決済システム</text>
+    <text x="250" y="360" class="annotation-text">• PKI/HSM</text>
+    <text x="250" y="375" class="annotation-text">• 機密DB</text>
+    
+    <!-- Backup Systems -->
+    <rect x="360" y="310" width="100" height="70" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="410" y="330" class="segment-text" text-anchor="middle" font-weight="500">バックアップ</text>
+    <text x="370" y="345" class="annotation-text">• 災害復旧</text>
+    <text x="370" y="360" class="annotation-text">• コールドストレージ</text>
+    <text x="370" y="375" class="annotation-text">• エアギャップ</text>
+    
+    <!-- Compliance Systems -->
+    <rect x="480" y="310" width="100" height="70" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="530" y="330" class="segment-text" text-anchor="middle" font-weight="500">コンプライアンス</text>
+    <text x="490" y="345" class="annotation-text">• 監査ログ</text>
+    <text x="490" y="360" class="annotation-text">• 証跡管理</text>
+    <text x="490" y="375" class="annotation-text">• SIEM</text>
+    
+    <!-- Identity Store -->
+    <rect x="600" y="310" width="100" height="70" fill="var(--svg-bg)" stroke="var(--svg-success)" stroke-width="1" rx="4"/>
+    <text x="650" y="330" class="segment-text" text-anchor="middle" font-weight="500">認証基盤</text>
+    <text x="610" y="345" class="annotation-text">• Active Directory</text>
+    <text x="610" y="360" class="annotation-text">• LDAP/RADIUS</text>
+    <text x="610" y="375" class="annotation-text">• MFA</text>
+  </g>
+
+  <!-- Firewall Lines -->
+  <line x1="180" y1="60" x2="180" y2="140" class="firewall-line"/>
+  <line x1="420" y1="60" x2="420" y2="260" class="firewall-line"/>
+  <line x1="60" y1="260" x2="740" y2="260" class="firewall-line"/>
+  
+  <!-- Firewall Labels -->
+  <text x="180" y="55" class="annotation-text" text-anchor="middle">FW1</text>
+  <text x="420" y="55" class="annotation-text" text-anchor="middle">FW2</text>
+  <text x="400" y="255" class="annotation-text" text-anchor="middle">FW3 (内部ファイアウォール)</text>
+
+  <!-- Micro-segmentation Policy -->
+  <g id="policy-box">
+    <rect x="80" y="420" width="640" height="140" fill="var(--svg-primary)" fill-opacity="0.05" stroke="var(--svg-primary)" stroke-width="2" rx="4"/>
+    <text x="400" y="440" class="segment-text" text-anchor="middle" font-weight="500">マイクロセグメンテーションポリシー</text>
+    
+    <!-- East-West Traffic -->
+    <rect x="100" y="460" width="180" height="80" fill="var(--svg-bg)" stroke="var(--svg-primary)" stroke-width="1" rx="4"/>
+    <text x="190" y="480" class="segment-text" text-anchor="middle" font-weight="500">東西トラフィック制御</text>
+    <text x="110" y="495" class="annotation-text">• アプリ間通信制限</text>
+    <text x="110" y="510" class="annotation-text">• 最小権限原則</text>
+    <text x="110" y="525" class="annotation-text">• ホワイトリスト方式</text>
+    
+    <!-- Zero Trust Principles -->
+    <rect x="300" y="460" width="180" height="80" fill="var(--svg-bg)" stroke="var(--svg-primary)" stroke-width="1" rx="4"/>
+    <text x="390" y="480" class="segment-text" text-anchor="middle" font-weight="500">ゼロトラスト原則</text>
+    <text x="310" y="495" class="annotation-text">• 決して信頼しない</text>
+    <text x="310" y="510" class="annotation-text">• 常に検証</text>
+    <text x="310" y="525" class="annotation-text">• 継続的認証</text>
+    
+    <!-- Monitoring -->
+    <rect x="500" y="460" width="180" height="80" fill="var(--svg-bg)" stroke="var(--svg-primary)" stroke-width="1" rx="4"/>
+    <text x="590" y="480" class="segment-text" text-anchor="middle" font-weight="500">監視と可視化</text>
+    <text x="510" y="495" class="annotation-text">• トラフィック分析</text>
+    <text x="510" y="510" class="annotation-text">• 異常検知</text>
+    <text x="510" y="525" class="annotation-text">• コンプライアンス監査</text>
+  </g>
+
+  <!-- Data Flow Arrows -->
+  <path d="M 180 100 L 220 100" class="data-flow"/>
+  <path d="M 420 130 L 460 130" class="data-flow"/>
+  <path d="M 600 260 L 600 280" class="data-flow"/>
+</svg>
