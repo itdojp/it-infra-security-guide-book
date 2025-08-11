@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --critical-bg: #ffebee;
+        --attack-bg: #fff3e0;
+        --detection-bg: #e8f5e8;
+        --level5-bg: #e3f2fd;
+        --budget-bg: #f3e5f5;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --critical-bg: #B71C1C;
+          --attack-bg: #E65100;
+          --detection-bg: #1B5E20;
+          --level5-bg: #1E3A8A;
+          --budget-bg: #4A148C;
+        }
+      }
+      
+      /* Typography */
+      .title-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .section-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .box-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .item-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 8px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      /* Box Styles */
+      .priority-box {
+        fill: var(--bg-secondary);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .critical-box {
+        fill: var(--critical-bg);
+        stroke: var(--error);
+        stroke-width: 1.5;
+      }
+      
+      .attack-box {
+        fill: var(--attack-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .detection-box {
+        fill: var(--detection-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      .level-box {
+        fill: var(--bg-secondary);
+        stroke: var(--neutral);
+        stroke-width: 1;
+      }
+      
+      .level5-box {
+        fill: var(--level5-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .budget-box {
+        fill: var(--budget-bg);
+        stroke: var(--neutral);
+        stroke-width: 1.5;
+      }
+      
+      /* Connection Lines */
+      .flow-line {
+        stroke: var(--primary);
+        stroke-width: 2;
+        marker-end: url(#arrow);
+      }
+      
+      .resource-line {
+        stroke: var(--neutral);
+        stroke-width: 1.5;
+        marker-end: url(#arrow-gray);
+      }
+      
+      .feedback-line {
+        stroke: var(--success);
+        stroke-width: 1;
+        stroke-dasharray: 4,4;
+        marker-end: url(#arrow-green);
+      }
+    </style>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--primary)"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--neutral)"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--success)"/>
+    </marker>
+  </defs>
+  
+  <title>実装優先度フレームワーク</title>
+  <desc>セキュリティ実装の優先度、成熟度レベル、リソース配分の包括的フレームワーク</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Main Title -->
+  <text x="400" y="24" class="title-text">実装優先度フレームワーク</text>
+  
+  <!-- Priority 1: Critical Path Protection -->
+  <rect x="50" y="50" width="220" height="140" rx="6" fill="var(--bg-secondary)" stroke="var(--error)" stroke-width="2"/>
+  <text x="160" y="70" class="section-title">第1優先：クリティカルパスの保護</text>
+  
+  <rect x="60" y="80" width="200" height="35" rx="3" class="critical-box"/>
+  <text x="160" y="95" class="box-title">重要資産の特定</text>
+  <text x="65" y="107" class="item-text">• 顧客データベース • 決済システム • 核心業務API</text>
+  
+  <rect x="60" y="120" width="200" height="35" rx="3" class="critical-box"/>
+  <text x="160" y="135" class="box-title">重点的防御実装</text>
+  <text x="65" y="147" class="item-text">• DB暗号化 • APIゲートウェイ • 冗長化構成</text>
+  
+  <rect x="60" y="160" width="200" height="25" rx="3" class="critical-box"/>
+  <text x="160" y="170" class="box-title">専用監視</text>
+  <text x="65" y="182" class="item-text">• リアルタイムアラート • 異常検知 • 迅速対応</text>
+  
+  <!-- Flow arrows within Priority 1 -->
+  <line x1="160" y1="115" x2="160" y2="120" class="flow-line"/>
+  <line x1="160" y1="155" x2="160" y2="160" class="flow-line"/>
+  
+  <!-- Priority 2: Attack Vector Blocking -->
+  <rect x="290" y="50" width="220" height="140" rx="6" fill="var(--bg-secondary)" stroke="var(--warning)" stroke-width="2"/>
+  <text x="400" y="70" class="section-title">第2優先：攻撃経路の遮断</text>
+  
+  <rect x="300" y="80" width="200" height="35" rx="3" class="attack-box"/>
+  <text x="400" y="95" class="box-title">攻撃ベクター分析</text>
+  <text x="305" y="107" class="item-text">• 外部接続ポイント • 特権アカウント • 管理インターフェース</text>
+  
+  <rect x="300" y="120" width="200" height="35" rx="3" class="attack-box"/>
+  <text x="400" y="135" class="box-title">経路遮断実装</text>
+  <text x="305" y="147" class="item-text">• ファイアウォール強化 • VPN多要素認証 • 踏み台サーバー</text>
+  
+  <rect x="300" y="160" width="200" height="25" rx="3" class="attack-box"/>
+  <text x="400" y="170" class="box-title">アクセス制御</text>
+  <text x="305" y="182" class="item-text">• 管理ネットワーク分離 • 時間制限アクセス • 承認フロー</text>
+  
+  <!-- Flow arrows within Priority 2 -->
+  <line x1="400" y1="115" x2="400" y2="120" class="flow-line"/>
+  <line x1="400" y1="155" x2="400" y2="160" class="flow-line"/>
+  
+  <!-- Priority 3: Detection & Response -->
+  <rect x="530" y="50" width="220" height="140" rx="6" fill="var(--bg-secondary)" stroke="var(--success)" stroke-width="2"/>
+  <text x="640" y="70" class="section-title">第3優先：検知・対応力強化</text>
+  
+  <rect x="540" y="80" width="200" height="35" rx="3" class="detection-box"/>
+  <text x="640" y="95" class="box-title">検知能力構築</text>
+  <text x="545" y="107" class="item-text">• SIEMシステム • 行動分析 • MLベース異常検知</text>
+  
+  <rect x="540" y="120" width="200" height="35" rx="3" class="detection-box"/>
+  <text x="640" y="135" class="box-title">対応能力構築</text>
+  <text x="545" y="147" class="item-text">• SOARシステム • プレイブック作成 • 自動対応</text>
+  
+  <rect x="540" y="160" width="200" height="25" rx="3" class="detection-box"/>
+  <text x="640" y="170" class="box-title">復旧能力構築</text>
+  <text x="545" y="182" class="item-text">• スナップショットバックアップ • DRサイト • 復旧手順自動化</text>
+  
+  <!-- Flow arrows within Priority 3 -->
+  <line x1="640" y1="115" x2="640" y2="120" class="flow-line"/>
+  <line x1="640" y1="155" x2="640" y2="160" class="flow-line"/>
+  
+  <!-- Maturity Levels -->
+  <rect x="50" y="220" width="700" height="120" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="240" class="section-title">成熟度レベル</text>
+  
+  <rect x="70" y="250" width="120" height="80" rx="4" class="level-box"/>
+  <text x="130" y="265" class="box-title">レベル1：基本的防御</text>
+  <text x="75" y="280" class="item-text">• ファイアウォール</text>
+  <text x="75" y="292" class="item-text">• ウイルス対策</text>
+  <text x="75" y="304" class="item-text">• パッチ管理</text>
+  
+  <rect x="210" y="250" width="120" height="80" rx="4" class="level-box"/>
+  <text x="270" y="265" class="box-title">レベル2：管理された防御</text>
+  <text x="215" y="280" class="item-text">• アクセス制御</text>
+  <text x="215" y="292" class="item-text">• 監視システム</text>
+  <text x="215" y="304" class="item-text">• インシデント対応</text>
+  
+  <rect x="350" y="250" width="120" height="80" rx="4" class="level-box"/>
+  <text x="410" y="265" class="box-title">レベル3：定義された防御</text>
+  <text x="355" y="280" class="item-text">• リスクベース管理</text>
+  <text x="355" y="292" class="item-text">• 継続的監視</text>
+  <text x="355" y="304" class="item-text">• 予防的対策</text>
+  
+  <rect x="490" y="250" width="120" height="80" rx="4" class="level-box"/>
+  <text x="550" y="265" class="box-title">レベル4：適応的防御</text>
+  <text x="495" y="280" class="item-text">• 脅威インテリジェンス</text>
+  <text x="495" y="292" class="item-text">• 自動対応</text>
+  <text x="495" y="304" class="item-text">• 進化する防御</text>
+  
+  <rect x="630" y="250" width="120" height="80" rx="4" class="level5-box"/>
+  <text x="690" y="265" class="box-title">レベル5：最適化された防御</text>
+  <text x="635" y="280" class="item-text">• 予測的防御</text>
+  <text x="635" y="292" class="item-text">• AIベース異常検知</text>
+  <text x="635" y="304" class="item-text">• 自律的セキュリティ</text>
+  
+  <!-- Maturity Level Flow -->
+  <line x1="190" y1="290" x2="210" y2="290" class="flow-line"/>
+  <line x1="330" y1="290" x2="350" y2="290" class="flow-line"/>
+  <line x1="470" y1="290" x2="490" y2="290" class="flow-line"/>
+  <line x1="610" y1="290" x2="630" y2="290" class="flow-line"/>
+  
+  <!-- Resource Allocation Strategy -->
+  <rect x="50" y="360" width="700" height="80" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="380" class="section-title">リソース配分戦略</text>
+  
+  <rect x="70" y="390" width="180" height="40" rx="4" class="budget-box"/>
+  <text x="160" y="405" class="box-title">予算制約</text>
+  <text x="75" y="418" class="item-text">• 初期投資 • 運用コスト • ROI計算</text>
+  
+  <rect x="270" y="390" width="180" height="40" rx="4" class="budget-box"/>
+  <text x="360" y="405" class="box-title">人的リソース</text>
+  <text x="275" y="418" class="item-text">• スキルレベル • 教育コスト • 外部パートナー</text>
+  
+  <rect x="470" y="390" width="180" height="40" rx="4" class="budget-box"/>
+  <text x="560" y="405" class="box-title">技術スタック</text>
+  <text x="475" y="418" class="item-text">• 既存インフラ • 統合要件 • 技術的互換性</text>
+  
+  <!-- Resource to Priority Connections -->
+  <line x1="160" y1="390" x2="160" y2="190" class="resource-line"/>
+  <line x1="360" y1="390" x2="400" y2="190" class="resource-line"/>
+  <line x1="560" y1="390" x2="640" y2="190" class="resource-line"/>
+  
+  <!-- Feedback Lines -->
+  <line x1="160" y1="185" x2="300" y2="100" class="feedback-line"/>
+  <line x1="400" y1="185" x2="540" y2="100" class="feedback-line"/>
+  
+  <!-- Implementation Strategy Box -->
+  <rect x="50" y="460" width="700" height="120" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="480" class="section-title">実装成功の要点</text>
+  
+  <text x="60" y="500" class="item-text">1. リスクベースアプローチ: 最も重要な資産とクリティカルな攻撃経路を最優先で保護</text>
+  <text x="60" y="515" class="item-text">2. 段階的実装: 組織の成熟度に応じて段階的にセキュリティレベルを向上</text>
+  <text x="60" y="530" class="item-text">3. バランスの取れたリソース配分: 予算、人材、技術の制約を考慮した現実的な計画</text>
+  <text x="60" y="545" class="item-text">4. 継続的改善: 実装後も定期的な見直しと改善により効果を維持・向上</text>
+  <text x="60" y="560" class="item-text">5. 統合的アプローチ: 技術的対策、組織的対策、運用的対策の統合により包括的なセキュリティを実現</text>
+  
+</svg>

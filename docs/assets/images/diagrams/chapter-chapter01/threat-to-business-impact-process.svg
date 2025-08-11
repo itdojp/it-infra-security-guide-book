@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --threat-bg: #ffebee;
+        --vuln-bg: #fff3e0;
+        --risk-bg: #fce4ec;
+        --impact-bg: #e1f5fe;
+        --layer1-bg: #e8f5e8;
+        --layer2-bg: #e3f2fd;
+        --layer3-bg: #f3e5f5;
+        --layer4-bg: #fff8e1;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --threat-bg: #B71C1C;
+          --vuln-bg: #E65100;
+          --risk-bg: #880E4F;
+          --impact-bg: #01579B;
+          --layer1-bg: #1B5E20;
+          --layer2-bg: #1E3A8A;
+          --layer3-bg: #4A148C;
+          --layer4-bg: #FF6F00;
+        }
+      }
+      
+      /* Typography */
+      .title-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .section-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .label-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .item-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      /* Node Styles */
+      .threat-node {
+        fill: var(--threat-bg);
+        stroke: var(--error);
+        stroke-width: 1.5;
+      }
+      
+      .vuln-node {
+        fill: var(--vuln-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .risk-node {
+        fill: var(--risk-bg);
+        stroke: var(--error);
+        stroke-width: 1.5;
+      }
+      
+      .impact-node {
+        fill: var(--impact-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .layer1-node {
+        fill: var(--layer1-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      .layer2-node {
+        fill: var(--layer2-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .layer3-node {
+        fill: var(--layer3-bg);
+        stroke: var(--neutral);
+        stroke-width: 1.5;
+      }
+      
+      .layer4-node {
+        fill: var(--layer4-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      /* Connection Lines */
+      .attack-flow {
+        stroke: var(--error);
+        stroke-width: 3;
+        marker-end: url(#arrow-red);
+      }
+      
+      .defense-line {
+        stroke: var(--success);
+        stroke-width: 2;
+        stroke-dasharray: 6,4;
+        marker-end: url(#arrow-green);
+      }
+      
+      .layer-connection {
+        stroke: var(--primary);
+        stroke-width: 2;
+        marker-end: url(#arrow);
+      }
+    </style>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--primary)"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--error)"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--success)"/>
+    </marker>
+  </defs>
+  
+  <title>脅威からビジネスインパクトまでのプロセスと防御ポイント</title>
+  <desc>攻撃フェーズ、防御ポイント、多層防御戦略の包括的なセキュリティフロー</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Main Title -->
+  <text x="400" y="24" class="title-text">脅威からビジネスインパクトまでのプロセスと防御ポイント</text>
+  
+  <!-- Attack Phase Section -->
+  <rect x="50" y="50" width="700" height="20" rx="3" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="64" class="section-title">攻撃フェーズ</text>
+  
+  <!-- Threat Agent -->
+  <rect x="70" y="90" width="120" height="80" rx="4" class="threat-node"/>
+  <text x="130" y="110" class="label-text">脅威エージェント</text>
+  <text x="75" y="125" class="item-text">• 内部犯行者</text>
+  <text x="75" y="140" class="item-text">• 外部攻撃者</text>
+  <text x="75" y="155" class="item-text">• 自然災害</text>
+  <text x="75" y="165" class="item-text">• 人的ミス</text>
+  
+  <!-- Vulnerability -->
+  <rect x="240" y="90" width="120" height="80" rx="4" class="vuln-node"/>
+  <text x="300" y="110" class="label-text">脆弱性の悪用</text>
+  <text x="245" y="125" class="item-text">• 技術的脆弱性</text>
+  <text x="245" y="140" class="item-text">• 設定不備</text>
+  <text x="245" y="155" class="item-text">• 手順の欠陥</text>
+  <text x="245" y="165" class="item-text">• 人的要因</text>
+  
+  <!-- Risk Materialization -->
+  <rect x="410" y="90" width="120" height="80" rx="4" class="risk-node"/>
+  <text x="470" y="110" class="label-text">リスク顕在化</text>
+  <text x="415" y="125" class="item-text">• データ漏洩</text>
+  <text x="415" y="140" class="item-text">• システム停止</text>
+  <text x="415" y="155" class="item-text">• 情報改ざん</text>
+  <text x="415" y="165" class="item-text">• 権限昇格</text>
+  
+  <!-- Business Impact -->
+  <rect x="580" y="90" width="120" height="80" rx="4" class="impact-node"/>
+  <text x="640" y="110" class="label-text">ビジネスインパクト</text>
+  <text x="585" y="125" class="item-text">• 経済的損失</text>
+  <text x="585" y="140" class="item-text">• 信頼失墜</text>
+  <text x="585" y="155" class="item-text">• 規制制裁</text>
+  <text x="585" y="165" class="item-text">• 競争力低下</text>
+  
+  <!-- Attack Flow Arrows -->
+  <line x1="190" y1="130" x2="240" y2="130" class="attack-flow"/>
+  <line x1="360" y1="130" x2="410" y2="130" class="attack-flow"/>
+  <line x1="530" y1="130" x2="580" y2="130" class="attack-flow"/>
+  
+  <!-- Defense Points Section -->
+  <rect x="50" y="200" width="700" height="20" rx="3" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="214" class="section-title">防御ポイント</text>
+  
+  <!-- Threat Limitation -->
+  <rect x="70" y="240" width="120" height="70" rx="4" class="layer1-node"/>
+  <text x="130" y="260" class="label-text">脅威制限</text>
+  <text x="75" y="275" class="item-text">• アクセス制御</text>
+  <text x="75" y="290" class="item-text">• 境界防御</text>
+  <text x="75" y="300" class="item-text">• 監視体制</text>
+  
+  <!-- Vulnerability Management -->
+  <rect x="240" y="240" width="120" height="70" rx="4" class="layer2-node"/>
+  <text x="300" y="260" class="label-text">脆弱性管理</text>
+  <text x="245" y="275" class="item-text">• パッチ管理</text>
+  <text x="245" y="290" class="item-text">• 設定強化</text>
+  <text x="245" y="300" class="item-text">• 教育・訓練</text>
+  
+  <!-- Attack Detection -->
+  <rect x="410" y="240" width="120" height="70" rx="4" class="layer3-node"/>
+  <text x="470" y="260" class="label-text">攻撃検知</text>
+  <text x="415" y="275" class="item-text">• IDS/IPS</text>
+  <text x="415" y="290" class="item-text">• ログ監視</text>
+  <text x="415" y="300" class="item-text">• 異常検知</text>
+  
+  <!-- Damage Control -->
+  <rect x="580" y="240" width="120" height="70" rx="4" class="layer4-node"/>
+  <text x="640" y="260" class="label-text">被害制限</text>
+  <text x="585" y="275" class="item-text">• インシデント対応</text>
+  <text x="585" y="290" class="item-text">• 隔離・遮断</text>
+  <text x="585" y="300" class="item-text">• 迅速復旧</text>
+  
+  <!-- Defense Lines -->
+  <line x1="130" y1="170" x2="130" y2="240" class="defense-line"/>
+  <line x1="300" y1="170" x2="300" y2="240" class="defense-line"/>
+  <line x1="470" y1="170" x2="470" y2="240" class="defense-line"/>
+  <line x1="640" y1="170" x2="640" y2="240" class="defense-line"/>
+  
+  <!-- Multi-layer Defense Strategy Section -->
+  <rect x="50" y="340" width="700" height="20" rx="3" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="354" class="section-title">多層防御戦略</text>
+  
+  <!-- Layer 1: Perimeter Defense -->
+  <rect x="70" y="380" width="140" height="70" rx="4" class="layer1-node"/>
+  <text x="140" y="400" class="label-text">第1層：境界防御</text>
+  <text x="75" y="415" class="item-text">• ファイアウォール</text>
+  <text x="75" y="430" class="item-text">• DMZ設計</text>
+  <text x="75" y="440" class="item-text">• 外部接続制御</text>
+  
+  <!-- Layer 2: Internal Defense -->
+  <rect x="240" y="380" width="140" height="70" rx="4" class="layer2-node"/>
+  <text x="310" y="400" class="label-text">第2層：内部防御</text>
+  <text x="245" y="415" class="item-text">• セグメンテーション</text>
+  <text x="245" y="430" class="item-text">• 認証・認可</text>
+  <text x="245" y="440" class="item-text">• 権限管理</text>
+  
+  <!-- Layer 3: Data Protection -->
+  <rect x="410" y="380" width="140" height="70" rx="4" class="layer3-node"/>
+  <text x="480" y="400" class="label-text">第3層：データ保護</text>
+  <text x="415" y="415" class="item-text">• 暗号化</text>
+  <text x="415" y="430" class="item-text">• バックアップ</text>
+  <text x="415" y="440" class="item-text">• 完全性保護</text>
+  
+  <!-- Layer 4: Monitoring & Response -->
+  <rect x="580" y="380" width="140" height="70" rx="4" class="layer4-node"/>
+  <text x="650" y="400" class="label-text">第4層：監視・対応</text>
+  <text x="585" y="415" class="item-text">• リアルタイム監視</text>
+  <text x="585" y="430" class="item-text">• インシデント対応</text>
+  <text x="585" y="440" class="item-text">• 復旧手順</text>
+  
+  <!-- Layer Connection Arrows -->
+  <line x1="130" y1="310" x2="140" y2="380" class="layer-connection"/>
+  <line x1="300" y1="310" x2="310" y2="380" class="layer-connection"/>
+  <line x1="470" y1="310" x2="480" y2="380" class="layer-connection"/>
+  <line x1="640" y1="310" x2="650" y2="380" class="layer-connection"/>
+  
+  <!-- Additional Information Box -->
+  <rect x="70" y="480" width="650" height="80" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="500" class="section-title">多層防御の重要ポイント</text>
+  <text x="80" y="520" class="item-text">• 各防御層が独立して機能し、一つの層が突破されても他の層で攻撃を阻止</text>
+  <text x="80" y="535" class="item-text">• 攻撃の各フェーズに対応する防御ポイントを配置することで包括的なセキュリティを実現</text>
+  <text x="80" y="550" class="item-text">• 脅威インテリジェンスの共有により各層間の連携を強化し、組織的な防御反応を実現</text>
+  
+</svg>

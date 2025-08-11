@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --start-bg: #e8f5e8;
+        --decision-bg: #fff3e0;
+        --accept-bg: #e3f2fd;
+        --monitor-bg: #f3e5f5;
+        --formula-bg: #ffebee;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --start-bg: #1B5E20;
+          --decision-bg: #E65100;
+          --accept-bg: #1E3A8A;
+          --monitor-bg: #4A148C;
+          --formula-bg: #B71C1C;
+        }
+      }
+      
+      /* Typography */
+      .title-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .step-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .step-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      .formula-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .decision-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      /* Node Styles */
+      .start-node {
+        fill: var(--start-bg);
+        stroke: var(--success);
+        stroke-width: 2;
+      }
+      
+      .step-node {
+        fill: var(--bg-secondary);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .decision-node {
+        fill: var(--decision-bg);
+        stroke: var(--warning);
+        stroke-width: 2;
+      }
+      
+      .accept-node {
+        fill: var(--accept-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .monitor-node {
+        fill: var(--monitor-bg);
+        stroke: var(--neutral);
+        stroke-width: 1.5;
+      }
+      
+      .formula-node {
+        fill: var(--formula-bg);
+        stroke: var(--error);
+        stroke-width: 1.5;
+      }
+      
+      /* Connection Lines */
+      .flow-line {
+        stroke: var(--primary);
+        stroke-width: 2;
+        marker-end: url(#arrow);
+      }
+      
+      .condition-line {
+        stroke: var(--warning);
+        stroke-width: 2;
+        marker-end: url(#arrow-orange);
+      }
+      
+      .formula-line {
+        stroke: var(--error);
+        stroke-width: 1.5;
+        stroke-dasharray: 4,4;
+        marker-end: url(#arrow-red);
+      }
+      
+      .feedback-line {
+        stroke: var(--success);
+        stroke-width: 2;
+        marker-end: url(#arrow-green);
+      }
+    </style>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--primary)"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--warning)"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--error)"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--success)"/>
+    </marker>
+  </defs>
+  
+  <title>リスクベースアプローチ実装手順</title>
+  <desc>体系的なリスクアセスメントと対策実装のプロセスフロー</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Main Title -->
+  <text x="400" y="24" class="title-text">リスクベースアプローチ実装手順</text>
+  
+  <!-- Start Node -->
+  <ellipse cx="120" cy="60" rx="80" ry="20" class="start-node"/>
+  <text x="120" y="66" class="step-title">リスクアセスメント開始</text>
+  
+  <!-- Step 1: Asset Identification -->
+  <rect x="50" y="100" width="140" height="60" rx="4" class="step-node"/>
+  <text x="120" y="115" class="step-title">ステップ1：資産識別・価値評価</text>
+  <text x="55" y="130" class="step-text">• システム構成要素の洗い出し</text>
+  <text x="55" y="142" class="step-text">• ビジネス価値の評価</text>
+  <text x="55" y="154" class="step-text">• 重要度の階層化</text>
+  
+  <!-- Step 2: Threat Analysis -->
+  <rect x="50" y="180" width="140" height="60" rx="4" class="step-node"/>
+  <text x="120" y="195" class="step-title">ステップ2：脅威分析</text>
+  <text x="55" y="210" class="step-text">• 内部脅威の識別</text>
+  <text x="55" y="222" class="step-text">• 外部攻撃の想定</text>
+  <text x="55" y="234" class="step-text">• 自然災害・人的ミスの評価</text>
+  
+  <!-- Step 3: Vulnerability Assessment -->
+  <rect x="50" y="260" width="140" height="60" rx="4" class="step-node"/>
+  <text x="120" y="275" class="step-title">ステップ3：脆弱性評価</text>
+  <text x="55" y="290" class="step-text">• 技術的脆弱性の調査</text>
+  <text x="55" y="302" class="step-text">• 運用手順の評価</text>
+  <text x="55" y="314" class="step-text">• 人的要因の分析</text>
+  
+  <!-- Step 4: Risk Calculation -->
+  <rect x="50" y="340" width="140" height="60" rx="4" class="step-node"/>
+  <text x="120" y="355" class="step-title">ステップ4：リスク算定</text>
+  <text x="55" y="370" class="step-text">• 脅威発生確率の算定</text>
+  <text x="55" y="382" class="step-text">• 脆弱性悪用確率の評価</text>
+  <text x="55" y="394" class="step-text">• 影響度の定量化</text>
+  
+  <!-- Decision Diamond -->
+  <path d="M 120 420 L 160 450 L 120 480 L 80 450 Z" class="decision-node"/>
+  <text x="120" y="445" class="decision-text">受容可能リスク</text>
+  <text x="120" y="457" class="decision-text">レベル以下？</text>
+  
+  <!-- Step 5: Countermeasure Implementation -->
+  <rect x="280" y="340" width="140" height="60" rx="4" class="step-node"/>
+  <text x="350" y="355" class="step-title">ステップ5：対策選択・実装</text>
+  <text x="285" y="370" class="step-text">• リスク軽減策の検討</text>
+  <text x="285" y="382" class="step-text">• コスト効果分析</text>
+  <text x="285" y="394" class="step-text">• 実装計画の策定</text>
+  
+  <!-- Continuous Monitoring -->
+  <rect x="280" y="180" width="140" height="60" rx="4" class="monitor-node"/>
+  <text x="350" y="195" class="step-title">継続的監視・見直し</text>
+  <text x="285" y="210" class="step-text">• 脅威環境の変化監視</text>
+  <text x="285" y="222" class="step-text">• 対策効果の測定</text>
+  <text x="285" y="234" class="step-text">• 定期的な再評価</text>
+  
+  <!-- Risk Acceptance -->
+  <rect x="280" y="440" width="140" height="50" rx="4" class="accept-node"/>
+  <text x="350" y="455" class="step-title">リスク受容</text>
+  <text x="285" y="470" class="step-text">• 経営層承認 • 文書化 • 定期見直し</text>
+  
+  <!-- Risk Calculation Formula Section -->
+  <rect x="480" y="60" width="280" height="160" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="620" y="80" class="step-title">リスク計算式</text>
+  
+  <!-- Main Formula -->
+  <rect x="500" y="100" width="240" height="25" rx="4" class="formula-node"/>
+  <text x="620" y="117" class="formula-text">リスク = 脅威発生確率 × 脆弱性悪用確率 × 影響度</text>
+  
+  <!-- Threat Probability -->
+  <rect x="500" y="140" width="70" height="60" rx="4" class="step-node"/>
+  <text x="535" y="155" class="decision-text">脅威発生確率</text>
+  <text x="505" y="170" class="step-text">• 過去の実績</text>
+  <text x="505" y="182" class="step-text">• 業界動向</text>
+  <text x="505" y="194" class="step-text">• 環境変化</text>
+  
+  <!-- Vulnerability Probability -->
+  <rect x="580" y="140" width="80" height="60" rx="4" class="step-node"/>
+  <text x="620" y="155" class="decision-text">脆弱性悪用確率</text>
+  <text x="585" y="170" class="step-text">• 技術的難易度</text>
+  <text x="585" y="182" class="step-text">• 公開情報</text>
+  <text x="585" y="194" class="step-text">• 攻撃ツール</text>
+  
+  <!-- Impact -->
+  <rect x="670" y="140" width="70" height="60" rx="4" class="step-node"/>
+  <text x="705" y="155" class="decision-text">影響度</text>
+  <text x="675" y="170" class="step-text">• 直接的損失</text>
+  <text x="675" y="182" class="step-text">• 間接的損失</text>
+  <text x="675" y="194" class="step-text">• 規制影響</text>
+  
+  <!-- Implementation Process Note -->
+  <rect x="480" y="240" width="280" height="100" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="620" y="260" class="step-title">実装のポイント</text>
+  <text x="490" y="275" class="step-text">• リスクアセスメントは継続的なプロセスであり、一度実施すれば終わりではない</text>
+  <text x="490" y="290" class="step-text">• 脅威環境の変化や組織の成長に応じて定期的な見直しが必要</text>
+  <text x="490" y="305" class="step-text">• 受容可能リスクレベルは組織の性質と事業要件を総合的に考慮して決定</text>
+  <text x="490" y="320" class="step-text">• リスク軽減策の選択にはコスト効果と実装容易性を考慮した優先順位付けが重要</text>
+  
+  <!-- Flow Arrows -->
+  <line x1="120" y1="80" x2="120" y2="100" class="flow-line"/>
+  <line x1="120" y1="160" x2="120" y2="180" class="flow-line"/>
+  <line x1="120" y1="240" x2="120" y2="260" class="flow-line"/>
+  <line x1="120" y1="320" x2="120" y2="340" class="flow-line"/>
+  <line x1="120" y1="400" x2="120" y2="420" class="flow-line"/>
+  
+  <!-- Decision Flows -->
+  <line x1="160" y1="450" x2="280" y2="370" class="condition-line"/>
+  <text x="215" y="405" class="step-text" fill="var(--warning)">高リスク</text>
+  
+  <line x1="120" y1="480" x2="280" y2="465" class="condition-line"/>
+  <text x="195" y="485" class="step-text" fill="var(--warning)">低リスク</text>
+  
+  <!-- Implementation to Monitoring -->
+  <line x1="350" y1="340" x2="350" y2="240" class="flow-line"/>
+  
+  <!-- Monitoring Feedback -->
+  <path d="M 280 210 Q 200 150 120 210" fill="none" class="feedback-line"/>
+  
+  <!-- Formula Connection -->
+  <line x1="190" y1="370" x2="480" y2="112" class="formula-line"/>
+  <text x="330" y="235" class="step-text" fill="var(--error)">計算</text>
+  
+  <!-- Formula Component Lines -->
+  <line x1="620" y1="125" x2="535" y2="140" class="formula-line"/>
+  <line x1="620" y1="125" x2="620" y2="140" class="formula-line"/>
+  <line x1="620" y1="125" x2="705" y2="140" class="formula-line"/>
+  
+</svg>
