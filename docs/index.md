@@ -1,8 +1,9 @@
 ---
-layout: book
-order: 1
 title: "インフラエンジニアのための情報セキュリティ実装ガイド"
-description: "インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書"
+description: "インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書。設定の背景にある設計思想と実装判断の根拠を丁寧に言葉で説明することに重点を置いています。"
+author: "株式会社アイティードゥ"
+version: "1.0.0"
+layout: book
 ---
 
 # {{ page.title }}
@@ -112,8 +113,20 @@ SOC、SIEM、自動化
 
 
 
+## 📄 ライセンス
+
+本書は **Creative Commons BY-NC-SA 4.0** ライセンスで公開されています。  
+**🔓 教育・研究・個人学習での利用は自由** ですが、**💼 商用利用には事前許諾** が必要です。
+
+📋 [詳細なライセンス条件](https://github.com/itdojp/it-engineer-knowledge-architecture/blob/main/LICENSE.md)
+
+**お問い合わせ**  
+株式会社アイティードゥ（ITDO Inc.）  
+Email: [knowledge@itdo.jp](mailto:knowledge@itdo.jp)
+
 ---
 
 **著者:** 株式会社アイティードゥ  
 **バージョン:** 1.0.0  
 **最終更新:** 2025-07-17
+<!-- Force GitHub Pages update Mon Aug 18 07:38:13 AM JST 2025 -->
