@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --cia-bg: #E3F2FD;
+        --tech-bg: #FFF3E0;
+        --ops-bg: #E8F5E8;
+        --root-bg: #F3E5F5;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --cia-bg: #1E3A8A;
+          --tech-bg: #92400E;
+          --ops-bg: #1B5E20;
+          --root-bg: #4A148C;
+        }
+      }
+      
+      /* Typography */
+      .root-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .category-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .subcategory-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .item-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      /* Node Styles */
+      .root-node {
+        fill: var(--root-bg);
+        stroke: var(--neutral);
+        stroke-width: 2;
+      }
+      
+      .cia-node {
+        fill: var(--cia-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .tech-node {
+        fill: var(--tech-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .ops-node {
+        fill: var(--ops-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      .item-node {
+        fill: var(--bg-secondary);
+        stroke: var(--border);
+        stroke-width: 1;
+      }
+      
+      /* Connection Lines */
+      .main-connection {
+        stroke: var(--neutral);
+        stroke-width: 3;
+      }
+      
+      .branch-connection {
+        stroke: var(--neutral);
+        stroke-width: 2;
+      }
+      
+      .leaf-connection {
+        stroke: var(--border);
+        stroke-width: 1;
+      }
+    </style>
+  </defs>
+  
+  <title>インフラセキュリティ実装</title>
+  <desc>インフラセキュリティ実装の全体的なマインドマップ - CIA実装指針、技術領域別実装、運用プロセスの包括的ビュー</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Root Node -->
+  <circle cx="400" cy="300" r="60" class="root-node"/>
+  <text x="400" y="295" class="root-text">インフラセキュリティ</text>
+  <text x="400" y="310" class="root-text">実装</text>
+  
+  <!-- CIA Implementation Guidelines Branch -->
+  <line x1="340" y1="260" x2="180" y2="120" class="main-connection"/>
+  <rect x="80" y="60" width="200" height="30" rx="15" class="cia-node"/>
+  <text x="180" y="80" class="category-text">CIA実装指針</text>
+  
+  <!-- Confidentiality -->
+  <line x1="120" y1="90" x2="80" y2="140" class="branch-connection"/>
+  <rect x="20" y="125" width="120" height="20" rx="10" class="cia-node"/>
+  <text x="80" y="138" class="subcategory-text">機密性</text>
+  
+  <line x1="50" y1="145" x2="20" y2="170" class="leaf-connection"/>
+  <rect x="5" y="162" width="80" height="16" rx="8" class="item-node"/>
+  <text x="8" y="172" class="item-text">ネットワーク暗号化</text>
+  
+  <line x1="80" y1="145" x2="80" y2="190" class="leaf-connection"/>
+  <rect x="40" y="182" width="60" height="16" rx="8" class="item-node"/>
+  <text x="43" y="192" class="item-text">アクセス制御</text>
+  
+  <line x1="110" y1="145" x2="140" y2="170" class="leaf-connection"/>
+  <rect x="105" y="162" width="80" height="16" rx="8" class="item-node"/>
+  <text x="108" y="172" class="item-text">セグメンテーション</text>
+  
+  <!-- Integrity -->
+  <line x1="180" y1="90" x2="180" y2="140" class="branch-connection"/>
+  <rect x="120" y="125" width="120" height="20" rx="10" class="cia-node"/>
+  <text x="180" y="138" class="subcategory-text">完全性</text>
+  
+  <line x1="150" y1="145" x2="120" y2="170" class="leaf-connection"/>
+  <rect x="85" y="162" width="70" height="16" rx="8" class="item-node"/>
+  <text x="88" y="172" class="item-text">デジタル署名</text>
+  
+  <line x1="180" y1="145" x2="180" y2="190" class="leaf-connection"/>
+  <rect x="145" y="182" width="60" height="16" rx="8" class="item-node"/>
+  <text x="148" y="192" class="item-text">チェックサム</text>
+  
+  <line x1="210" y1="145" x2="240" y2="170" class="leaf-connection"/>
+  <rect x="205" y="162" width="80" height="16" rx="8" class="item-node"/>
+  <text x="208" y="172" class="item-text">バージョン管理</text>
+  
+  <!-- Availability -->
+  <line x1="240" y1="90" x2="280" y2="140" class="branch-connection"/>
+  <rect x="220" y="125" width="120" height="20" rx="10" class="cia-node"/>
+  <text x="280" y="138" class="subcategory-text">可用性</text>
+  
+  <line x1="250" y1="145" x2="220" y2="170" class="leaf-connection"/>
+  <rect x="185" y="162" width="70" height="16" rx="8" class="item-node"/>
+  <text x="188" y="172" class="item-text">冗長化設計</text>
+  
+  <line x1="280" y1="145" x2="280" y2="190" class="leaf-connection"/>
+  <rect x="250" y="182" width="60" height="16" rx="8" class="item-node"/>
+  <text x="253" y="192" class="item-text">負荷分散</text>
+  
+  <line x1="310" y1="145" x2="340" y2="170" class="leaf-connection"/>
+  <rect x="305" y="162" width="70" height="16" rx="8" class="item-node"/>
+  <text x="308" y="172" class="item-text">自動復旧</text>
+  
+  <!-- Technical Implementation Branch -->
+  <line x1="460" y1="260" x2="620" y2="120" class="main-connection"/>
+  <rect x="520" y="60" width="200" height="30" rx="15" class="tech-node"/>
+  <text x="620" y="80" class="category-text">技術領域別実装</text>
+  
+  <!-- Network -->
+  <line x1="560" y1="90" x2="520" y2="140" class="branch-connection"/>
+  <rect x="460" y="125" width="120" height="20" rx="10" class="tech-node"/>
+  <text x="520" y="138" class="subcategory-text">ネットワーク</text>
+  
+  <line x1="490" y1="145" x2="460" y2="170" class="leaf-connection"/>
+  <rect x="415" y="162" width="80" height="16" rx="8" class="item-node"/>
+  <text x="418" y="172" class="item-text">ファイアウォール</text>
+  
+  <line x1="520" y1="145" x2="520" y2="190" class="leaf-connection"/>
+  <rect x="485" y="182" width="60" height="16" rx="8" class="item-node"/>
+  <text x="488" y="192" class="item-text">IDS/IPS</text>
+  
+  <line x1="550" y1="145" x2="580" y2="170" class="leaf-connection"/>
+  <rect x="555" y="162" width="50" height="16" rx="8" class="item-node"/>
+  <text x="558" y="172" class="item-text">VPN</text>
+  
+  <!-- Server -->
+  <line x1="620" y1="90" x2="620" y2="140" class="branch-connection"/>
+  <rect x="560" y="125" width="120" height="20" rx="10" class="tech-node"/>
+  <text x="620" y="138" class="subcategory-text">サーバー</text>
+  
+  <line x1="590" y1="145" x2="560" y2="170" class="leaf-connection"/>
+  <rect x="525" y="162" width="60" height="16" rx="8" class="item-node"/>
+  <text x="528" y="172" class="item-text">OS強化</text>
+  
+  <line x1="620" y1="145" x2="620" y2="190" class="leaf-connection"/>
+  <rect x="580" y="182" width="70" height="16" rx="8" class="item-node"/>
+  <text x="583" y="192" class="item-text">パッチ管理</text>
+  
+  <line x1="650" y1="145" x2="680" y2="170" class="leaf-connection"/>
+  <rect x="655" y="162" width="50" height="16" rx="8" class="item-node"/>
+  <text x="658" y="172" class="item-text">監視</text>
+  
+  <!-- Cloud -->
+  <line x1="680" y1="90" x2="720" y2="140" class="branch-connection"/>
+  <rect x="660" y="125" width="120" height="20" rx="10" class="tech-node"/>
+  <text x="720" y="138" class="subcategory-text">クラウド</text>
+  
+  <line x1="690" y1="145" x2="660" y2="170" class="leaf-connection"/>
+  <rect x="635" y="162" width="50" height="16" rx="8" class="item-node"/>
+  <text x="638" y="172" class="item-text">IAM</text>
+  
+  <line x1="720" y1="145" x2="720" y2="190" class="leaf-connection"/>
+  <rect x="685" y="182" width="60" height="16" rx="8" class="item-node"/>
+  <text x="688" y="192" class="item-text">暗号化</text>
+  
+  <line x1="750" y1="145" x2="775" y2="170" class="leaf-connection"/>
+  <rect x="725" y="162" width="85" height="16" rx="8" class="item-node"/>
+  <text x="728" y="172" class="item-text">コンプライアンス</text>
+  
+  <!-- Container -->
+  <rect x="520" y="220" width="120" height="20" rx="10" class="tech-node"/>
+  <text x="580" y="233" class="subcategory-text">コンテナ</text>
+  <line x1="600" y1="200" x2="580" y2="220" class="branch-connection"/>
+  
+  <line x1="550" y1="240" x2="520" y2="265" class="leaf-connection"/>
+  <rect x="475" y="257" width="70" height="16" rx="8" class="item-node"/>
+  <text x="478" y="267" class="item-text">イメージ管理</text>
+  
+  <line x1="580" y1="240" x2="580" y2="285" class="leaf-connection"/>
+  <rect x="530" y="277" width="85" height="16" rx="8" class="item-node"/>
+  <text x="533" y="287" class="item-text">ランタイム保護</text>
+  
+  <line x1="610" y1="240" x2="640" y2="265" class="leaf-connection"/>
+  <rect x="600" y="257" width="95" height="16" rx="8" class="item-node"/>
+  <text x="603" y="267" class="item-text">オーケストレーション</text>
+  
+  <!-- Operations Process Branch -->
+  <line x1="340" y1="340" x2="180" y2="480" class="main-connection"/>
+  <rect x="80" y="450" width="200" height="30" rx="15" class="ops-node"/>
+  <text x="180" y="470" class="category-text">運用プロセス</text>
+  
+  <!-- Monitoring & Detection -->
+  <line x1="120" y1="480" x2="80" y2="530" class="branch-connection"/>
+  <rect x="20" y="515" width="120" height="20" rx="10" class="ops-node"/>
+  <text x="80" y="528" class="subcategory-text">監視・検知</text>
+  
+  <line x1="50" y1="535" x2="20" y2="560" class="leaf-connection"/>
+  <rect x="5" y="552" width="60" height="16" rx="8" class="item-node"/>
+  <text x="8" y="562" class="item-text">ログ分析</text>
+  
+  <line x1="80" y1="535" x2="80" y2="580" class="leaf-connection"/>
+  <rect x="45" y="572" width="60" height="16" rx="8" class="item-node"/>
+  <text x="48" y="582" class="item-text">異常検知</text>
+  
+  <line x1="110" y1="535" x2="140" y2="560" class="leaf-connection"/>
+  <rect x="115" y="552" width="50" height="16" rx="8" class="item-node"/>
+  <text x="118" y="562" class="item-text">アラート</text>
+  
+  <!-- Incident Response -->
+  <line x1="240" y1="480" x2="280" y2="530" class="branch-connection"/>
+  <rect x="220" y="515" width="120" height="20" rx="10" class="ops-node"/>
+  <text x="280" y="528" class="subcategory-text">インシデント対応</text>
+  
+  <line x1="250" y1="535" x2="220" y2="560" class="leaf-connection"/>
+  <rect x="185" y="552" width="70" height="16" rx="8" class="item-node"/>
+  <text x="188" y="562" class="item-text">初動対応</text>
+  
+  <line x1="280" y1="535" x2="280" y2="580" class="leaf-connection"/>
+  <rect x="240" y="572" width="70" height="16" rx="8" class="item-node"/>
+  <text x="243" y="582" class="item-text">調査・分析</text>
+  
+  <line x1="310" y1="535" x2="340" y2="560" class="leaf-connection"/>
+  <rect x="305" y="552" width="70" height="16" rx="8" class="item-node"/>
+  <text x="308" y="562" class="item-text">復旧・改善</text>
+  
+</svg>

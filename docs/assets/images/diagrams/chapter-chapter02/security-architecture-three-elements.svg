@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --tech-bg: #e3f2fd;
+        --org-bg: #fff3e0;
+        --ops-bg: #e8f5e8;
+        --integration-bg: #f3e5f5;
+        --pdca-bg: #ffe0b2;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --tech-bg: #1E3A8A;
+          --org-bg: #E65100;
+          --ops-bg: #1B5E20;
+          --integration-bg: #4A148C;
+          --pdca-bg: #FF6F00;
+        }
+      }
+      
+      /* Typography */
+      .title-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .section-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .element-title {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .item-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 8px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      /* Box Styles */
+      .tech-box {
+        fill: var(--tech-bg);
+        stroke: var(--primary);
+        stroke-width: 1.5;
+      }
+      
+      .org-box {
+        fill: var(--org-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .ops-box {
+        fill: var(--ops-bg);
+        stroke: var(--success);
+        stroke-width: 1.5;
+      }
+      
+      .integration-box {
+        fill: var(--integration-bg);
+        stroke: var(--neutral);
+        stroke-width: 1.5;
+      }
+      
+      .pdca-box {
+        fill: var(--pdca-bg);
+        stroke: var(--warning);
+        stroke-width: 1.5;
+      }
+      
+      .section-box {
+        fill: var(--bg-secondary);
+        stroke: var(--border);
+        stroke-width: 1;
+      }
+      
+      /* Connection Lines */
+      .integration-line {
+        stroke: var(--primary);
+        stroke-width: 2;
+        marker-end: url(#arrow);
+      }
+      
+      .cycle-line {
+        stroke: var(--success);
+        stroke-width: 2;
+        marker-end: url(#arrow-green);
+      }
+    </style>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--primary)"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--success)"/>
+    </marker>
+  </defs>
+  
+  <title>セキュリティアーキテクチャの三要素統合</title>
+  <desc>技術的要素、組織的要素、運用的要素の統合とPDCAサイクル</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Main Title -->
+  <text x="400" y="24" class="title-text">セキュリティアーキテクチャの三要素統合</text>
+  
+  <!-- Technical Elements Section -->
+  <rect x="50" y="50" width="220" height="130" rx="6" class="section-box"/>
+  <text x="160" y="70" class="section-title">技術的要素 (Technology)</text>
+  
+  <rect x="60" y="80" width="200" height="35" rx="3" class="tech-box"/>
+  <text x="160" y="95" class="element-title">認証・認可システム</text>
+  <text x="65" y="107" class="item-text">• SSO・SAML認証 • MFA実装 • RBAC/ABAC • IDaaS連携</text>
+  
+  <rect x="60" y="120" width="200" height="25" rx="3" class="tech-box"/>
+  <text x="160" y="132" class="element-title">暗号化システム</text>
+  <text x="65" y="142" class="item-text">• 保存時暗号化 • 転送時暗号化 • HSM連携 • Keyローテーション</text>
+  
+  <rect x="60" y="150" width="200" height="25" rx="3" class="tech-box"/>
+  <text x="160" y="162" class="element-title">監視・検知システム</text>
+  <text x="65" y="172" class="item-text">• SIEM統合 • EDRシステム • NDRシステム • UEBA分析</text>
+  
+  <!-- Organizational Elements Section -->
+  <rect x="290" y="50" width="220" height="130" rx="6" class="section-box"/>
+  <text x="400" y="70" class="section-title">組織的要素 (Organization)</text>
+  
+  <rect x="300" y="80" width="200" height="35" rx="3" class="org-box"/>
+  <text x="400" y="95" class="element-title">職務分離</text>
+  <text x="305" y="107" class="item-text">• 開発 vs 運用 • 承認 vs 実行 • 監視 vs 実装 • チェックアンドバランス</text>
+  
+  <rect x="300" y="120" width="200" height="25" rx="3" class="org-box"/>
+  <text x="400" y="132" class="element-title">最小権限の原則</text>
+  <text x="305" y="142" class="item-text">• JITアクセス • 定期的権限見直し • 承認ベース権限昇格</text>
+  
+  <rect x="300" y="150" width="200" height="25" rx="3" class="org-box"/>
+  <text x="400" y="162" class="element-title">承認プロセス</text>
+  <text x="305" y="172" class="item-text">• 本番環境変更 • 特権アカウント使用 • 機密データアクセス</text>
+  
+  <!-- Operational Elements Section -->
+  <rect x="530" y="50" width="220" height="130" rx="6" class="section-box"/>
+  <text x="640" y="70" class="section-title">運用的要素 (Operations)</text>
+  
+  <rect x="540" y="80" width="200" height="35" rx="3" class="ops-box"/>
+  <text x="640" y="95" class="element-title">パッチ管理プロセス</text>
+  <text x="545" y="107" class="item-text">• 脆弱性情報収集 • 影響評価 • テスト環境検証 • 本番環境適用</text>
+  
+  <rect x="540" y="120" width="200" height="25" rx="3" class="ops-box"/>
+  <text x="640" y="132" class="element-title">設定管理プロセス</text>
+  <text x="545" y="142" class="item-text">• IaC実装 • 設定標準化 • 変更管理 • ドリフト検知</text>
+  
+  <rect x="540" y="150" width="200" height="25" rx="3" class="ops-box"/>
+  <text x="640" y="162" class="element-title">インシデント対応</text>
+  <text x="545" y="172" class="item-text">• 検知・分析 • 封じ込め・除去 • 復旧・事後分析 • 改善策実装</text>
+  
+  <!-- Integration Points Section -->
+  <rect x="50" y="200" width="700" height="90" rx="6" class="section-box"/>
+  <text x="400" y="220" class="section-title">統合ポイント</text>
+  
+  <rect x="70" y="230" width="200" height="50" rx="3" class="integration-box"/>
+  <text x="170" y="245" class="element-title">技術×組織</text>
+  <text x="75" y="255" class="item-text">• 自動化ツールで人的ミス減少</text>
+  <text x="75" y="265" class="item-text">• SSOでアクセス制御実装</text>
+  <text x="75" y="275" class="item-text">• モニタリングで職務分離サポート</text>
+  
+  <rect x="290" y="230" width="200" height="50" rx="3" class="integration-box"/>
+  <text x="390" y="245" class="element-title">技術×運用</text>
+  <text x="295" y="255" class="item-text">• CI/CDでパッチ管理自動化</text>
+  <text x="295" y="265" class="item-text">• IaCで設定管理統合</text>
+  <text x="295" y="275" class="item-text">• SOARでインシデント対応自動化</text>
+  
+  <rect x="510" y="230" width="200" height="50" rx="3" class="integration-box"/>
+  <text x="610" y="245" class="element-title">組織×運用</text>
+  <text x="515" y="255" class="item-text">• 承認プロセスで変更管理</text>
+  <text x="515" y="265" class="item-text">• 職務分離でインシデント対応品質向上</text>
+  <text x="515" y="275" class="item-text">• 最小権限でリスク減少</text>
+  
+  <!-- Integration Connections -->
+  <line x1="160" y1="180" x2="170" y2="230" class="integration-line"/>
+  <line x1="400" y1="180" x2="170" y2="230" class="integration-line"/>
+  
+  <line x1="160" y1="180" x2="390" y2="230" class="integration-line"/>
+  <line x1="640" y1="180" x2="390" y2="230" class="integration-line"/>
+  
+  <line x1="400" y1="180" x2="610" y2="230" class="integration-line"/>
+  <line x1="640" y1="180" x2="610" y2="230" class="integration-line"/>
+  
+  <!-- PDCA Cycle Section -->
+  <rect x="50" y="310" width="700" height="120" rx="6" class="section-box"/>
+  <text x="400" y="330" class="section-title">継続的改善サイクル</text>
+  
+  <rect x="70" y="340" width="140" height="80" rx="4" class="pdca-box"/>
+  <text x="140" y="355" class="element-title">計画 (Plan)</text>
+  <text x="75" y="370" class="item-text">• リスクアセスメント</text>
+  <text x="75" y="382" class="item-text">• セキュリティ方針策定</text>
+  <text x="75" y="394" class="item-text">• 実装計画作成</text>
+  
+  <rect x="230" y="340" width="140" height="80" rx="4" class="pdca-box"/>
+  <text x="300" y="355" class="element-title">実行 (Do)</text>
+  <text x="235" y="370" class="item-text">• セキュリティ対策実装</text>
+  <text x="235" y="382" class="item-text">• システム構築</text>
+  <text x="235" y="394" class="item-text">• 手順書整備</text>
+  
+  <rect x="390" y="340" width="140" height="80" rx="4" class="pdca-box"/>
+  <text x="460" y="355" class="element-title">確認 (Check)</text>
+  <text x="395" y="370" class="item-text">• セキュリティメトリクス測定</text>
+  <text x="395" y="382" class="item-text">• 脆弱性テスト</text>
+  <text x="395" y="394" class="item-text">• 内部監査</text>
+  
+  <rect x="550" y="340" width="140" height="80" rx="4" class="pdca-box"/>
+  <text x="620" y="355" class="element-title">改善 (Act)</text>
+  <text x="555" y="370" class="item-text">• 差異分析</text>
+  <text x="555" y="382" class="item-text">• 改善策実装</text>
+  <text x="555" y="394" class="item-text">• 次期計画反映</text>
+  
+  <!-- PDCA Cycle Connections -->
+  <line x1="170" y1="280" x2="140" y2="340" class="integration-line"/>
+  <line x1="390" y1="280" x2="300" y2="340" class="integration-line"/>
+  <line x1="610" y1="280" x2="460" y2="340" class="integration-line"/>
+  
+  <!-- PDCA Flow -->
+  <line x1="210" y1="380" x2="230" y2="380" class="cycle-line"/>
+  <line x1="370" y1="380" x2="390" y2="380" class="cycle-line"/>
+  <line x1="530" y1="380" x2="550" y2="380" class="cycle-line"/>
+  
+  <!-- Act back to Plan -->
+  <path d="M 620 420 Q 650 450 400 470 Q 140 450 140 420" fill="none" class="cycle-line"/>
+  
+  <!-- Key Benefits Section -->
+  <rect x="50" y="450" width="700" height="130" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+  <text x="400" y="470" class="section-title">三要素統合の効果</text>
+  
+  <text x="60" y="490" class="item-text">1. 技術的要素: システムレベルでの自動化された保護メカニズムを提供し、人的介入なしに一定レベルの防御を実現</text>
+  <text x="60" y="505" class="item-text">2. 組織的要素: 人間の行動とプロセスを管理し、内部脅威の軽減と責任の明確化を図る</text>
+  <text x="60" y="520" class="item-text">3. 運用的要素: 継続的な維持管理により、変化する脅威環境への適応と組織の成長への対応を実現</text>
+  <text x="60" y="535" class="item-text">4. 統合効果: 三要素の相乗効果により、単一要素では実現困難な包括的なセキュリティを実現</text>
+  <text x="60" y="550" class="item-text">5. 継続的改善: PDCAサイクルにより、実装後も継続的に効果を向上させ、組織の成熟度を高める</text>
+  <text x="60" y="565" class="item-text">6. 統合ポイントの活用: 各要素間の連携により、運用効率の向上とセキュリティレベルの最適化を実現</text>
+  
+</svg>

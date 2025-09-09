@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      /* Color Palette */
+      :root {
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F8F9FA;
+        --text-primary: #1A1A1A;
+        --text-secondary: #6B7280;
+        --primary: #3B82F6;
+        --success: #10B981;
+        --warning: #F59E0B;
+        --error: #EF4444;
+        --neutral: #6B7280;
+        --border: #E5E7EB;
+        --attack-color: #DC2626;
+        --defense-color: #059669;
+        --system-color: #2563EB;
+      }
+      
+      /* Dark Theme */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-primary: #1A1A1A;
+          --bg-secondary: #2D2D2D;
+          --text-primary: #FFFFFF;
+          --text-secondary: #9CA3AF;
+          --primary: #60A5FA;
+          --success: #34D399;
+          --warning: #FBBF24;
+          --error: #F87171;
+          --neutral: #9CA3AF;
+          --border: #374151;
+          --attack-color: #EF4444;
+          --defense-color: #10B981;
+          --system-color: #3B82F6;
+        }
+      }
+      
+      /* Typography */
+      .title-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .participant-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .action-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      .note-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 400;
+        text-anchor: start;
+        fill: var(--text-secondary);
+      }
+      
+      .phase-text {
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--text-primary);
+      }
+      
+      /* Line Styles */
+      .lifeline {
+        stroke: var(--neutral);
+        stroke-width: 1;
+        stroke-dasharray: 4,4;
+      }
+      
+      .attack-arrow {
+        stroke: var(--attack-color);
+        stroke-width: 2;
+        marker-end: url(#arrow-red);
+      }
+      
+      .defense-arrow {
+        stroke: var(--defense-color);
+        stroke-width: 2;
+        marker-end: url(#arrow-green);
+      }
+      
+      .system-arrow {
+        stroke: var(--system-color);
+        stroke-width: 2;
+        marker-end: url(#arrow-blue);
+      }
+      
+      /* Box Styles */
+      .participant-box {
+        fill: var(--bg-secondary);
+        stroke: var(--border);
+        stroke-width: 1;
+      }
+      
+      .note-box {
+        fill: var(--bg-secondary);
+        stroke: var(--border);
+        stroke-width: 1;
+      }
+      
+      .highlight-box {
+        fill: rgba(255, 240, 240, 0.8);
+        stroke: var(--error);
+        stroke-width: 1;
+      }
+    </style>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow-red" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--attack-color)"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--defense-color)"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="var(--system-color)"/>
+    </marker>
+  </defs>
+  
+  <title>現代的サイバー攻撃の典型的フロー</title>
+  <desc>攻撃者と防御システム間の相互作用を示すシーケンス図</desc>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="var(--bg-primary)"/>
+  
+  <!-- Main Title -->
+  <text x="400" y="24" class="title-text">現代的サイバー攻撃の典型的フロー</text>
+  
+  <!-- Participants -->
+  <rect x="50" y="50" width="100" height="30" rx="4" class="participant-box"/>
+  <text x="100" y="70" class="participant-text">攻撃者</text>
+  
+  <rect x="200" y="50" width="100" height="30" rx="4" class="participant-box"/>
+  <text x="250" y="70" class="participant-text">境界防御</text>
+  
+  <rect x="350" y="50" width="100" height="30" rx="4" class="participant-box"/>
+  <text x="400" y="70" class="participant-text">内部システム</text>
+  
+  <rect x="500" y="50" width="100" height="30" rx="4" class="participant-box"/>
+  <text x="550" y="70" class="participant-text">重要データ</text>
+  
+  <rect x="650" y="50" width="100" height="30" rx="4" class="participant-box"/>
+  <text x="700" y="70" class="participant-text">防御システム</text>
+  
+  <!-- Lifelines -->
+  <line x1="100" y1="80" x2="100" y2="580" class="lifeline"/>
+  <line x1="250" y1="80" x2="250" y2="580" class="lifeline"/>
+  <line x1="400" y1="80" x2="400" y2="580" class="lifeline"/>
+  <line x1="550" y1="80" x2="550" y2="580" class="lifeline"/>
+  <line x1="700" y1="80" x2="700" y2="580" class="lifeline"/>
+  
+  <!-- Phase 1: Reconnaissance -->
+  <line x1="100" y1="110" x2="250" y2="110" class="attack-arrow"/>
+  <text x="175" y="105" class="action-text">1. 偵察・情報収集</text>
+  
+  <rect x="260" y="95" width="120" height="45" rx="3" class="note-box"/>
+  <text x="265" y="108" class="note-text">• 公開情報調査</text>
+  <text x="265" y="120" class="note-text">• ネットワークスキャン</text>
+  <text x="265" y="132" class="note-text">• ソーシャルエンジニアリング</text>
+  
+  <line x1="700" y1="150" x2="700" y2="150" class="defense-arrow"/>
+  <text x="580" y="155" class="action-text">偵察活動の検知・記録</text>
+  
+  <!-- Phase 2: Initial Intrusion -->
+  <line x1="100" y1="180" x2="250" y2="180" class="attack-arrow"/>
+  <text x="175" y="175" class="action-text">2. 初期侵入</text>
+  
+  <rect x="260" y="165" width="100" height="45" rx="3" class="note-box"/>
+  <text x="265" y="178" class="note-text">• フィッシング攻撃</text>
+  <text x="265" y="190" class="note-text">• 脆弱性悪用</text>
+  <text x="265" y="202" class="note-text">• 認証情報窃取</text>
+  
+  <line x1="250" y1="220" x2="700" y2="220" class="defense-arrow"/>
+  <text x="475" y="215" class="action-text">侵入試行の検知</text>
+  
+  <!-- Alternative Flow: Success Path -->
+  <rect x="60" y="250" width="680" height="20" rx="3" fill="rgba(34, 197, 94, 0.1)" stroke="var(--success)" stroke-width="1"/>
+  <text x="400" y="264" class="phase-text">侵入成功の場合</text>
+  
+  <!-- Phase 3: Privilege Escalation -->
+  <line x1="100" y1="290" x2="400" y2="290" class="attack-arrow"/>
+  <text x="250" y="285" class="action-text">3. 権限昇格・横展開</text>
+  
+  <rect x="410" y="275" width="120" height="45" rx="3" class="note-box"/>
+  <text x="415" y="288" class="note-text">• ローカル権限昇格</text>
+  <text x="415" y="300" class="note-text">• 内部ネットワーク探索</text>
+  <text x="415" y="312" class="note-text">• 追加システム侵害</text>
+  
+  <line x1="400" y1="330" x2="700" y2="330" class="defense-arrow"/>
+  <text x="550" y="325" class="action-text">異常活動の監視</text>
+  
+  <!-- Phase 4: Data Exfiltration -->
+  <line x1="100" y1="360" x2="550" y2="360" class="attack-arrow"/>
+  <text x="325" y="355" class="action-text">4. 目標到達・データ窃取</text>
+  
+  <rect x="560" y="345" width="100" height="45" rx="3" class="note-box"/>
+  <text x="565" y="358" class="note-text">• 機密データアクセス</text>
+  <text x="565" y="370" class="note-text">• データ抽出</text>
+  <text x="565" y="382" class="note-text">• 痕跡隠滅</text>
+  
+  <line x1="550" y1="400" x2="700" y2="400" class="defense-arrow"/>
+  <text x="625" y="395" class="action-text">データアクセス監視</text>
+  
+  <!-- Phase 5: Incident Response -->
+  <line x1="700" y1="430" x2="700" y2="430" class="system-arrow"/>
+  <text x="580" y="425" class="action-text">5. インシデント対応</text>
+  
+  <rect x="580" y="445" width="100" height="45" rx="3" class="note-box"/>
+  <text x="585" y="458" class="note-text">• 被害範囲調査</text>
+  <text x="585" y="470" class="note-text">• 証拠保全</text>
+  <text x="585" y="482" class="note-text">• システム復旧</text>
+  
+  <!-- Alternative Flow: Blocked Path -->
+  <rect x="60" y="500" width="280" height="20" rx="3" fill="rgba(239, 68, 68, 0.1)" stroke="var(--error)" stroke-width="1"/>
+  <text x="200" y="514" class="phase-text">侵入阻止の場合</text>
+  
+  <line x1="250" y1="530" x2="100" y2="530" class="defense-arrow"/>
+  <text x="175" y="525" class="action-text">アクセス拒否</text>
+  
+  <line x1="700" y1="550" x2="700" y2="550" class="system-arrow"/>
+  <text x="580" y="555" class="action-text">攻撃パターン学習</text>
+  
+  <!-- Defense Strategy Highlight Box -->
+  <rect x="450" y="500" width="290" height="80" rx="6" class="highlight-box"/>
+  <text x="595" y="515" class="phase-text">攻撃者の制約を活用した防御設計</text>
+  
+  <text x="460" y="535" class="note-text">時間的制約の活用: 迅速な検知・対応、攻撃経路の複雑化</text>
+  <text x="460" y="550" class="note-text">技術的制約の活用: 多様な防御技術、未知の攻撃への対応</text>
+  <text x="460" y="565" class="note-text">リスク制約の活用: 攻撃コストの増大、発覚リスクの向上</text>
+  
+</svg>
