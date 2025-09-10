@@ -130,3 +130,5 @@ Email: [knowledge@itdo.jp](mailto:knowledge@itdo.jp)
 **バージョン:** 1.0.0  
 **最終更新:** 2025-07-17
 <!-- Force GitHub Pages update Mon Aug 18 07:38:13 AM JST 2025 -->
+
+{% include page-navigation.html %}
