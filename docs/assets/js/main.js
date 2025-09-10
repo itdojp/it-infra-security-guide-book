@@ -199,7 +199,7 @@
         modal.className = 'image-modal';
         modal.innerHTML = `
             <div class="image-modal-content">
-                <img src="${img.src}" alt="${img.alt}">
+                <img src="${img.src}" alt="${img.alt || (img.src.split("/").pop().split(".")[0])}">
                 <button class="image-modal-close">&times;</button>
             </div>
         `;
