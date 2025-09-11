@@ -1,3 +1,13 @@
+# updated by automation to avoid 404 on appendices root without index.md
+
 appendices:
-- title: 付録
-  path: /src/appendices/
+- title: あとがき
+  path: /src/appendices/afterword/
+- title: 付録A: セキュリティツール一覧
+  path: /src/appendices/appendix-a/
+- title: 付録B: 設定テンプレート集
+  path: /src/appendices/appendix-b/
+
+afterword:
+- title: あとがき
+  path: /src/appendices/afterword/
