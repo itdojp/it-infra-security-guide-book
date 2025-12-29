@@ -1,13 +1,38 @@
-# updated by automation to avoid 404 on appendices root without index.md
+# Canonical navigation order for page-navigation.html
+# Note: this list is used only for previous/next navigation sequence.
+
+introduction:
+- title: "目次"
+  path: /
+- title: "はじめに"
+  path: /src/chapter-introduction/
+
+chapters:
+- title: "第1章：情報セキュリティの基本原則"
+  path: /src/chapter-chapter01/
+- title: "第2章：リスクアセスメントと脅威モデル"
+  path: /src/chapter-chapter02/
+- title: "第3章：セキュリティアーキテクチャ設計"
+  path: /src/chapter-chapter03/
+- title: "第4章：ネットワークセキュリティ実装"
+  path: /src/chapter-chapter04/
+- title: "第5章：サーバーセキュリティ強化"
+  path: /src/chapter-chapter05/
+- title: "第6章：認証・認可システム構築"
+  path: /src/chapter-chapter06/
+- title: "第7章：暗号化とデータ保護"
+  path: /src/chapter-chapter07/
+- title: "第8章：セキュリティ監視と運用"
+  path: /src/chapter-chapter08/
+- title: "第9章：インシデント対応と事業継続"
+  path: /src/chapter-chapter09/
 
 appendices:
-- title: あとがき
-  path: /src/appendices/afterword/
-- title: 付録A: セキュリティツール一覧
+- title: "付録A: セキュリティツール一覧"
   path: /src/appendices/appendix-a/
-- title: 付録B: 設定テンプレート集
+- title: "付録B: 設定テンプレート集"
   path: /src/appendices/appendix-b/
 
 afterword:
-- title: あとがき
+- title: "あとがき"
   path: /src/appendices/afterword/
