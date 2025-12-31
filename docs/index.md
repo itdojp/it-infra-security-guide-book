@@ -110,7 +110,7 @@ SOC、SIEM、自動化
 
 ## 想定読者
 
-- インフラエンジニア（1-5年経験）
+- インフラエンジニア（1〜5年経験）
 - セキュリティエンジニア
 - DevOpsエンジニア
 - SRE（Site Reliability Engineer）
