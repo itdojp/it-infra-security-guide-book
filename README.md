@@ -7,7 +7,7 @@
 ## オンライン版（入口）
 
 - リポジトリ内: `docs/index.md`
-- GitHub Pages を有効化している場合: `https://itdojp.github.io/it-infra-security-guide-book/`
+- GitHub Pagesを有効化している場合: https://itdojp.github.io/it-infra-security-guide-book/
 
 ## 対象読者
 
