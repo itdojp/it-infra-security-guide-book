@@ -37,35 +37,35 @@
     <text x="400" y="480" class="axis-title" text-anchor="middle">影響度</text>
     
     <!-- Grid Cells -->
-    <!-- Row 5: 極高 (90-100%) -->
+    <!-- Row 5: 極高 (90〜100%) -->
     <rect x="120" y="100" width="80" height="60" class="low-risk"/>
     <rect x="200" y="100" width="80" height="60" class="medium-risk"/>
     <rect x="280" y="100" width="80" height="60" class="high-risk"/>
     <rect x="360" y="100" width="80" height="60" class="critical-risk"/>
     <rect x="440" y="100" width="80" height="60" class="critical-risk"/>
     
-    <!-- Row 4: 高 (70-90%) -->
+    <!-- Row 4: 高 (70〜90%) -->
     <rect x="120" y="160" width="80" height="60" class="low-risk"/>
     <rect x="200" y="160" width="80" height="60" class="medium-risk"/>
     <rect x="280" y="160" width="80" height="60" class="high-risk"/>
     <rect x="360" y="160" width="80" height="60" class="high-risk"/>
     <rect x="440" y="160" width="80" height="60" class="critical-risk"/>
     
-    <!-- Row 3: 中 (40-70%) -->
+    <!-- Row 3: 中 (40〜70%) -->
     <rect x="120" y="220" width="80" height="60" class="low-risk"/>
     <rect x="200" y="220" width="80" height="60" class="low-risk"/>
     <rect x="280" y="220" width="80" height="60" class="medium-risk"/>
     <rect x="360" y="220" width="80" height="60" class="high-risk"/>
     <rect x="440" y="220" width="80" height="60" class="high-risk"/>
     
-    <!-- Row 2: 低 (10-40%) -->
+    <!-- Row 2: 低 (10〜40%) -->
     <rect x="120" y="280" width="80" height="60" class="low-risk"/>
     <rect x="200" y="280" width="80" height="60" class="low-risk"/>
     <rect x="280" y="280" width="80" height="60" class="medium-risk"/>
     <rect x="360" y="280" width="80" height="60" class="medium-risk"/>
     <rect x="440" y="280" width="80" height="60" class="high-risk"/>
     
-    <!-- Row 1: 極低 (0-10%) -->
+    <!-- Row 1: 極低 (0〜10%) -->
     <rect x="120" y="340" width="80" height="60" class="low-risk"/>
     <rect x="200" y="340" width="80" height="60" class="low-risk"/>
     <rect x="280" y="340" width="80" height="60" class="low-risk"/>
