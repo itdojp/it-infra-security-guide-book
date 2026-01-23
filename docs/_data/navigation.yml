@@ -5,34 +5,34 @@ introduction:
 - title: "目次"
   path: /
 - title: "はじめに"
-  path: /src/chapter-introduction/
+  path: /chapter-introduction/
 
 chapters:
 - title: "第1章：情報セキュリティの基本原則"
-  path: /src/chapter-chapter01/
+  path: /chapter-chapter01/
 - title: "第2章：リスクアセスメントと脅威モデル"
-  path: /src/chapter-chapter02/
+  path: /chapter-chapter02/
 - title: "第3章：セキュリティアーキテクチャ設計"
-  path: /src/chapter-chapter03/
+  path: /chapter-chapter03/
 - title: "第4章：ネットワークセキュリティ実装"
-  path: /src/chapter-chapter04/
+  path: /chapter-chapter04/
 - title: "第5章：サーバーセキュリティ強化"
-  path: /src/chapter-chapter05/
+  path: /chapter-chapter05/
 - title: "第6章：認証・認可システム構築"
-  path: /src/chapter-chapter06/
+  path: /chapter-chapter06/
 - title: "第7章：暗号化とデータ保護"
-  path: /src/chapter-chapter07/
+  path: /chapter-chapter07/
 - title: "第8章：セキュリティ監視と運用"
-  path: /src/chapter-chapter08/
+  path: /chapter-chapter08/
 - title: "第9章：インシデント対応と事業継続"
-  path: /src/chapter-chapter09/
+  path: /chapter-chapter09/
 
 appendices:
 - title: "付録A: セキュリティツール一覧"
-  path: /src/appendices/appendix-a/
+  path: /appendices/appendix-a/
 - title: "付録B: 設定テンプレート集"
-  path: /src/appendices/appendix-b/
+  path: /appendices/appendix-b/
 
 afterword:
 - title: "あとがき"
-  path: /src/appendices/afterword/
+  path: /appendices/afterword/

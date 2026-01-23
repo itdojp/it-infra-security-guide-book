@@ -25,10 +25,6 @@ defaults:
       type: "pages"
     values:
       layout: "book"
-  - scope:
-      path: "src"
-    values:
-      layout: "book"
 
 # 除外ファイル
 exclude:
