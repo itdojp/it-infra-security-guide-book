@@ -7,8 +7,8 @@
     "start": "jekyll serve --livereload",
     "build": "jekyll build",
     "test": "npm run lint && npm run check-links",
-    "lint": "markdownlint src/**/*.md",
-    "check-links": "markdown-link-check src/**/*.md",
+    "lint": "markdownlint docs/**/*.md",
+    "check-links": "markdown-link-check docs/**/*.md",
     "deploy": "gh-pages -d _site"
   },
   "keywords": [
