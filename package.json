@@ -1,7 +1,7 @@
 {
-  "name": "インフラエンジニアのための情報セキュリティ実装ガイド",
+  "name": "\u30a4\u30f3\u30d5\u30e9\u30a8\u30f3\u30b8\u30cb\u30a2\u306e\u305f\u3081\u306e\u60c5\u5831\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u5b9f\u88c5\u30ac\u30a4\u30c9",
   "version": "1.0.0",
-  "description": "インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書。設定の背景にある設計思想と実装判断の根拠を丁寧に言葉で説明することに重点を置いています。",
+  "description": "\u30a4\u30f3\u30d5\u30e9\u30a8\u30f3\u30b8\u30cb\u30a2\u304c\u65e5\u5e38\u7684\u306b\u76f4\u9762\u3059\u308b\u6a2a\u65ad\u7684\u306a\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u5b9f\u88c5\u8ab2\u984c\u3092\u5305\u62ec\u7684\u306b\u6271\u3063\u305f\u5b9f\u8df5\u66f8\u3002\u8a2d\u5b9a\u306e\u80cc\u666f\u306b\u3042\u308b\u8a2d\u8a08\u601d\u60f3\u3068\u5b9f\u88c5\u5224\u65ad\u306e\u6839\u62e0\u3092\u4e01\u5be7\u306b\u8a00\u8449\u3067\u8aac\u660e\u3059\u308b\u3053\u3068\u306b\u91cd\u70b9\u3092\u7f6e\u3044\u3066\u3044\u307e\u3059\u3002",
   "main": "index.md",
   "scripts": {
     "start": "jekyll serve --livereload",
@@ -16,8 +16,8 @@
     "documentation",
     "ja"
   ],
-  "author": "株式会社アイティードゥ",
-  "license": "All rights reserved",
+  "author": "\u682a\u5f0f\u4f1a\u793e\u30a2\u30a4\u30c6\u30a3\u30fc\u30c9\u30a5",
+  "license": "CC-BY-NC-SA-4.0",
   "devDependencies": {
     "markdownlint-cli": "^0.37.0",
     "markdown-link-check": "^3.11.2",
