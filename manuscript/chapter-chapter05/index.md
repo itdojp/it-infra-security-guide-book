@@ -9,7 +9,7 @@ title: "第5章：サーバーセキュリティ強化"
 > - 最小権限原則に基づく特権管理システムを設計する
 > - コンテナとクラウドネイティブ環境でのセキュリティ強化を習得する
 
-[第4章](../chapter-chapter04/index.md)でネットワークレベルの防御について学びました。この章では、[多層防御](../chapter-chapter02/index.md#多層防御の設計原理)の次の層として、サーバーとOSレベルでのセキュリティ強化に焦点を当てます。ネットワーク防御を突破された場合の最後の砦として、システム自体の堅牢性を確保する方法を理解していきます。
+[第4章](../chapter-chapter04/index.md)でネットワークレベルの防御について学びました。この章では、[多層防御](../chapter-chapter02/index.md#21-多層防御の設計原理)の次の層として、サーバーとOSレベルでのセキュリティ強化に焦点を当てます。ネットワーク防御を突破された場合の最後の砦として、システム自体の堅牢性を確保する方法を理解していきます。
 
 ## 5.1 OSハードニングの体系的アプローチ
 
@@ -124,7 +124,7 @@ fs.protected_symlinks = 1
 
 **Kubernetes セキュリティポリシー**では、Pod Security Standards、Network Policies、RBAC（Role-Based Access Control）などを組み合わせ、Kubernetes クラスター全体でのセキュリティを確保します。
 
-これらのハードニング手法は、[第6章のクラウドセキュリティ](../chapter-chapter06/index.md#iam-identity-and-access-management-の設計と運用)で扱うクラウドレベルの対策と連携することで、包括的なシステムセキュリティを実現します。
+これらのハードニング手法は、[第6章のクラウドセキュリティ](../chapter-chapter06/index.md#62-iamidentity-and-access-managementの設計と運用)で扱うクラウドレベルの対策と連携することで、包括的なシステムセキュリティを実現します。
 
 ### OSハードニング実装時のトラブルシューティング
 
@@ -841,7 +841,7 @@ Defaults    log_input, log_output
 
 **ファイルシステムレベル制御**では、適切なファイル権限設定とACL（Access Control List）により、機密ファイルへのアクセスを制御します。特に設定ファイル、ログファイル、データベースファイルのセキュリティを強化します。
 
-これらのアクセス制御技術は、[第6章のクラウドセキュリティ](../chapter-chapter06/index.md#iam-identity-and-access-management-の設計と運用)で扱うクラウド環境でのIAM（Identity and Access Management）と統合することで、ハイブリッド環境での包括的なアクセス管理を実現できます。
+これらのアクセス制御技術は、[第6章のクラウドセキュリティ](../chapter-chapter06/index.md#62-iamidentity-and-access-managementの設計と運用)で扱うクラウド環境でのIAM（Identity and Access Management）と統合することで、ハイブリッド環境での包括的なアクセス管理を実現できます。
 
 ## 5.4 ログ管理とシステム監視
 
@@ -931,7 +931,7 @@ output {
 
 **分散処理とスケーリング**では、ログ処理負荷の増加に対応するため、水平スケーリング可能なアーキテクチャを設計します。Apache Kafka、Elasticsearch Clusterなどの分散システムを活用し、高いスループットを実現します。
 
-これらのログ管理技術は、[第8章の継続的セキュリティ運用](../chapter-chapter08/index.md#soc-security-operations-center-の設計と構築)で扱うSOC（Security Operations Center）運用と統合することで、効果的なセキュリティ監視体制を構築できます。
+これらのログ管理技術は、[第8章の継続的セキュリティ運用](../chapter-chapter08/index.md#81-socsecurity-operations-centerの設計と構築)で扱うSOC（Security Operations Center）運用と統合することで、効果的なセキュリティ監視体制を構築できます。
 
 ## まとめ：システムレベルセキュリティの総合戦略
 

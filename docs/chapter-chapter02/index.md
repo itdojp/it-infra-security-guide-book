@@ -24,7 +24,7 @@ layout: book
 
 この設計思想をITインフラに適用すると、以下のような防御層が考えられます。
 
-![多層防御アーキテクチャの詳細設計](../../../docs/assets/images/diagrams/chapter-chapter02/multilayer-defense-architecture.svg)
+![多層防御アーキテクチャの詳細設計](../assets/images/diagrams/chapter-chapter02/multilayer-defense-architecture.svg)
 
 **外郭防御層**：ファイアウォール、IDS/IPS、WAFなど、外部からの攻撃を最初に迎撃する層です。大量の攻撃トラフィックを識別・遮断し、明らかに悪意のあるアクセスを排除します。
 
@@ -63,9 +63,9 @@ layout: book
 
 技術的実装として、SIEM（Security Information and Event Management）システムの導入、ネットワークトラフィックの行動分析、異常検知アルゴリズムの活用、自動化されたインシデント対応フローの構築などを行います。
 
-この優先度に基づく実装アプローチは[第3章のセキュリティ要件設計](../chapter-chapter03/index.md#リスクベースアプローチによる実装優先度)で詳細に解説します。
+この優先度に基づく実装アプローチは[第3章のセキュリティ要件設計](../chapter-chapter03/index.md#32-リスクベースアプローチによる実装優先度)で詳細に解説します。
 
-![実装優先度フレームワーク](../../../docs/assets/images/diagrams/chapter-chapter02/implementation-priority-framework.svg)
+![実装優先度フレームワーク](../assets/images/diagrams/chapter-chapter02/implementation-priority-framework.svg)
 
 ## 2.2 セキュリティアーキテクチャの構成要素
 
@@ -113,9 +113,9 @@ layout: book
 
 **インシデント対応プロセス**は、セキュリティ事象発生時の組織的対応を定義した仕組みです。検知、分析、封じ込め、根絶、復旧、事後分析の各段階で、役割分担と手順を明確化し、迅速で効果的な対応を実現します。
 
-これらの運用的要素は[第8章の継続的セキュリティ運用](../chapter-chapter08/index.md#soc-security-operations-center-の設計と構築)で詳細に解説します。
+これらの運用的要素は[第8章の継続的セキュリティ運用](../chapter-chapter08/index.md#81-socsecurity-operations-centerの設計と構築)で詳細に解説します。
 
-![セキュリティアーキテクチャの三要素統合](../../../docs/assets/images/diagrams/chapter-chapter02/security-architecture-three-elements.svg)
+![セキュリティアーキテクチャの三要素統合](../assets/images/diagrams/chapter-chapter02/security-architecture-three-elements.svg)
 
 ## 2.3 インフラエンジニアの役割と責任範囲
 
@@ -163,7 +163,7 @@ layout: book
 
 この責任範囲の明確化により、組織全体でのセキュリティガバナンスが向上し、効率的なセキュリティ管理が可能になります。
 
-![インフラエンジニアのセキュリティ役割と責任範囲](../../../docs/assets/images/diagrams/chapter-chapter02/infrastructure-engineer-roles-responsibilities.svg)
+![インフラエンジニアのセキュリティ役割と責任範囲](../assets/images/diagrams/chapter-chapter02/infrastructure-engineer-roles-responsibilities.svg)
 
 ## 2.4 セキュリティフレームワークの実装アプローチ
 
@@ -223,7 +223,7 @@ ISO27001は情報セキュリティマネジメントシステム（ISMS）の�
 
 これらのクラウドセキュリティの詳細は[第6章のクラウドセキュリティ](../chapter-chapter06/index.md)で解説します。
 
-![セキュリティフレームワークの実装アプローチ](../../../docs/assets/images/diagrams/chapter-chapter02/security-framework-implementation.svg)
+![セキュリティフレームワークの実装アプローチ](../assets/images/diagrams/chapter-chapter02/security-framework-implementation.svg)
 
 ### フレームワーク実装の成功要因
 
