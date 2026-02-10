@@ -625,7 +625,7 @@ jobs:
   security-scan-code:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     # 静的コード分析
     - name: Run CodeQL Analysis
@@ -649,7 +649,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: security-scan-code
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     # コンテナビルド
     - name: Build Container
@@ -680,7 +680,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: security-scan-container
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     # Kubernetes設定スキャン
     - name: K8s Security Scan
