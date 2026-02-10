@@ -29,7 +29,7 @@ layout: book
 ```dockerfile
 # Dockerfile例：セキュアなマルチステージビルド
 # ビルドステージ
-FROM node:18-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production && npm cache clean --force
@@ -37,7 +37,7 @@ COPY . .
 RUN npm run build
 
 # 最終ステージ（最小化）
-FROM node:18-alpine AS runtime
+FROM node:22-alpine AS runtime
 
 # セキュリティ強化
 RUN addgroup -g 1001 -S nodejs && \
@@ -788,5 +788,4 @@ jobs:
 > - DevSecOpsパイプラインでセキュリティ自動化を実装できるか
 
 ---
-
 
