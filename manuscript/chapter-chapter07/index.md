@@ -655,7 +655,7 @@ jobs:
     
     # Trivyによる脆弱性スキャン
       - name: Container Vulnerability Scan
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: 'myapp:${{ github.sha }}'
           format: 'sarif'
