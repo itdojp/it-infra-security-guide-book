@@ -622,74 +622,74 @@ jobs:
   security-scan-code:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
     
     # 静的コード分析
-    - name: Run CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        languages: 'javascript,python,go'
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          languages: 'javascript,python,go'
     
     # シークレットスキャン
-    - name: Secret Scan
-      uses: trufflesecurity/trufflehog@main
-      with:
-        path: ./
+      - name: Secret Scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
     
     # 依存関係脆弱性スキャン
-    - name: Dependency Scan
-      run: |
-        npm audit --audit-level=high
-        pip-audit --requirement requirements.txt
+      - name: Dependency Scan
+        run: |
+          npm audit --audit-level=high
+          pip-audit --requirement requirements.txt
   
   security-scan-container:
     runs-on: ubuntu-latest
     needs: security-scan-code
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
     
     # コンテナビルド
-    - name: Build Container
-      run: |
-        docker build -t myapp:${{ github.sha }} .
+      - name: Build Container
+        run: |
+          docker build -t myapp:${{ github.sha }} .
     
     # Trivyによる脆弱性スキャン
-    - name: Container Vulnerability Scan
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'myapp:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        exit-code: '1'
-        severity: 'CRITICAL,HIGH'
+      - name: Container Vulnerability Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'myapp:${{ github.sha }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          exit-code: '1'
+          severity: 'CRITICAL,HIGH'
     
     # Dockerfile セキュリティチェック
-    - name: Dockerfile Security Scan
-      run: |
-        docker run --rm -i hadolint/hadolint < Dockerfile
+      - name: Dockerfile Security Scan
+        run: |
+          docker run --rm -i hadolint/hadolint < Dockerfile
     
     # コンテナ設定チェック
-    - name: Container Configuration Scan
-      run: |
-        docker run --rm -v "$PWD":/src cds-snyk/dockle:latest myapp:${{ github.sha }}
+      - name: Container Configuration Scan
+        run: |
+          docker run --rm -v "$PWD":/src cds-snyk/dockle:latest myapp:${{ github.sha }}
   
   security-scan-k8s:
     runs-on: ubuntu-latest
     needs: security-scan-container
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
     
     # Kubernetes設定スキャン
-    - name: K8s Security Scan
-      run: |
-        # Polaris設定チェック
-        polaris audit --audit-path k8s/ --format=pretty
-        
-        # Falco ルールチェック
-        falco --validate k8s/security-rules.yaml
-        
-        # OPA Gatekeeper制約チェック
-        conftest verify --policy gatekeeper-policies/ k8s/
+      - name: K8s Security Scan
+        run: |
+          # Polaris設定チェック
+          polaris audit --audit-path k8s/ --format=pretty
+          
+          # Falco ルールチェック
+          falco --validate k8s/security-rules.yaml
+          
+          # OPA Gatekeeper制約チェック
+          conftest verify --policy gatekeeper-policies/ k8s/
   
   deploy-staging:
     runs-on: ubuntu-latest
@@ -697,15 +697,15 @@ jobs:
     if: github.ref == 'refs/heads/develop'
     environment: staging
     steps:
-    - name: Deploy to Staging
-      run: |
-        # ステージング環境へのデプロイ
-        kubectl apply -f k8s/ -n staging
-        
-        # デプロイ後セキュリティテスト
-        kubectl run security-test --image=owasp/zap2docker-stable:latest \
-          --restart=Never --rm -i -- \
-          zap-baseline.py -t http://myapp.staging.local
+      - name: Deploy to Staging
+        run: |
+          # ステージング環境へのデプロイ
+          kubectl apply -f k8s/ -n staging
+          
+          # デプロイ後セキュリティテスト
+          kubectl run security-test --image=owasp/zap2docker-stable:latest \
+            --restart=Never --rm -i -- \
+            zap-baseline.py -t http://myapp.staging.local
   
   deploy-production:
     runs-on: ubuntu-latest
@@ -713,22 +713,22 @@ jobs:
     if: github.ref == 'refs/heads/main'
     environment: production
     steps:
-    - name: Production Security Gate
-      run: |
-        # 本番前最終セキュリティチェック
-        # コンテナ署名検証
-        cosign verify --key cosign.pub myapp:${{ github.sha }}
-        
-        # 本番環境コンプライアンスチェック
-        compliance-checker --environment=production --image=myapp:${{ github.sha }}
+      - name: Production Security Gate
+        run: |
+          # 本番前最終セキュリティチェック
+          # コンテナ署名検証
+          cosign verify --key cosign.pub myapp:${{ github.sha }}
+          
+          # 本番環境コンプライアンスチェック
+          compliance-checker --environment=production --image=myapp:${{ github.sha }}
     
-    - name: Deploy to Production
-      run: |
-        kubectl apply -f k8s/ -n production
-        
-        # カナリアデプロイメントでの段階的展開
-        kubectl patch deployment myapp -n production \
-          -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge":1,"maxUnavailable":0}}}}'
+      - name: Deploy to Production
+        run: |
+          kubectl apply -f k8s/ -n production
+          
+          # カナリアデプロイメントでの段階的展開
+          kubectl patch deployment myapp -n production \
+            -p '{"spec":{"strategy":{"rollingUpdate":{"maxSurge":1,"maxUnavailable":0}}}}'
 ```
 
 **ポリシーアズコード**では、セキュリティポリシーをコード化し、バージョン管理下で管理します。Open Policy Agent（OPA）、Gatekeeper、Falcoなどのツールを活用し、宣言的なセキュリティポリシーを実装します。
