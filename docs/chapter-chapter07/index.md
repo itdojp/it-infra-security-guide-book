@@ -628,10 +628,16 @@ jobs:
       - uses: actions/checkout@v4
     
     # 静的コード分析
-      - name: Run CodeQL Analysis
-        uses: github/codeql-action/analyze@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
         with:
           languages: 'javascript,python,go'
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v4
+
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
     
     # シークレットスキャン
       - name: Secret Scan
