@@ -626,7 +626,7 @@ jobs:
     
     # 静的コード分析
       - name: Run CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v4
         with:
           languages: 'javascript,python,go'
     
