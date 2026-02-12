@@ -29,7 +29,7 @@ title: "付録B: 設定テンプレート集"
 - 金融庁「金融機関のITガバナンスに関する対話のための論点・プラクティスの整理」
 - 経済産業省「サイバーセキュリティ経営ガイドライン」
 
-### B.1.2 リスク管理・評価
+## B.1.2 リスク管理・評価
 
 **理論・手法**
 - OCTAVE (Operationally Critical Threat, Asset, and Vulnerability Evaluation)
