@@ -10,7 +10,7 @@ This is a Japanese-language technical book project about "インフラエンジ�
 
 This project uses the **book-formatter** system:
 
-```
+```text
 it-infra-security-guide-book/
 ├── docs/                    # Generated output (GitHub Pages)
 ├── src/                     # Source content
