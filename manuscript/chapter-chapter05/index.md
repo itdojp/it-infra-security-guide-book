@@ -471,7 +471,7 @@ dpkg: dependency problems prevent configuration of package
 ```
 
 症状（Windows）：
-```
+```text
 The update is not applicable to your computer.
 Error code: 0x80240017
 ```
@@ -963,4 +963,3 @@ output {
 > - 効率的で確実なパッチ管理プロセスを構築・運用できるか
 > - 最小権限原則を技術的に強制するアクセス制御を設計できるか
 > - セキュリティイベントの早期検知と自動対応システムを構築できるか
-

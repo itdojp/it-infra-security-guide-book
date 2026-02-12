@@ -6,7 +6,7 @@ title: "付録B: 設定テンプレート集"
 
 # 付録B: 設定テンプレート集
 
-### B.1.1 情報セキュリティ基礎
+## B.1.1 情報セキュリティ基礎
 
 **国際標準・フレームワーク**
 - ISO/IEC 27001:2022 - Information Security Management Systems (ISMS)
