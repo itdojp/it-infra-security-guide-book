@@ -336,7 +336,7 @@ title: "付録B: 設定テンプレート集"
 **マルチクラウド管理**
 - CloudHealth by VMware - Cloud Management Platform
 - CloudCheckr - Cloud Management Platform
-- Prisma Cloud (旧 `Evident.io`) - Cloud Security
+- `Evident.io` (Prisma Cloud) - Cloud Security
 - Dome9 (Check Point CloudGuard) - Cloud Security
 - Lacework - Cloud Security Platform
 
