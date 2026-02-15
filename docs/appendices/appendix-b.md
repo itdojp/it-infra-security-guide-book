@@ -339,7 +339,7 @@ appendix: appendix-b
 **マルチクラウド管理**
 - CloudHealth by VMware - Cloud Management Platform
 - CloudCheckr - Cloud Management Platform
-- Evident.io (Palo Alto Prisma Cloud) - Cloud Security
+- Prisma Cloud (旧 `Evident.io`) - Cloud Security
 - Dome9 (Check Point CloudGuard) - Cloud Security
 - Lacework - Cloud Security Platform
 
