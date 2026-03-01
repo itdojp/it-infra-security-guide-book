@@ -309,10 +309,14 @@ arp -a > "$EVIDENCE_DIR/arp_table.txt"
 route -n > "$EVIDENCE_DIR/routing_table.txt"
 
 # メモリダンプ（システムへの影響を考慮）
-if [ -e /dev/mem ] && [ "$1" == "--memory-dump" ]; then
-    echo "メモリダンプ収集中..." | tee -a "$EVIDENCE_DIR/collection.log"
-    dd if=/dev/mem of="$EVIDENCE_DIR/memory_dump.img" bs=1M 2>/dev/null || \
-    echo "メモリダンプ失敗 - 権限不足または対応していないシステム" | tee -a "$EVIDENCE_DIR/collection.log"
+if [ "$1" == "--memory-dump" ]; then
+    if [ -r /dev/mem ]; then
+        echo "メモリダンプ収集中..." | tee -a "$EVIDENCE_DIR/collection.log"
+        dd if=/dev/mem of="$EVIDENCE_DIR/memory_dump.img" bs=1M 2>/dev/null || \
+        echo "メモリダンプ失敗 - 権限不足または対応していないシステム" | tee -a "$EVIDENCE_DIR/collection.log"
+    else
+        echo "メモリダンプをスキップ - /dev/mem が存在しない、または読み取り不可" | tee -a "$EVIDENCE_DIR/collection.log"
+    fi
 fi
 
 # ログファイル収集

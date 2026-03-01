@@ -104,9 +104,9 @@ sudo ufw status numbered
 # 
 #      To                         Action      From
 #      --                         ------      ----
-# [ 1] 22/tcp                     ALLOW IN    192.168.1.0/24
-# [ 2] 80/tcp                     ALLOW IN    Anywhere
-# [ 3] 443/tcp                    ALLOW IN    Anywhere
+# [ 1] 80/tcp                     ALLOW IN    Anywhere
+# [ 2] 443/tcp                    ALLOW IN    Anywhere
+# [ 3] 22/tcp                     ALLOW IN    192.168.1.0/24
 
 # ログ機能の確認（バックグラウンドプロセス管理）
 LOG_PID=""
