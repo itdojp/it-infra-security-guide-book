@@ -187,7 +187,7 @@ resource "aws_security_group" "database_tier" {
 
 **SAMLとOIDCの統合**では、既存のオンプレミスActive DirectoryやLDAPシステムと、クラウドIAMサービスをフェデレーションします。SAML 2.0、OpenID Connect、OAuth 2.0などの標準プロトコルを使用し、シームレスなシングルサインオン体験を提供します。
 
-**多要素認証（MFA）の強制**では、すべての特権アクセスに対してMFAを必須とし、フィッシング攻撃や認証情報の漏洩に対する防御を強化します。FIDO2、WebAuthn、ハードウェアセキュリティキー（HSM）を活用した強力な認証を実装します。
+**多要素認証（MFA）の強制**では、すべての特権アクセスに対してMFAを必須とし、フィッシング攻撃や認証情報の漏洩に対する防御を強化します。FIDO2、WebAuthn、ハードウェアセキュリティキーなどを活用した強力な認証を実装します。
 
 **条件付きアクセス**では、ユーザーのリスクプロファイル、デバイスの信頼レベル、ネットワークの場所などに基づいて、動的にアクセス制御を調整します。Azure Active Directory Conditional Access、AWS IAM条件、Google Cloud Context-Aware Accessなどの機能を活用します。
 
@@ -303,7 +303,7 @@ class CloudDataProtection:
 
 **データ損失防止（DLP）**では、機密データの意図しない外部流出を防止します。クラウドネイティブなDLPサービスを活用し、データの移動、共有、処理を包括的に監視します。
 
-**情報権利管理（IRM）**では、データそのものに権利情報を埋め込み、データが組織の境界を越えても保護を継続します。Microsoft Information Protection、Google Cloud Data Loss Prevention、Amazon Detective などのサービスを活用します。
+**情報権利管理（IRM）**では、データそのものに権利情報を埋め込み、データが組織の境界を越えても保護を継続します。情報保護基盤（ラベル付与、暗号化、利用制御、監査など）と連携し、共有・持ち出し時の統制を強化します。
 
 ## 6.4 マルチクラウド・ハイブリッドクラウドセキュリティ
 
@@ -381,5 +381,4 @@ class CloudDataProtection:
 > - マルチクラウド環境での統合セキュリティ管理を実現できるか
 
 ---
-
 

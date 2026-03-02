@@ -331,7 +331,7 @@ input {
 filter {
   if [fields][log_type] == "syslog" {
     grok {
-      match => { 
+      match => {
         "message" => "%{SYSLOGTIMESTAMP:timestamp} %{IPORHOST:server} %{WORD:program}(?:\[%{POSINT:pid}\])?: %{GREEDYDATA:message}"
       }
     }
@@ -339,15 +339,15 @@ filter {
       match => [ "timestamp", "MMM  d HH:mm:ss", "MMM dd HH:mm:ss" ]
     }
   }
-  
+
   if [fields][log_type] == "apache" {
     grok {
-      match => { 
+      match => {
         "message" => "%{COMMONAPACHELOG}"
       }
     }
   }
-  
+
   # セキュリティイベントの分類
   if [program] in ["sshd", "sudo", "su"] {
     mutate {
@@ -419,12 +419,11 @@ output {
 - 技術チームのスキル向上と知識共有
 
 **次章への展開**：
-[第6章](../chapter-chapter06/index.md)では、これまでに構築したネットワークとシステムの上で稼働するアプリケーションのセキュリティについて学びます。アプリケーションレベルでの脅威対策、セキュアコーディング実践、DevSecOpsプロセスの実装方法を理解していきます。
+[第6章](../chapter-chapter06/index.md)では、クラウドインフラのセキュリティを扱います。責任共有モデルの整理、IAMの設計と運用、クラウドネイティブなデータ保護、マルチクラウド・ハイブリッドクラウド環境でのセキュリティ統合を解説します。
 
 > **自己点検ポイント**
 > - 組織の要件に応じたOSハードニング基準を策定・実装できるか
 > - 効率的で確実なパッチ管理プロセスを構築・運用できるか
 > - 最小権限原則を技術的に強制するアクセス制御を設計できるか
 > - セキュリティイベントの早期検知と自動対応システムを構築できるか
-
 
