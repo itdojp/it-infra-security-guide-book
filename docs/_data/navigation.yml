@@ -8,29 +8,29 @@ introduction:
   path: /chapter-introduction/
 
 chapters:
-- title: "第1章：情報セキュリティの基本原則"
+- title: "第1章：情報セキュリティの基礎概念"
   path: /chapter-chapter01/
-- title: "第2章：リスクアセスメントと脅威モデル"
+- title: "第2章：インフラエンジニアのためのセキュリティ設計"
   path: /chapter-chapter02/
-- title: "第3章：セキュリティアーキテクチャ設計"
+- title: "第3章：セキュリティ要件の定義と実装計画"
   path: /chapter-chapter03/
-- title: "第4章：ネットワークセキュリティ実装"
+- title: "第4章：ネットワークセキュリティの実装"
   path: /chapter-chapter04/
-- title: "第5章：サーバーセキュリティ強化"
+- title: "第5章：サーバーとOSのセキュリティ強化"
   path: /chapter-chapter05/
-- title: "第6章：認証・認可システム構築"
+- title: "第6章：クラウドインフラのセキュリティ"
   path: /chapter-chapter06/
-- title: "第7章：暗号化とデータ保護"
+- title: "第7章：コンテナとKubernetesのセキュリティ"
   path: /chapter-chapter07/
-- title: "第8章：セキュリティ監視と運用"
+- title: "第8章：継続的セキュリティ運用"
   path: /chapter-chapter08/
-- title: "第9章：インシデント対応と事業継続"
+- title: "第9章：インシデント対応と継続的改善"
   path: /chapter-chapter09/
 
 appendices:
-- title: "付録A: セキュリティツール一覧"
+- title: "付録A：セキュリティチェックリスト"
   path: /appendices/appendix-a/
-- title: "付録B: 設定テンプレート集"
+- title: "付録B：参考文献とリソース"
   path: /appendices/appendix-b/
 
 afterword:
