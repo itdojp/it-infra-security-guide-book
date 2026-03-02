@@ -47,8 +47,8 @@
       },
       {
         "id": "chapter-chapter08",
-        "title": "第8章：セキュリティ監視と自動化",
-        "description": "ログ管理、SIEM、セキュリティ自動化、脅威検知"
+        "title": "第8章：継続的セキュリティ運用",
+        "description": "SOC、SIEM/SOAR、セキュリティ監視、自動化、継続的改善"
       },
       {
         "id": "chapter-chapter09",
