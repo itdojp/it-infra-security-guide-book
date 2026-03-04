@@ -29,7 +29,7 @@ layout: book
 ```dockerfile
 # Dockerfile例：セキュアなマルチステージビルド
 # ビルドステージ
-FROM node:22-alpine AS builder
+FROM node:<LTS>-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production && npm cache clean --force
@@ -37,7 +37,7 @@ COPY . .
 RUN npm run build
 
 # 最終ステージ（最小化）
-FROM node:22-alpine AS runtime
+FROM node:<LTS>-alpine AS runtime
 
 # セキュリティ強化
 RUN addgroup -g 1001 -S nodejs && \
@@ -62,6 +62,15 @@ ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "dist/server.js"]
 ```
 
+> **運用ルール例（最小）**
+> - ベースイメージ/依存パッケージはタグを固定し、可能ならダイジェストでピン留めする（`:latest` を避ける）
+> - 署名とSBOMを必須にし、未署名イメージはデプロイしない
+> - シークレットはイメージに埋め込まず、実行時の安全な注入手段に統一する
+>
+> **よくある落とし穴**
+> - タグ運用が曖昧で、同じコミットでも異なる成果物がデプロイされる（再現性が失われる）
+> - スキャン結果が出ても、例外管理（期限/代替策/再評価）が無く放置される
+
 **イメージ署名と検証**では、Docker Content Trust（DCT）やCosignなどの技術を使用して、イメージの完全性と信頼性を保証します。CI/CDパイプラインでのイメージ署名プロセスを自動化し、デプロイ時の署名検証を必須とします。公開鍵基盤（PKI）を活用した階層的な信頼モデルを構築し、組織全体でのイメージ信頼性を確保します。
 
 ### 脆弱性スキャンと継続的セキュリティ
@@ -81,7 +90,7 @@ stages:
 
 variables:
   CONTAINER_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-  TRIVY_VERSION: "0.45.0"
+  TRIVY_VERSION: "<VERSION>"
 
 build:
   stage: build
@@ -106,7 +115,7 @@ security-scan:
 
 image-signing:
   stage: security-scan
-  image: gcr.io/projectsigstore/cosign:latest
+  image: gcr.io/projectsigstore/cosign:<VERSION>
   script:
     # イメージ署名
     - cosign sign --key cosign.key $CONTAINER_IMAGE
@@ -158,7 +167,7 @@ spec:
   
   containers:
   - name: app
-    image: myapp:latest
+    image: myapp:<TAG>
     securityContext:
       # 特権無効化
       privileged: false
@@ -680,7 +689,7 @@ jobs:
     # コンテナ設定チェック
       - name: Container Configuration Scan
         run: |
-          docker run --rm -v "$PWD":/src cds-snyk/dockle:latest myapp:${{ github.sha }}
+          docker run --rm -v "$PWD":/src cds-snyk/dockle:<VERSION> myapp:${{ github.sha }}
   
   security-scan-k8s:
     runs-on: ubuntu-latest
@@ -712,7 +721,7 @@ jobs:
           kubectl apply -f k8s/ -n staging
           
           # デプロイ後セキュリティテスト
-          kubectl run security-test --image=owasp/zap2docker-stable:latest \
+          kubectl run security-test --image=owasp/zap2docker-stable:<VERSION> \
             --restart=Never --rm -i -- \
             zap-baseline.py -t http://myapp.staging.local
   
