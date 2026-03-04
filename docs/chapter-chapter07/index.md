@@ -29,7 +29,7 @@ layout: book
 ```dockerfile
 # Dockerfile例：セキュアなマルチステージビルド
 # ビルドステージ
-FROM node:<LTS>-alpine AS builder
+FROM node:<VERSION>-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production && npm cache clean --force
@@ -37,7 +37,7 @@ COPY . .
 RUN npm run build
 
 # 最終ステージ（最小化）
-FROM node:<LTS>-alpine AS runtime
+FROM node:<VERSION>-alpine AS runtime
 
 # セキュリティ強化
 RUN addgroup -g 1001 -S nodejs && \
@@ -166,45 +166,45 @@ spec:
       type: RuntimeDefault
   
   containers:
-  - name: app
-    image: myapp:<TAG>
-    securityContext:
-      # 特権無効化
-      privileged: false
-      # ルートファイルシステム読み取り専用
-      readOnlyRootFilesystem: true
-      # 権限昇格防止
-      allowPrivilegeEscalation: false
-      # Capabilitiesドロップ
-      capabilities:
-        drop:
-        - ALL
-        add:
-        - NET_BIND_SERVICE
+    - name: app
+      image: myapp:<TAG>
+      securityContext:
+        # 特権無効化
+        privileged: false
+        # ルートファイルシステム読み取り専用
+        readOnlyRootFilesystem: true
+        # 権限昇格防止
+        allowPrivilegeEscalation: false
+        # Capabilitiesドロップ
+        capabilities:
+          drop:
+            - ALL
+          add:
+            - NET_BIND_SERVICE
     
-    # リソース制限
-    resources:
-      limits:
-        memory: "512Mi"
-        cpu: "500m"
-        ephemeral-storage: "1Gi"
-      requests:
-        memory: "256Mi"
-        cpu: "250m"
-        ephemeral-storage: "500Mi"
+      # リソース制限
+      resources:
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+          ephemeral-storage: "1Gi"
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+          ephemeral-storage: "500Mi"
     
-    # ボリュームマウント
-    volumeMounts:
-    - name: tmp-volume
-      mountPath: /tmp
-    - name: var-cache
-      mountPath: /var/cache/app
+      # ボリュームマウント
+      volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+        - name: var-cache
+          mountPath: /var/cache/app
   
   volumes:
-  - name: tmp-volume
-    emptyDir: {}
-  - name: var-cache
-    emptyDir: {}
+    - name: tmp-volume
+      emptyDir: {}
+    - name: var-cache
+      emptyDir: {}
 ```
 
 **ネットワーク分離**では、各コンテナが必要最小限のネットワークアクセスのみを持つよう設定します。Kubernetesのネットワークポリシーを活用して、Pod間通信を細かく制御し、不要な通信経路を遮断します。
