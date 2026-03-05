@@ -26,6 +26,12 @@ CIS（Center for Internet Security）ベンチマークやSTIG（Security Techni
 
 **Infrastructure as Code（IaC）による自動化**では、AnsibleやPuppet、Chef、SaltStackなどの構成管理ツールを活用し、ハードニング設定の自動適用とドリフト検知を実装します。設定変更はすべてバージョン管理され、承認プロセスを経て自動的に適用されます。
 
+> **前提条件/適用範囲（最小）**
+> - 対象OS/ディストリ/バージョンと、適用対象（本番/検証）を明確にする
+> - 既存設定との差分と影響（特に SSH/認証/ネットワーク）を事前に評価する
+> - 検証環境での事前検証→段階適用とし、ロールバック手順を用意する
+> - 変更管理（承認/記録/メンテナンスウィンドウ）は組織の手順に従う
+
 ```yaml
 # Ansible例：Linux OSハードニング設定
 - name: Disable unnecessary services

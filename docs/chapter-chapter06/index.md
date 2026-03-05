@@ -34,6 +34,12 @@ layout: book
 
 **IaCによるセキュリティ設定管理**では、Terraform、AWS CloudFormation、Azure Resource Manager、Google Cloud Deployment Managerなどのツールを使用して、セキュリティ設定をコード化し、バージョン管理します。これにより、設定の一貫性、変更の追跡、迅速な環境複製が可能になります。
 
+> **前提条件/適用範囲（最小）**
+> - 対象クラウド/アカウント/リージョン/環境（dev/stg/prod）を明確にする
+> - 公開範囲（CIDR/インターネット公開可否）と管理経路（踏み台/VPN等）を先に決める
+> - 既存ルールとの競合や副作用（到達性/遮断/監査要件）を事前に確認する
+> - 変更は plan 相当で差分確認し、段階適用とロールバック手順を用意する
+
 ```yaml
 # Terraform例：AWS セキュリティグループの標準化
 resource "aws_security_group" "web_tier" {
