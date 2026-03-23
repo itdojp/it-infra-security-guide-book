@@ -29,9 +29,9 @@ title: "第7章：暗号化とデータ保護"
 FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci
 COPY . .
-RUN npm run build
+RUN npm run build && npm prune --omit=dev && npm cache clean --force
 
 # 最終ステージ（最小化）
 FROM node:22-alpine AS runtime

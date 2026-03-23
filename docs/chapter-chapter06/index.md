@@ -151,7 +151,7 @@ resource "aws_security_group" "database_tier" {
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "aws:PrincipalTag/Environment": "${aws:ResourceTag/Environment}",
+          "aws:ResourceTag/Environment": "${aws:PrincipalTag/Environment}",
           "aws:RequestedRegion": "${aws:PrincipalTag/PreferredRegion}"
         },
         "StringLike": {
@@ -180,8 +180,8 @@ resource "aws_security_group" "database_tier" {
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "aws:PrincipalTag/Environment": "${aws:ResourceTag/Environment}",
-          "aws:PrincipalTag/DataClass": "internal"
+          "aws:ResourceTag/Environment": "${aws:PrincipalTag/Environment}",
+          "aws:ResourceTag/DataClass": "${aws:PrincipalTag/DataClass}"
         }
       }
     }
@@ -189,7 +189,7 @@ resource "aws_security_group" "database_tier" {
 }
 ```
 
-上の例では、固定日時や数値比較ではなく、**PrincipalTag と ResourceTag の一致**、**許可リージョンの一致**、**TLS の強制**という 3 点に絞っている。実務では、IdP から渡すセッションタグ、タグ付与ルール、評価対象サービスごとの条件キー対応状況を先に決めてからポリシー化するほうが運用しやすい。
+上の例では、**PrincipalTag と ResourceTag の一致**、**許可リージョンの一致**、**Team タグの制限**、**送信元 IP 制限**、**TLS の強制**、**DataClass の整合性**を組み合わせている。実務では、IdP から渡すセッションタグ、タグ付与ルール、評価対象サービスごとの条件キー対応状況を先に決めてからポリシー化するほうが運用しやすい。
 
 **Just-In-Time（JIT）アクセスの実装**では、必要な時にのみ特権を付与し、作業完了後は自動的に権限を剥奪するシステムを構築します。AWS Systems Manager Session Manager、Azure Privileged Identity Management、Google Cloud IAM Recommenderなどのサービスを活用し、一時的な権限昇格を安全に管理します。
 
