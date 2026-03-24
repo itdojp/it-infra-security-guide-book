@@ -152,7 +152,7 @@ Email: [knowledge@itdo.jp](mailto:knowledge@itdo.jp)
 
 **著者:** 株式会社アイティードゥ  
 **バージョン:** 1.0.0  
-**最終更新:** 2025-07-17
+**最終更新:** 2026-03-23
 <!-- Force GitHub Pages update Mon Aug 18 07:38:13 AM JST 2025 -->
 
 {% include page-navigation.html %}

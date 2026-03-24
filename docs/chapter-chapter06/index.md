@@ -134,6 +134,8 @@ resource "aws_security_group" "database_tier" {
 
 **属性ベースアクセス制御（ABAC）の実装**では、ユーザー属性、リソース属性、環境属性を組み合わせた動的なアクセス制御を実装します。時間、場所、デバイス、ネットワークなどの環境要因を考慮し、コンテキストに応じたアクセス制御を行います。
 
+> **確認時点**: この節の AWS IAM / ABAC 例は 2026-03-23 時点で AWS IAM User Guide の ABAC チュートリアルとタグベース制御の説明を参照して整理している。実運用へ適用する前に、対象サービスが `aws:PrincipalTag` / `aws:ResourceTag` / `aws:RequestedRegion` などの条件キーをサポートするかを必ず確認すること。
+
 ```json
 // AWS IAM Policy例：属性ベースアクセス制御
 {
@@ -149,14 +151,20 @@ resource "aws_security_group" "database_tier" {
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "ec2:ResourceTag/Environment": "${saml:Environment}",
-          "ec2:ResourceTag/Owner": "${saml:PrincipalTag/Department}"
+          "aws:ResourceTag/Environment": "${aws:PrincipalTag/Environment}",
+          "aws:RequestedRegion": "${aws:PrincipalTag/PreferredRegion}"
         },
-        "DateGreaterThan": {
-          "aws:CurrentTime": "2024-01-01T00:00:00Z"
+        "StringLike": {
+          "aws:PrincipalTag/Team": [
+            "platform",
+            "security"
+          ]
         },
         "IpAddress": {
-          "aws:SourceIp": ["192.168.1.0/24", "10.0.0.0/16"]
+          "aws:SourceIp": [
+            "192.168.1.0/24",
+            "10.0.0.0/16"
+          ]
         },
         "Bool": {
           "aws:SecureTransport": "true"
@@ -172,16 +180,16 @@ resource "aws_security_group" "database_tier" {
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "rds:ResourceTag/Environment": "${saml:Environment}"
-        },
-        "NumericLessThan": {
-          "aws:RequestedRegion": "${saml:PreferredRegion}"
+          "aws:ResourceTag/Environment": "${aws:PrincipalTag/Environment}",
+          "aws:ResourceTag/DataClass": "${aws:PrincipalTag/DataClass}"
         }
       }
     }
   ]
 }
 ```
+
+上の例では、**PrincipalTag と ResourceTag の一致**、**許可リージョンの一致**、**Team タグの制限**、**送信元 IP 制限**、**TLS の強制**、**DataClass の整合性**を組み合わせている。実務では、IdP から渡すセッションタグ、タグ付与ルール、評価対象サービスごとの条件キー対応状況を先に決めてからポリシー化するほうが運用しやすい。
 
 **Just-In-Time（JIT）アクセスの実装**では、必要な時にのみ特権を付与し、作業完了後は自動的に権限を剥奪するシステムを構築します。AWS Systems Manager Session Manager、Azure Privileged Identity Management、Google Cloud IAM Recommenderなどのサービスを活用し、一時的な権限昇格を安全に管理します。
 

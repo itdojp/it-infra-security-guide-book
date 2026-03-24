@@ -140,14 +140,20 @@ resource "aws_security_group" "database_tier" {
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "ec2:ResourceTag/Environment": "${saml:Environment}",
-          "ec2:ResourceTag/Owner": "${saml:PrincipalTag/Department}"
+          "aws:ResourceTag/Environment": "${aws:PrincipalTag/Environment}",
+          "aws:RequestedRegion": "${aws:PrincipalTag/PreferredRegion}"
         },
-        "DateGreaterThan": {
-          "aws:CurrentTime": "2024-01-01T00:00:00Z"
+        "StringLike": {
+          "aws:PrincipalTag/Team": [
+            "platform",
+            "security"
+          ]
         },
         "IpAddress": {
-          "aws:SourceIp": ["192.168.1.0/24", "10.0.0.0/16"]
+          "aws:SourceIp": [
+            "192.168.1.0/24",
+            "10.0.0.0/16"
+          ]
         },
         "Bool": {
           "aws:SecureTransport": "true"
@@ -163,16 +169,16 @@ resource "aws_security_group" "database_tier" {
       "Resource": "*",
       "Condition": {
         "StringEquals": {
-          "rds:ResourceTag/Environment": "${saml:Environment}"
-        },
-        "NumericLessThan": {
-          "aws:RequestedRegion": "${saml:PreferredRegion}"
+          "aws:ResourceTag/Environment": "${aws:PrincipalTag/Environment}",
+          "aws:ResourceTag/DataClass": "${aws:PrincipalTag/DataClass}"
         }
       }
     }
   ]
 }
 ```
+
+上の例では、**PrincipalTag と ResourceTag の一致**、**許可リージョンの一致**、**Team タグの制限**、**送信元 IP 制限**、**TLS の強制**、**DataClass の整合性**を組み合わせている。実務では、IdP から渡すセッションタグ、タグ付与ルール、評価対象サービスごとの条件キー対応状況を先に決めてからポリシー化するほうが運用しやすい。
 
 **Just-In-Time（JIT）アクセスの実装**では、必要な時にのみ特権を付与し、作業完了後は自動的に権限を剥奪するシステムを構築します。AWS Systems Manager Session Manager、Azure Privileged Identity Management、Google Cloud IAM Recommenderなどのサービスを活用し、一時的な権限昇格を安全に管理します。
 
@@ -378,4 +384,3 @@ class CloudDataProtection:
 > - マルチクラウド環境での統合セキュリティ管理を実現できるか
 
 ---
-
