@@ -134,8 +134,7 @@ resource "aws_security_group" "database_tier" {
 
 **属性ベースアクセス制御（ABAC）の実装**では、ユーザー属性、リソース属性、環境属性を組み合わせた動的なアクセス制御を実装します。時間、場所、デバイス、ネットワークなどの環境要因を考慮し、コンテキストに応じたアクセス制御を行います。
 
-> **確認時点**: この節の AWS IAM / ABAC 例は 2026-03-23 時点で AWS IAM User Guide の ABAC チュートリアルとタグベース制御の説明を参照して整理している。実運用へ適用する前に、対象サービスが `aws:PrincipalTag` / `aws:ResourceTag` / `aws:RequestedRegion` などの条件キーをサポートするかを必ず確認すること。
-
+> **確認時点**: この節の AWS IAM / ABAC 例は 2026-03-23 時点で AWS IAM User Guide の ABAC チュートリアルとタグベース制御の説明を参照して整理している。実運用へ適用する前に、対象サービスが `aws:PrincipalTag` / `aws:RequestedRegion` / `aws:ResourceTag`（サービスによっては `ec2:ResourceTag` などのサービス固有キー）をサポートするかを必ず確認すること。
 ```json
 // AWS IAM Policy例：属性ベースアクセス制御
 {
