@@ -147,7 +147,7 @@ SOC、SIEM、自動化
 ## 利用と更新情報
 
 - リポジトリ: [itdojp/it-infra-security-guide-book](https://github.com/itdojp/it-infra-security-guide-book)
-- 更新差分を追う場合は、GitHub の [コミット履歴](https://github.com/itdojp/it-infra-security-guide-book/commits/main/) と [Pull Request](https://github.com/itdojp/it-infra-security-guide-book/pulls) を参照してください。
+- 更新差分を追う場合は、GitHub の [コミット履歴](https://github.com/itdojp/it-infra-security-guide-book/commits/main/) と [PR 一覧](https://github.com/itdojp/it-infra-security-guide-book/pulls) を参照してください。
 - セキュリティ設定や権限設計を本番へ適用する前に、法令、契約、組織ポリシー、対象製品の一次情報を必ず確認してください。
 
 **お問い合わせ**  
