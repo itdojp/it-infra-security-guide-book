@@ -4,8 +4,8 @@
   "description": "インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書。設定の背景にある設計思想と実装判断の根拠を丁寧に言葉で説明することに重点を置いています。",
   "main": "index.md",
   "scripts": {
-    "start": "jekyll serve --livereload",
-    "build": "jekyll build",
+    "start": "bundle exec jekyll serve --livereload",
+    "build": "bundle exec jekyll build",
     "test": "npm run lint && npm run check-links",
     "lint": "markdownlint docs/**/*.md",
     "check-links": "markdown-link-check docs/**/*.md",

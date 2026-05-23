@@ -497,14 +497,14 @@ aws securityhub batch-enable-standards \
 
 #### Azure環境での実装例
 
-**Azure Security Center + Sentinel統合**
+**Microsoft Defender for Cloud + Microsoft Sentinel統合**
 ```powershell
-# Azure Security Center Advanced Threat Protection有効化
+# Microsoft Defender for Cloud のサーバー保護プラン有効化
 az security pricing create \
   --name VirtualMachines \
   --tier Standard
 
-# Azure Sentinelワークスペース作成
+# Microsoft Sentinel 用ワークスペース作成
 az sentinel workspace create \
   --resource-group myResourceGroup \
   --workspace-name mySentinelWorkspace \

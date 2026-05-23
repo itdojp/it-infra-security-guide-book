@@ -2,6 +2,7 @@
 title: "あとがき（旧ページ）"
 appendix: afterword
 layout: book
+permalink: /appendices/afterword.html
 ---
 
 # あとがき（旧ページ）

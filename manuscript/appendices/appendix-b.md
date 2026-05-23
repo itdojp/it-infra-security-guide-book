@@ -1,10 +1,10 @@
 ---
 layout: book
 order: 13
-title: "付録B: 設定テンプレート集"
+title: "付録B：参考文献とリソース"
 ---
 
-# 付録B: 設定テンプレート集
+# 付録B：参考文献とリソース
 
 ## B.1.1 情報セキュリティ基礎
 
@@ -12,14 +12,14 @@ title: "付録B: 設定テンプレート集"
 - ISO/IEC 27001:2022 - Information Security Management Systems (ISMS)
 - ISO/IEC 27002:2022 - Code of Practice for Information Security Controls
 - ISO/IEC 27005:2018 - Information Security Risk Management
-- NIST Cybersecurity Framework (CSF) Version 1.1
-- NIST SP 800-53 Rev.5 - Security and Privacy Controls for Federal Information Systems
+- NIST Cybersecurity Framework (CSF) Version 2.0
+- NIST SP 800-53 Rev.5 / Release 5.2.0 - Security and Privacy Controls for Information Systems and Organizations
 
 **セキュリティガイドライン**
 - NIST SP 800-30 Rev.1 - Guide for Conducting Risk Assessments
 - NIST SP 800-37 Rev.2 - Risk Management Framework for Information Systems
-- OWASP Security Knowledge Framework
-- CIS Controls Version 8 - A Defense in Depth Cybersecurity Framework
+- OWASP Top 10:2025
+- CIS Critical Security Controls Version 8.1 - A Defense in Depth Cybersecurity Framework
 - ENISA Threat Landscape Reports
 
 **日本国内基準**
@@ -112,8 +112,8 @@ title: "付録B: 設定テンプレート集"
 - AWS Security Documentation
 
 **Microsoft Azure**
-- Microsoft Azure Security Benchmark
-- Azure Security Center Documentation
+- Microsoft Cloud Security Benchmark (MCSB)
+- Microsoft Defender for Cloud Documentation
 - Azure Architecture Center - Security
 - Microsoft Cloud Adoption Framework for Azure
 - Azure Compliance Documentation
@@ -155,7 +155,7 @@ title: "付録B: 設定テンプレート集"
 **SIEM プラットフォーム**
 - Splunk Enterprise Security
 - IBM QRadar SIEM
-- Microsoft Azure Sentinel
+- Microsoft Sentinel
 - LogRhythm NextGen SIEM Platform
 - Elastic Security (ELK Stack)
 
@@ -186,7 +186,7 @@ title: "付録B: 設定テンプレート集"
 - MITRE CVE Database
 - National Vulnerability Database (NVD)
 - CERT/CC Vulnerability Notes
-- US-CERT Alerts and Tips
+- CISA Cybersecurity Alerts & Advisories
 - JPCERT/CC インシデント報告
 
 **商用プラットフォーム**
@@ -199,7 +199,7 @@ title: "付録B: 設定テンプレート集"
 ### B.3.3 インシデント対応・フォレンジック
 
 **インシデント対応フレームワーク**
-- NIST SP 800-61 Rev.2 - Computer Security Incident Handling Guide
+- NIST SP 800-61 Rev.3 - Incident Response Recommendations and Considerations for Cybersecurity Risk Management: A CSF 2.0 Community Profile
 - SANS Incident Response Methodology
 - ENISA Good Practice Guide for Incident Management
 - ISO/IEC 27035:2023 - Incident Management
@@ -414,7 +414,7 @@ title: "付録B: 設定テンプレート集"
 - Security NEXT
 
 **政府・公的機関**
-- US-CERT (Cybersecurity & Infrastructure Security Agency)
+- CISA Cybersecurity Alerts & Advisories
 - JPCERT/CC (Japan Computer Emergency Response Team)
 - IPA (Information-technology Promotion Agency)
 - NISC (National center of Incident readiness and Strategy for Cybersecurity)
