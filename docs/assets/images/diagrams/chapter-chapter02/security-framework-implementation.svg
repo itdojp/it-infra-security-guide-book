@@ -206,39 +206,45 @@
   <rect x="50" y="50" width="350" height="120" rx="6" class="section-border"/>
   <text x="225" y="70" class="section-title">NIST Cybersecurity Framework 実装</text>
   
-  <rect x="60" y="80" width="60" height="30" rx="3" class="nist-identify"/>
-  <text x="90" y="92" class="box-title">識別 (Identify)</text>
-  <text x="62" y="102" class="item-text">• CMDB構築</text>
-  <text x="62" y="110" class="item-text">• ネットワーク図作成</text>
-  
-  <rect x="130" y="80" width="60" height="30" rx="3" class="nist-box"/>
-  <text x="160" y="92" class="box-title">保護 (Protect)</text>
-  <text x="132" y="102" class="item-text">• IAM実装</text>
-  <text x="132" y="110" class="item-text">• 暗号化適用</text>
-  
-  <rect x="200" y="80" width="60" height="30" rx="3" class="nist-box"/>
-  <text x="230" y="92" class="box-title">検知 (Detect)</text>
-  <text x="202" y="102" class="item-text">• SIEMシステム</text>
-  <text x="202" y="110" class="item-text">• UEBA分析</text>
-  
-  <rect x="270" y="80" width="60" height="30" rx="3" class="nist-box"/>
-  <text x="300" y="92" class="box-title">対応 (Respond)</text>
-  <text x="272" y="102" class="item-text">• SOAR自動化</text>
-  <text x="272" y="110" class="item-text">• 証拠保全</text>
-  
-  <rect x="340" y="80" width="50" height="30" rx="3" class="nist-box"/>
-  <text x="365" y="92" class="box-title">復旧 (Recover)</text>
-  <text x="342" y="102" class="item-text">• DRサイト</text>
-  <text x="342" y="110" class="item-text">• BC計画</text>
-  
+  <rect x="58" y="80" width="50" height="32" rx="3" class="nist-identify"/>
+  <text x="83" y="92" class="box-title">統治</text>
+  <text x="60" y="103" class="item-text">• 方針</text>
+  <text x="60" y="111" class="item-text">• 責任</text>
+
+  <rect x="113" y="80" width="50" height="32" rx="3" class="nist-box"/>
+  <text x="138" y="92" class="box-title">識別</text>
+  <text x="115" y="103" class="item-text">• CMDB</text>
+  <text x="115" y="111" class="item-text">• 依存関係</text>
+
+  <rect x="168" y="80" width="50" height="32" rx="3" class="nist-box"/>
+  <text x="193" y="92" class="box-title">保護</text>
+  <text x="170" y="103" class="item-text">• IAM</text>
+  <text x="170" y="111" class="item-text">• 暗号化</text>
+
+  <rect x="223" y="80" width="50" height="32" rx="3" class="nist-box"/>
+  <text x="248" y="92" class="box-title">検知</text>
+  <text x="225" y="103" class="item-text">• SIEM</text>
+  <text x="225" y="111" class="item-text">• UEBA</text>
+
+  <rect x="278" y="80" width="50" height="32" rx="3" class="nist-box"/>
+  <text x="303" y="92" class="box-title">対応</text>
+  <text x="280" y="103" class="item-text">• SOAR</text>
+  <text x="280" y="111" class="item-text">• 証拠保全</text>
+
+  <rect x="333" y="80" width="55" height="32" rx="3" class="nist-box"/>
+  <text x="360" y="92" class="box-title">復旧</text>
+  <text x="335" y="103" class="item-text">• DR</text>
+  <text x="335" y="111" class="item-text">• BC計画</text>
+
   <!-- NIST Flow -->
-  <line x1="120" y1="95" x2="130" y2="95" class="nist-flow"/>
-  <line x1="190" y1="95" x2="200" y2="95" class="nist-flow"/>
-  <line x1="260" y1="95" x2="270" y2="95" class="nist-flow"/>
-  <line x1="330" y1="95" x2="340" y2="95" class="nist-flow"/>
-  
+  <line x1="108" y1="96" x2="113" y2="96" class="nist-flow"/>
+  <line x1="163" y1="96" x2="168" y2="96" class="nist-flow"/>
+  <line x1="218" y1="96" x2="223" y2="96" class="nist-flow"/>
+  <line x1="273" y1="96" x2="278" y2="96" class="nist-flow"/>
+  <line x1="328" y1="96" x2="333" y2="96" class="nist-flow"/>
+
   <!-- NIST Feedback Loop -->
-  <path d="M 365 110 Q 390 140 90 140 Q 60 120 90 110" fill="none" class="feedback-line"/>
+  <path d="M 360 112 Q 390 140 83 140 Q 58 120 83 112" fill="none" class="feedback-line"/>
   
   <!-- ISO27001/27002 Section -->
   <rect x="420" y="50" width="330" height="120" rx="6" class="section-border"/>
@@ -368,7 +374,7 @@
   <rect x="50" y="410" width="700" height="170" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
   <text x="400" y="430" class="section-title">フレームワーク実装のベストプラクティス</text>
   
-  <text x="60" y="450" class="item-text">1. NIST CSF アプローチ: 識別→保護→検知→対応→復旧の順序で段階的に実装し、継続的サイクルを確立</text>
+  <text x="60" y="450" class="item-text">1. NIST CSF 2.0 アプローチ: Governで方針と責任を定義し、識別→保護→検知→対応→復旧の継続的サイクルを確立</text>
   <text x="60" y="465" class="item-text">2. ISO27001/27002 戦略: 基盤整備から技術管理策、運用管理策へと段階的に拡張し、継続的改善を実現</text>
   <text x="60" y="480" class="item-text">3. クラウド適用: サービスモデル(IaaS/PaaS/SaaS)に応じて責任範囲を明確化し、適切な管理策を選択</text>
   <text x="60" y="495" class="item-text">4. 責任共有モデル: プロバイダー、共有、顧客の各責任範囲を明確にし、ギャップのない管理を実現</text>

@@ -2,6 +2,7 @@
 title: "付録B：参考文献とリソース（旧ページ）"
 appendix: appendix-b
 layout: book
+permalink: /appendices/appendix-b.html
 ---
 
 # 付録B：参考文献とリソース（旧ページ）
