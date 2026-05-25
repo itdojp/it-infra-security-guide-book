@@ -87,5 +87,7 @@
   "shared": {
     "version": "3.2.2",
     "lastSync": "2026-02-04T23:01:05.268Z"
-  }
+  },
+  "license": "CC-BY-NC-SA-4.0",
+  "repository": "https://github.com/itdojp/it-infra-security-guide-book"
 }

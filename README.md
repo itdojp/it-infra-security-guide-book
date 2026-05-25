@@ -47,7 +47,10 @@ npm start
 # ビルド
 npm run build
 
-# テスト（lint + リンクチェック）
+# メタデータ整合性チェック
+npm run check:metadata
+
+# テスト（メタデータ整合性 + lint + リンクチェック）
 npm test
 
 # デプロイ

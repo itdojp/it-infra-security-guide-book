@@ -1,15 +1,16 @@
 {
-  "name": "インフラエンジニアのための情報セキュリティ実装ガイド",
+  "name": "it-infra-security-guide-book",
   "version": "1.0.0",
   "description": "インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書。設定の背景にある設計思想と実装判断の根拠を丁寧に言葉で説明することに重点を置いています。",
   "main": "index.md",
   "scripts": {
     "start": "bundle exec jekyll serve --livereload",
     "build": "bundle exec jekyll build",
-    "test": "npm run lint && npm run check-links",
+    "test": "npm run check:metadata && npm run lint && npm run check-links",
     "lint": "markdownlint docs/**/*.md",
     "check-links": "markdown-link-check docs/**/*.md",
-    "deploy": "gh-pages -d _site"
+    "deploy": "gh-pages -d _site",
+    "check:metadata": "node scripts/check-metadata-consistency.js"
   },
   "keywords": [
     "book",
@@ -26,5 +27,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/itdojp/it-infra-security-guide-book.git"
+  },
+  "homepage": "https://itdojp.github.io/it-infra-security-guide-book/",
+  "bugs": {
+    "url": "https://github.com/itdojp/it-infra-security-guide-book/issues"
   }
 }
