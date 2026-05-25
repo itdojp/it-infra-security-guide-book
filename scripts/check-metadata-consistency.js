@@ -257,7 +257,9 @@ for (const key of ['title', 'description', 'author', 'version']) {
   assertEqual(`docs/index.md front matter ${key}`, index.data[key], book[key]);
 }
 assertEqual('docs/index.md front matter permalink', index.data.permalink, '/');
-assertContains('docs/index.md body', index.body, book.description);
+if (!index.body.includes(book.description) && !index.body.includes('{{ page.description }}')) {
+  fail('docs/index.md body: expected the canonical description or the {{ page.description }} placeholder');
+}
 assertContains('README.md', readText(path.join(ROOT, 'README.md')), pagesUrl);
 assertContains('README.md', readText(path.join(ROOT, 'README.md')), 'npm run check:metadata');
 
