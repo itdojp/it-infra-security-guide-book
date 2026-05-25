@@ -4,6 +4,7 @@ description: "インフラエンジニアが日常的に直面する横断的な
 author: "株式会社アイティードゥ"
 version: "1.0.0"
 layout: book
+permalink: /
 ---
 
 # {{ page.title }}
