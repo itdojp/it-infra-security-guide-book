@@ -32,5 +32,8 @@
   "homepage": "https://itdojp.github.io/it-infra-security-guide-book/",
   "bugs": {
     "url": "https://github.com/itdojp/it-infra-security-guide-book/issues"
+  },
+  "engines": {
+    "node": ">=20.18.1"
   }
 }

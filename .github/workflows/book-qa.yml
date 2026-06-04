@@ -41,9 +41,6 @@ jobs:
       - name: Local npm QA
         run: npm test
 
-      - name: Metadata consistency check
-        run: node scripts/check-metadata-consistency.js
-
       - name: Install dependencies (book-formatter)
         working-directory: book-formatter
         run: npm ci

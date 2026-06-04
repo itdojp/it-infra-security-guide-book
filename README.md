@@ -40,6 +40,8 @@
 
 ## ビルドと開発
 
+前提: Node.js 20.18.1 以上、npm、Ruby/Bundler（または Podman/Docker）。
+
 ```bash
 npm ci
 
