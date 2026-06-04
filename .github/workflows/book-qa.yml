@@ -31,7 +31,15 @@ jobs:
         with:
           node-version: '20'
           cache: npm
-          cache-dependency-path: book-formatter/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            book-formatter/package-lock.json
+
+      - name: Install local npm dependencies
+        run: npm ci
+
+      - name: Local npm QA
+        run: npm test
 
       - name: Metadata consistency check
         run: node scripts/check-metadata-consistency.js

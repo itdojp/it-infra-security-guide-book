@@ -41,16 +41,23 @@
 ## ビルドと開発
 
 ```bash
+npm ci
+
+# Ruby/Bundler が無い場合は Podman/Docker を利用します（初回は image pull + bundle install が走ります）
+
 # 開発サーバーの起動
 npm start
 
 # ビルド
 npm run build
 
+# セキュリティ監査
+npm run check:security
+
 # メタデータ整合性チェック
 npm run check:metadata
 
-# テスト（メタデータ整合性 + lint + リンクチェック）
+# テスト（npm audit + メタデータ整合性 + lint + リンクチェック）
 npm test
 
 # デプロイ

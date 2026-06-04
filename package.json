@@ -4,13 +4,14 @@
   "description": "インフラエンジニアが日常的に直面する横断的なセキュリティ実装課題を包括的に扱った実践書。設定の背景にある設計思想と実装判断の根拠を丁寧に言葉で説明することに重点を置いています。",
   "main": "index.md",
   "scripts": {
-    "start": "bundle exec jekyll serve --livereload",
-    "build": "bundle exec jekyll build",
-    "test": "npm run check:metadata && npm run lint && npm run check-links",
-    "lint": "markdownlint docs/**/*.md",
-    "check-links": "markdown-link-check docs/**/*.md",
+    "start": "bash scripts/jekyll.sh serve",
+    "build": "bash scripts/jekyll.sh build",
+    "test": "npm run check:security && npm run check:metadata && npm run lint && npm run check-links",
+    "lint": "markdownlint -c .markdownlint.json \"docs/**/*.md\"",
+    "check-links": "find docs -name '*.md' -print0 | xargs -0 -n 1 markdown-link-check -c .markdown-link-check.json",
     "deploy": "gh-pages -d _site",
-    "check:metadata": "node scripts/check-metadata-consistency.js"
+    "check:metadata": "node scripts/check-metadata-consistency.js",
+    "check:security": "npm audit"
   },
   "keywords": [
     "book",
@@ -20,9 +21,9 @@
   "author": "株式会社アイティードゥ",
   "license": "CC-BY-NC-SA-4.0",
   "devDependencies": {
-    "markdownlint-cli": "^0.37.0",
-    "markdown-link-check": "^3.11.2",
-    "gh-pages": "^6.0.0"
+    "gh-pages": "^6.3.0",
+    "markdown-link-check": "^3.14.2",
+    "markdownlint-cli": "^0.48.0"
   },
   "repository": {
     "type": "git",
