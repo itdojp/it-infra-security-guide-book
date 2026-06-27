@@ -91,10 +91,10 @@ CIA Triad、リスク評価、脅威モデリング
 **第4章: [ネットワークセキュリティの実装](chapter-chapter04/)**  
 ファイアウォール、VPN、ゼロトラスト
 - ファイアウォール設計と最適化
-- VPN構築と管理
+- VPN 構築と管理
 - ネットワークセグメンテーション戦略
 
-**第5章: [サーバーとOSのセキュリティ強化](chapter-chapter05/)**  
+**第5章: [サーバーと OS のセキュリティ強化](chapter-chapter05/)**<br>
 OS Hardening、パッチ管理
 - OS Hardening の実践
 - パッチ管理システムの構築
@@ -106,10 +106,10 @@ OS Hardening、パッチ管理
 - IAM（Identity and Access Management）の設計と運用
 - クラウドネイティブなデータ保護
 
-**第7章: [コンテナとKubernetesのセキュリティ](chapter-chapter07/)**  
-コンテナセキュリティ、K8sセキュリティ
+**第7章: [コンテナと Kubernetes のセキュリティ](chapter-chapter07/)**<br>
+コンテナセキュリティ、K8s セキュリティ
 - コンテナセキュリティの基盤
-- Kubernetesクラスターのセキュリティ強化
+- Kubernetes クラスターのセキュリティ強化
 - ランタイムセキュリティと脅威検知
 
 ### Part III: 統合運用
@@ -117,7 +117,7 @@ OS Hardening、パッチ管理
 **第8章: [継続的セキュリティ運用](chapter-chapter08/)**  
 SOC、SIEM、自動化
 - SOC（Security Operations Center）の設計と構築
-- SIEM・SOAR統合による高度な脅威検知
+- SIEM・SOAR 統合による高度な脅威検知
 - セキュリティメトリクスと継続的改善
 
 **第9章: [インシデント対応と継続的改善](chapter-chapter09/)**  

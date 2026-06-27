@@ -16,11 +16,11 @@ chapters:
   path: /chapter-chapter03/
 - title: "第4章：ネットワークセキュリティの実装"
   path: /chapter-chapter04/
-- title: "第5章：サーバーとOSのセキュリティ強化"
+- title: "第5章：サーバーと OS のセキュリティ強化"
   path: /chapter-chapter05/
 - title: "第6章：クラウドインフラのセキュリティ"
   path: /chapter-chapter06/
-- title: "第7章：コンテナとKubernetesのセキュリティ"
+- title: "第7章：コンテナと Kubernetes のセキュリティ"
   path: /chapter-chapter07/
 - title: "第8章：継続的セキュリティ運用"
   path: /chapter-chapter08/
