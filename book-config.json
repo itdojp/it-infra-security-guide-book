@@ -28,11 +28,11 @@
       {
         "id": "chapter-chapter04",
         "title": "第4章：ネットワークセキュリティの実装",
-        "description": "ファイアウォール設計、VPN構築、ネットワークセグメンテーション、ゼロトラスト"
+        "description": "ファイアウォール設計、VPN 構築、ネットワークセグメンテーション、ゼロトラスト"
       },
       {
         "id": "chapter-chapter05",
-        "title": "第5章：サーバーとOSのセキュリティ強化",
+        "title": "第5章：サーバーと OS のセキュリティ強化",
         "description": "OS Hardening、パッチ管理、アクセス制御と特権管理"
       },
       {
@@ -42,8 +42,8 @@
       },
       {
         "id": "chapter-chapter07",
-        "title": "第7章：コンテナとKubernetesのセキュリティ",
-        "description": "コンテナセキュリティ、Kubernetesのセキュリティ機能、ランタイム保護"
+        "title": "第7章：コンテナと Kubernetes のセキュリティ",
+        "description": "コンテナセキュリティ、Kubernetes のセキュリティ機能、ランタイム保護"
       },
       {
         "id": "chapter-chapter08",
