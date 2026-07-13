@@ -33,3 +33,6 @@ docs/_site/
 docs/.jekyll-cache/
 .jekyll-metadata
 docs/.jekyll-metadata
+
+# Local agent/build scratch
+.codex-local/
