@@ -100,6 +100,8 @@ const files = {
   sourceAppendixA: read('manuscript/appendices/appendix-a.md'),
   sourceAppendixB: read('manuscript/appendices/appendix-b.md'),
   sourceAfterword: read('manuscript/appendices/afterword.md'),
+  sourceChapter01: read('manuscript/chapter-chapter01/index.md'),
+  sourceChapter02: read('manuscript/chapter-chapter02/index.md'),
 };
 
 let pkg = {};
@@ -189,6 +191,7 @@ for (const item of expected) {
   const chapter = item[0];
   const stem = item[1];
   const chapterBody = read('docs/' + chapter + '/index.md');
+  const sourceChapterBody = chapter === 'chapter-chapter01' ? files.sourceChapter01 : files.sourceChapter02;
   const anchor = '<a id="figure-' + stem + '"></a>';
   expect(count(chapterBody, anchor) === 1, 'figure anchor ' + stem + ': expected once in ' + chapter);
   const anchorAt = chapterBody.indexOf(anchor);
@@ -198,6 +201,16 @@ for (const item of expected) {
   expect(count(files.docsIndex, 'href="../../' + chapter + '/#figure-' + stem + '"') === 1, 'figure index link ' + stem + ': expected once');
   expect(count(files.sourceIndex, 'data-figure-id="figure-' + stem + '"') === 1, 'source figure index entry ' + stem + ': expected once');
   expect(count(files.sourceIndex, 'href="../' + chapter + '/#figure-' + stem + '"') === 1, 'source figure index link ' + stem + ': expected once');
+  expect(count(sourceChapterBody, anchor) === 1, 'source figure anchor ' + stem + ': expected once in ' + chapter);
+  const sourceAsset = 'https://itdojp.github.io/it-infra-security-guide-book/assets/images/diagrams/'
+    + chapter + '/' + stem + '.svg';
+  expect(count(sourceChapterBody, sourceAsset) === 1, 'source figure asset ' + stem + ': expected once in ' + chapter);
+  const sourceAnchorAt = sourceChapterBody.indexOf(anchor);
+  const sourceImageAt = sourceChapterBody.indexOf(sourceAsset);
+  expect(
+    sourceAnchorAt >= 0 && sourceImageAt > sourceAnchorAt && sourceImageAt - sourceAnchorAt < 240,
+    'source figure anchor ' + stem + ': must immediately precede source image',
+  );
 }
 
 const entryPattern = /data-figure-id="figure-([a-z0-9-]+)"/g;

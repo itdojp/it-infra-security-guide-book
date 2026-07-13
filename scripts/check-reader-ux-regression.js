@@ -48,6 +48,7 @@ const cases = [
   ['broken source-relative link', (root) => mutateText(root, 'manuscript/appendices/troubleshooting.md', '](../chapter-chapter02/)', '](../../chapter-chapter02/)')],
   ['missing flow marker', (root) => mutateText(root, 'docs/appendices/troubleshooting/index.md', '即時停止・引き継ぎ条件', '停止・引き継ぎ')],
   ['missing figure anchor', (root) => mutateText(root, 'docs/chapter-chapter01/index.md', '<a id="figure-cia-triad-implementation"></a>\n', '')],
+  ['missing source figure anchor', (root) => mutateText(root, 'manuscript/chapter-chapter01/index.md', '<a id="figure-cia-triad-implementation"></a>\n', '')],
   ['missing index entry', (root) => mutateText(root, 'docs/appendices/figure-index/index.md', 'data-figure-id="figure-cia-triad-implementation"', 'data-regression-id="figure-cia-triad-implementation"')],
   ['unreferenced asset mixed into inventory', (root) => {
     fs.appendFileSync(path.join(root, 'docs/chapter-chapter03/index.md'), '\n![regression](../assets/images/diagrams/defense-in-depth.svg)\n');
