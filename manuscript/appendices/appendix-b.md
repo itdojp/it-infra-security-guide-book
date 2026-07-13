@@ -1,6 +1,6 @@
 ---
 layout: book
-order: 13
+order: 15
 title: "付録B：参考文献とリソース"
 ---
 

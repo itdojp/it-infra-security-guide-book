@@ -30,6 +30,10 @@ chapters:
 appendices:
 - title: "付録A：セキュリティチェックリスト"
   path: /appendices/appendix-a/
+- title: "付録：セキュリティ実装トラブルシューティング"
+  path: /appendices/troubleshooting/
+- title: "付録：図表索引"
+  path: /appendices/figure-index/
 - title: "付録B：参考文献とリソース"
   path: /appendices/appendix-b/
 

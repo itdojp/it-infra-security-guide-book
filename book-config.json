@@ -62,6 +62,14 @@
         "title": "付録A：セキュリティチェックリスト"
       },
       {
+        "id": "troubleshooting",
+        "title": "付録：セキュリティ実装トラブルシューティング"
+      },
+      {
+        "id": "figure-index",
+        "title": "付録：図表索引"
+      },
+      {
         "id": "appendix-b",
         "title": "付録B：参考文献とリソース"
       },
@@ -77,9 +85,9 @@
       "quickStart": false,
       "readingGuide": true,
       "checklistPack": true,
-      "troubleshootingFlow": false,
+      "troubleshootingFlow": true,
       "conceptMap": false,
-      "figureIndex": false,
+      "figureIndex": true,
       "legalNotice": false,
       "glossary": false
     }

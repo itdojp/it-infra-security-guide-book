@@ -128,6 +128,8 @@ SOC、SIEM、自動化
 
 ### 付録
 - [付録A：セキュリティチェックリスト](appendices/appendix-a/)
+- [付録：セキュリティ実装トラブルシューティング](appendices/troubleshooting/)
+- [付録：図表索引](appendices/figure-index/)
 - [付録B：参考文献とリソース](appendices/appendix-b/)
 - [あとがき](appendices/afterword/)
 
