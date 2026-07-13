@@ -1,5 +1,6 @@
 ---
 layout: book
+appendix: figure-index
 title: "図表索引"
 ---
 # 図表索引

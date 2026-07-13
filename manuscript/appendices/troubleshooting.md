@@ -31,30 +31,30 @@ title: "セキュリティ実装トラブルシューティング"
 
 - 401/403、MFA失敗、role assumption失敗では、まず対象identity、認証方式、期限、監査ログをread-onlyで確認する。
 - 一時的な権限追加や共有credentialで回避しない。
-- 設計原則は[第2章](../../chapter-chapter02/)、cloud IAMは[第6章](../../chapter-chapter06/)、特権管理は[第5章](../../chapter-chapter05/)を参照する。
+- 設計原則は[第2章](../chapter-chapter02/)、cloud IAMは[第6章](../chapter-chapter06/)、特権管理は[第5章](../chapter-chapter05/)を参照する。
 
 ### network
 
 - 到達不能やtimeoutでは、名前解決、経路、security group/firewall、proxy、TLSのどの境界で失敗したかを一段ずつ確認する。
 - firewall全面開放や検証用公開を暫定対処にしない。
-- [第4章](../../chapter-chapter04/)のnetwork設計と変更管理へ戻る。
+- [第4章](../chapter-chapter04/)のnetwork設計と変更管理へ戻る。
 
 ### host・container
 
 - patch、service、container、Kubernetesの異常では、対象version、直前deploy、event/log、readinessを収集する。
 - 証跡保存前の再起動、image差し替え、host上の直接修正を避ける。
-- [第5章](../../chapter-chapter05/)と[第7章](../../chapter-chapter07/)を参照する。
+- [第5章](../chapter-chapter05/)と[第7章](../chapter-chapter07/)を参照する。
 
 ### cloud・Kubernetes
 
 - provider側障害、quota、policy、region、責任共有境界を分ける。契約・billing・組織policyの変更は所有者へ引き継ぐ。
 - 管理者権限の常用や監査ログ無効化で回避しない。
-- [第6章](../../chapter-chapter06/)と[第7章](../../chapter-chapter07/)を参照する。
+- [第6章](../chapter-chapter06/)と[第7章](../chapter-chapter07/)を参照する。
 
 ### monitoring・incident
 
 - alert欠落、log欠落、複数系統の同時異常、侵害兆候がある場合は、通常の設定トラブルとして扱わない。
-- 原本を上書きせず、時刻同期とchain of custodyを維持して[第8章](../../chapter-chapter08/)・[第9章](../../chapter-chapter09/)へ移行する。
+- 原本を上書きせず、時刻同期とchain of custodyを維持して[第8章](../chapter-chapter08/)・[第9章](../chapter-chapter09/)へ移行する。
 
 ## 即時停止・引き継ぎ条件
 
@@ -64,4 +64,4 @@ title: "セキュリティ実装トラブルシューティング"
 - 証跡保全と復旧の両立を判断できない。
 - rollback手順、承認者、連絡経路のいずれかがない。
 
-停止時は「何をしなかったか」も記録し、[付録A](../appendix-a/)のチェックリストと[第9章](../../chapter-chapter09/)のインシデント対応へ引き継ぎます。
+停止時は「何をしなかったか」も記録し、[付録A](appendix-a.md)のチェックリストと[第9章](../chapter-chapter09/)のインシデント対応へ引き継ぎます。

@@ -41,7 +41,11 @@ const cases = [
     data.ux.modules.figureIndex = false;
     fs.writeFileSync(file, JSON.stringify(data, null, 2));
   }],
+  ['missing source page', (root) => fs.rmSync(path.join(root, 'manuscript/appendices/troubleshooting.md'))],
   ['missing public page', (root) => fs.rmSync(path.join(root, 'docs/appendices/figure-index'), { recursive: true })],
+  ['missing appendix metadata', (root) => mutateText(root, 'docs/appendices/figure-index/index.md', 'appendix: figure-index\n', '')],
+  ['duplicate manuscript order', (root) => mutateText(root, 'manuscript/appendices/appendix-b.md', 'order: 15', 'order: 14')],
+  ['broken source-relative link', (root) => mutateText(root, 'manuscript/appendices/troubleshooting.md', '](../chapter-chapter02/)', '](../../chapter-chapter02/)')],
   ['missing flow marker', (root) => mutateText(root, 'docs/appendices/troubleshooting/index.md', '即時停止・引き継ぎ条件', '停止・引き継ぎ')],
   ['missing figure anchor', (root) => mutateText(root, 'docs/chapter-chapter01/index.md', '<a id="figure-cia-triad-implementation"></a>\n', '')],
   ['missing index entry', (root) => mutateText(root, 'docs/appendices/figure-index/index.md', 'data-figure-id="figure-cia-triad-implementation"', 'data-regression-id="figure-cia-triad-implementation"')],

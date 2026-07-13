@@ -52,6 +52,18 @@ function stripFrontMatter(text) {
   return end === -1 ? text : text.slice(end + 5);
 }
 
+function normalizedBody(text) {
+  return stripFrontMatter(text)
+    .replace(/\.\.\/(?:\.\.\/)?chapter-/g, '__CHAPTER_ROOT__/')
+    .replace(/\(appendix-a\.md\)/g, '(__APPENDIX_A__)')
+    .replace(/\(\.\.\/appendix-a\/\)/g, '(__APPENDIX_A__)');
+}
+
+function frontMatterOrder(text) {
+  const match = text.match(/^order:\s*(\d+)\s*$/m);
+  return match ? Number(match[1]) : null;
+}
+
 function markdownFiles(directory) {
   const files = [];
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
@@ -85,6 +97,9 @@ const files = {
   top: read('docs/index.md'),
   nav: read('docs/_data/navigation.yml'),
   pkg: read('package.json'),
+  sourceAppendixA: read('manuscript/appendices/appendix-a.md'),
+  sourceAppendixB: read('manuscript/appendices/appendix-b.md'),
+  sourceAfterword: read('manuscript/appendices/afterword.md'),
 };
 
 let pkg = {};
@@ -95,13 +110,30 @@ try {
 }
 
 expect(
-  stripFrontMatter(files.sourceTrouble) === stripFrontMatter(files.docsTrouble),
+  normalizedBody(files.sourceTrouble) === normalizedBody(files.docsTrouble),
   'troubleshooting: source/public body mismatch',
 );
 expect(
-  stripFrontMatter(files.sourceIndex) === stripFrontMatter(files.docsIndex),
+  normalizedBody(files.sourceIndex) === normalizedBody(files.docsIndex),
   'figure index: source/public body mismatch',
 );
+expect(files.docsTrouble.includes('appendix: troubleshooting'), 'public troubleshooting: appendix metadata missing');
+expect(files.docsIndex.includes('appendix: figure-index'), 'public figure index: appendix metadata missing');
+
+const sourceOrders = [
+  frontMatterOrder(files.sourceAppendixA),
+  frontMatterOrder(files.sourceTrouble),
+  frontMatterOrder(files.sourceIndex),
+  frontMatterOrder(files.sourceAppendixB),
+  frontMatterOrder(files.sourceAfterword),
+];
+expect(
+  JSON.stringify(sourceOrders) === JSON.stringify([12, 13, 14, 15, 16]),
+  'manuscript appendix orders must be unique and follow A → troubleshooting → figure index → B → afterword',
+);
+expect(!files.sourceTrouble.includes('../../chapter-'), 'source troubleshooting: chapter links must stay inside manuscript tree');
+expect(files.sourceTrouble.includes('](appendix-a.md)'), 'source troubleshooting: appendix A link must target sibling source file');
+expect(!files.sourceIndex.includes('href="../../chapter-'), 'source figure index: chapter links must stay inside manuscript tree');
 
 expect(files.top.includes('(appendices/troubleshooting/)'), 'docs/index.md: troubleshooting route missing');
 expect(files.top.includes('(appendices/figure-index/)'), 'docs/index.md: figure index route missing');
@@ -165,6 +197,7 @@ for (const item of expected) {
   expect(count(files.docsIndex, 'data-figure-id="figure-' + stem + '"') === 1, 'figure index entry ' + stem + ': expected once');
   expect(count(files.docsIndex, 'href="../../' + chapter + '/#figure-' + stem + '"') === 1, 'figure index link ' + stem + ': expected once');
   expect(count(files.sourceIndex, 'data-figure-id="figure-' + stem + '"') === 1, 'source figure index entry ' + stem + ': expected once');
+  expect(count(files.sourceIndex, 'href="../' + chapter + '/#figure-' + stem + '"') === 1, 'source figure index link ' + stem + ': expected once');
 }
 
 const entryPattern = /data-figure-id="figure-([a-z0-9-]+)"/g;

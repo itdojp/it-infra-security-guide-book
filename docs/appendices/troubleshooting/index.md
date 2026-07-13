@@ -1,5 +1,6 @@
 ---
 layout: book
+appendix: troubleshooting
 title: "セキュリティ実装トラブルシューティング"
 ---
 # セキュリティ実装トラブルシューティング
