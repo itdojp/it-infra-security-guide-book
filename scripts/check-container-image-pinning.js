@@ -64,9 +64,27 @@ function isMutableImageReference(reference) {
   return reference.slice(lastColon + 1).toLowerCase() === 'latest';
 }
 
+function extractVariables(content) {
+  const variables = new Map();
+  for (const line of content.split('\n')) {
+    const assignment = line.match(/^\s*([A-Z][A-Z0-9_]*):\s*['"]?([^#\s'"]+)/);
+    if (assignment) variables.set(assignment[1], assignment[2]);
+  }
+  return variables;
+}
+
+function resolveImageReference(reference, variables) {
+  return reference.replace(/\$(?:\{([A-Z][A-Z0-9_]*)\}|([A-Z][A-Z0-9_]*))/g, (match, braced, bare) => (
+    variables.get(braced || bare) || match
+  ));
+}
+
 function findMutableImageReferences(content) {
+  const variables = extractVariables(content);
   return content.split('\n').flatMap((line, index) => (
-    extractImageReferences(line).some(isMutableImageReference)
+    extractImageReferences(line)
+      .map((reference) => resolveImageReference(reference, variables))
+      .some(isMutableImageReference)
       ? [{ line: index + 1, text: line.trim() }]
       : []
   ));
@@ -117,8 +135,10 @@ function main() {
     'kubectl run test --image example.invalid/test',
     'docker run --rm example.invalid/tool:latest scan',
     'docker run --rm example.invalid/tool scan',
+    'TRIVY_VERSION: "latest"',
+    'image: example.invalid/trivy:$TRIVY_VERSION',
   ].join('\n');
-  if (findMutableImageReferences(unsafeFixture).length !== 8) {
+  if (findMutableImageReferences(unsafeFixture).length !== 9) {
     errors.push('checker self-test failed to detect all supported mutable image reference forms');
   }
 
