@@ -689,7 +689,7 @@ jobs:
     # Dockerfile セキュリティチェック
       - name: Dockerfile Security Scan
         run: |
-          docker run --rm -i hadolint/hadolint < Dockerfile
+          docker run --rm -i hadolint/hadolint:<VERSION> < Dockerfile
     
     # コンテナ設定チェック
       - name: Container Configuration Scan

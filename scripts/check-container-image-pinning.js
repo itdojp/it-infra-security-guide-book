@@ -1,0 +1,215 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+
+const ROOT = path.resolve(__dirname, '..');
+const CHAPTER_PATHS = [
+  'docs/chapter-chapter07/index.md',
+  'manuscript/chapter-chapter07/index.md',
+];
+const POLICY_MARKERS = [
+  '`<VERSION>`/`<TAG>` は固定のまま使わず、組織の基準（検証済み/サポート範囲）に置き換える',
+  'ベースイメージ/依存パッケージはタグを固定し、可能ならダイジェストでピン留めする（`:latest` を避ける）',
+];
+// Options that consume the following token. Audited against the Docker run CLI reference on 2026-07-19.
+// https://docs.docker.com/reference/cli/docker/container/run/
+const DOCKER_RUN_OPTIONS_WITH_VALUE = new Set([
+  '-a', '--add-host', '--annotation', '--attach', '--blkio-weight', '--blkio-weight-device',
+  '-c', '--cap-add', '--cap-drop', '--cgroup-parent', '--cgroupns', '--cidfile', '--cpu-count',
+  '--cpu-percent', '--cpu-period', '--cpu-quota', '--cpu-rt-period', '--cpu-rt-runtime',
+  '--cpu-shares', '--cpus', '--cpuset-cpus', '--cpuset-mems', '--device',
+  '--detach-keys', '--device-cgroup-rule', '--device-read-bps', '--device-read-iops',
+  '--device-write-bps', '--device-write-iops', '--dns', '--dns-option', '--dns-search',
+  '--domainname', '-e',
+  '--entrypoint', '--env', '--env-file', '--expose', '--gpus', '--group-add', '--health-cmd',
+  '--health-interval', '--health-retries', '--health-start-interval', '--health-start-period',
+  '--health-timeout', '-h', '--hostname', '--init-path', '--io-maxbandwidth', '--io-maxiops',
+  '--ip', '--ip6', '--ipc', '--isolation', '--kernel-memory', '-l', '--label', '--label-file',
+  '--link', '--link-local-ip', '--log-driver',
+  '--log-opt', '-m', '--mac-address', '--memory', '--memory-reservation', '--memory-swap',
+  '--memory-swappiness', '--mount', '--name', '--network', '--network-alias', '--oom-score-adj',
+  '-p', '--pid', '--pids-limit', '--platform', '--publish', '--pull', '--restart', '--runtime',
+  '--security-opt', '--shm-size', '--stop-signal', '--stop-timeout', '--storage-opt', '--sysctl',
+  '--tmpfs', '--ulimit', '-u', '--user', '--userns', '--uts', '-v', '--volume',
+  '--volume-driver', '--volumes-from', '-w', '--workdir',
+]);
+
+function read(relativePath) {
+  return fs.readFileSync(path.join(ROOT, relativePath), 'utf8');
+}
+
+function unquote(value) {
+  return value.replace(/^(['"])(.*)\1$/, '$2');
+}
+
+function extractDockerRunImage(line) {
+  const command = line.match(/\bdocker\s+(?:container\s+)?run\b(.*)$/);
+  if (!command) return null;
+
+  const tokens = command[1].match(/"(?:\\.|[^"])*"\S*|'(?:\\.|[^'])*'\S*|\S+/g) || [];
+  for (let index = 0; index < tokens.length; index += 1) {
+    const token = tokens[index];
+    if (token === '--') return tokens[index + 1] || null;
+    if (!token.startsWith('-')) return token;
+
+    const option = token.split('=', 1)[0];
+    if (DOCKER_RUN_OPTIONS_WITH_VALUE.has(option) && !token.includes('=')) index += 1;
+  }
+  return null;
+}
+
+function extractImageReferences(line) {
+  const references = [];
+  const yamlImage = line.match(/^\s*(?:-\s*)?image:\s*['"]?([^#\s'"]+)/);
+  const dockerfileImage = line.match(/^\s*FROM\s+([^\s]+)/i);
+  const commandImage = line.match(/--image(?:=|\s+)['"]?([^\s'"]+)/);
+  const dockerRunImage = extractDockerRunImage(line);
+  if (yamlImage) references.push(yamlImage[1]);
+  if (dockerfileImage) references.push(dockerfileImage[1]);
+  if (commandImage) references.push(commandImage[1]);
+  if (dockerRunImage) references.push(dockerRunImage);
+  return references.map(unquote);
+}
+
+function isMutableImageReference(reference) {
+  if (reference.includes('@sha256:')) return false;
+  if (/\$(?:\{[A-Za-z_][A-Za-z0-9_]*\}|[A-Za-z_][A-Za-z0-9_]*)/.test(reference)) return true;
+  const lastSlash = reference.lastIndexOf('/');
+  const lastColon = reference.lastIndexOf(':');
+  if (lastColon <= lastSlash) return true;
+  return reference.slice(lastColon + 1).toLowerCase() === 'latest';
+}
+
+function extractVariables(content) {
+  const variables = new Map();
+  for (const line of content.split('\n')) {
+    const assignment = line.match(/^\s*([A-Z][A-Z0-9_]*):\s*['"]?([^#\s'"]+)/);
+    if (assignment) variables.set(assignment[1], assignment[2]);
+    const dockerArg = line.match(/^\s*ARG\s+([A-Za-z_][A-Za-z0-9_]*)=([^#\s]+)/i);
+    if (dockerArg) variables.set(dockerArg[1], dockerArg[2]);
+  }
+  return variables;
+}
+
+function resolveImageReference(reference, variables) {
+  return reference.replace(/\$(?:\{([A-Za-z_][A-Za-z0-9_]*)\}|([A-Za-z_][A-Za-z0-9_]*))/g, (match, braced, bare) => (
+    variables.get(braced || bare) || match
+  ));
+}
+
+function findMutableImageReferences(content) {
+  const variables = extractVariables(content);
+  return content.split('\n').flatMap((line, index) => (
+    extractImageReferences(line)
+      .map((reference) => resolveImageReference(reference, variables))
+      .some(isMutableImageReference)
+      ? [{ line: index + 1, text: line.trim() }]
+      : []
+  ));
+}
+
+function extractPinningContract(content) {
+  return content.split('\n')
+    .map((line) => line.trim())
+    .filter((line) => (
+      /^FROM\s/.test(line)
+      || /^TRIVY_VERSION:/.test(line)
+      || /^(?:-\s*)?image:/.test(line)
+      || /\bdocker\s+(?:container\s+)?run\b/.test(line)
+      || /--image(?:=|\s+)/.test(line)
+    ));
+}
+
+function validateChapter(content, relativePath) {
+  const errors = findMutableImageReferences(content)
+    .map((match) => `${relativePath}:${match.line}: mutable container image reference: ${match.text}`);
+
+  for (const marker of POLICY_MARKERS) {
+    if (!content.includes(marker)) {
+      errors.push(`${relativePath}: required reproducibility policy is missing: ${marker}`);
+    }
+  }
+
+  return errors;
+}
+
+function main() {
+  const chapterContents = CHAPTER_PATHS.map((relativePath) => read(relativePath));
+  const errors = CHAPTER_PATHS.flatMap((relativePath, index) => (
+    validateChapter(chapterContents[index], relativePath)
+  ));
+  const contracts = chapterContents.map(extractPinningContract);
+
+  if (JSON.stringify(contracts[0]) !== JSON.stringify(contracts[1])) {
+    errors.push('public docs and canonical manuscript container image pinning contracts are out of sync');
+  }
+
+  const unsafeFixture = [
+    'image: example.invalid/app:latest',
+    'image: example.invalid/app',
+    'FROM example.invalid/base:latest',
+    'FROM example.invalid/base',
+    'kubectl run test --image=example.invalid/test:latest',
+    'kubectl run test --image example.invalid/test',
+    'docker run --rm example.invalid/tool:latest scan',
+    'docker run --rm example.invalid/tool scan',
+    'TRIVY_VERSION: "latest"',
+    'image: example.invalid/trivy:$TRIVY_VERSION',
+  ].join('\n');
+  if (findMutableImageReferences(unsafeFixture).length !== 9) {
+    errors.push('checker self-test failed to detect all supported mutable image reference forms');
+  }
+
+  const unresolvedVariableFixture = 'image: example.invalid/app:$IMAGE_TAG';
+  if (findMutableImageReferences(unresolvedVariableFixture).length !== 1) {
+    errors.push('checker self-test failed to reject an unresolved image tag variable');
+  }
+
+  const lowercaseVariableFixture = [
+    'ARG tag=latest',
+    'FROM example.invalid/base:${tag}',
+  ].join('\n');
+  if (findMutableImageReferences(lowercaseVariableFixture).length !== 1) {
+    errors.push('checker self-test failed to reject a mutable lowercase Docker build argument');
+  }
+
+  const safeOptionFixture = [
+    'docker run --label team=security example.invalid/tool:1 scan',
+    'docker run --detach-keys ctrl-x example.invalid/tool:1 scan',
+    'docker run --io-maxbandwidth 10mb example.invalid/tool:1 scan',
+    'docker run --io-maxiops 1000 example.invalid/tool:1 scan',
+  ].join('\n');
+  if (findMutableImageReferences(safeOptionFixture).length !== 0) {
+    errors.push('checker self-test misidentified a value-taking docker run option as an image');
+  }
+
+  const maskedOptionFixture = [
+    'docker run --label source=registry.example/tool:1 example.invalid/tool:latest scan',
+  ].join('\n');
+  if (findMutableImageReferences(maskedOptionFixture).length !== 1) {
+    errors.push('checker self-test allowed a docker run option value to mask a mutable image');
+  }
+
+  const runnerFixture = 'runs-on: ubuntu-latest';
+  if (findMutableImageReferences(runnerFixture).length !== 0) {
+    errors.push('checker self-test incorrectly treated a GitHub Actions runner label as a container image');
+  }
+
+  const driftFixture = chapterContents[1].replace('node:<VERSION>-alpine', 'node:<OTHER_VERSION>-alpine');
+  if (JSON.stringify(contracts[0]) === JSON.stringify(extractPinningContract(driftFixture))) {
+    errors.push('checker self-test failed to detect a docs/manuscript pinning contract drift');
+  }
+
+  if (errors.length > 0) {
+    console.error('Container image pinning contract failed:');
+    errors.forEach((error) => console.error(`- ${error}`));
+    process.exit(1);
+  }
+
+  console.log('Container image pinning contract passed: chapter 7 avoids mutable image tags and retains the digest policy.');
+}
+
+main();
