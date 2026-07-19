@@ -168,45 +168,45 @@ spec:
       type: RuntimeDefault
   
   containers:
-  - name: app
-    image: myapp:<TAG>
-    securityContext:
-      # 特権無効化
-      privileged: false
-      # ルートファイルシステム読み取り専用
-      readOnlyRootFilesystem: true
-      # 権限昇格防止
-      allowPrivilegeEscalation: false
-      # Capabilitiesドロップ
-      capabilities:
-        drop:
-        - ALL
-        add:
-        - NET_BIND_SERVICE
-    
-    # リソース制限
-    resources:
-      limits:
-        memory: "512Mi"
-        cpu: "500m"
-        ephemeral-storage: "1Gi"
-      requests:
-        memory: "256Mi"
-        cpu: "250m"
-        ephemeral-storage: "500Mi"
-    
-    # ボリュームマウント
-    volumeMounts:
-    - name: tmp-volume
-      mountPath: /tmp
-    - name: var-cache
-      mountPath: /var/cache/app
+    - name: app
+      image: myapp:<TAG>
+      securityContext:
+        # 特権無効化
+        privileged: false
+        # ルートファイルシステム読み取り専用
+        readOnlyRootFilesystem: true
+        # 権限昇格防止
+        allowPrivilegeEscalation: false
+        # Capabilitiesドロップ
+        capabilities:
+          drop:
+            - ALL
+          add:
+            - NET_BIND_SERVICE
+
+      # リソース制限
+      resources:
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+          ephemeral-storage: "1Gi"
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+          ephemeral-storage: "500Mi"
+
+      # ボリュームマウント
+      volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+        - name: var-cache
+          mountPath: /var/cache/app
   
   volumes:
-  - name: tmp-volume
-    emptyDir: {}
-  - name: var-cache
-    emptyDir: {}
+    - name: tmp-volume
+      emptyDir: {}
+    - name: var-cache
+      emptyDir: {}
 ```
 
 **ネットワーク分離**では、各コンテナが必要最小限のネットワークアクセスのみを持つよう設定します。Kubernetes のネットワークポリシーを活用して、Pod間通信を細かく制御し、不要な通信経路を遮断します。
@@ -686,7 +686,7 @@ jobs:
     # Dockerfile セキュリティチェック
       - name: Dockerfile Security Scan
         run: |
-          docker run --rm -i hadolint/hadolint < Dockerfile
+          docker run --rm -i hadolint/hadolint:<VERSION> < Dockerfile
     
     # コンテナ設定チェック
       - name: Container Configuration Scan

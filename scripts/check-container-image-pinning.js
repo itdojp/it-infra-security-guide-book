@@ -14,20 +14,59 @@ const POLICY_MARKERS = [
   '`<VERSION>`/`<TAG>` は固定のまま使わず、組織の基準（検証済み/サポート範囲）に置き換える',
   'ベースイメージ/依存パッケージはタグを固定し、可能ならダイジェストでピン留めする（`:latest` を避ける）',
 ];
-const UNSAFE_REFERENCE_PATTERNS = [
-  /^\s*(?:-\s*)?image:\s*['"]?[^#\s'"]+:latest(?:['"])?(?:\s|$)/,
-  /^\s*FROM\s+\S+:latest(?:\s|$)/i,
-  /--image(?:=|\s+)['"]?[^\s'"]+:latest\b/,
-  /\bdocker\s+(?:container\s+)?run\b[^\n]*\b[\w./${}@-]+:latest\b/,
-];
+const DOCKER_RUN_OPTIONS_WITH_VALUE = new Set([
+  '-e', '--env', '--entrypoint', '--mount', '--name', '--network', '-p', '--platform',
+  '--publish', '--pull', '-u', '--user', '-v', '--volume', '-w', '--workdir',
+]);
 
 function read(relativePath) {
   return fs.readFileSync(path.join(ROOT, relativePath), 'utf8');
 }
 
+function unquote(value) {
+  return value.replace(/^(['"])(.*)\1$/, '$2');
+}
+
+function extractDockerRunImage(line) {
+  const command = line.match(/\bdocker\s+(?:container\s+)?run\b(.*)$/);
+  if (!command) return null;
+
+  const tokens = command[1].match(/"(?:\\.|[^"])*"\S*|'(?:\\.|[^'])*'\S*|\S+/g) || [];
+  for (let index = 0; index < tokens.length; index += 1) {
+    const token = tokens[index];
+    if (token === '--') return tokens[index + 1] || null;
+    if (!token.startsWith('-')) return token;
+
+    const option = token.split('=', 1)[0];
+    if (DOCKER_RUN_OPTIONS_WITH_VALUE.has(option) && !token.includes('=')) index += 1;
+  }
+  return null;
+}
+
+function extractImageReferences(line) {
+  const references = [];
+  const yamlImage = line.match(/^\s*(?:-\s*)?image:\s*['"]?([^#\s'"]+)/);
+  const dockerfileImage = line.match(/^\s*FROM\s+([^\s]+)/i);
+  const commandImage = line.match(/--image(?:=|\s+)['"]?([^\s'"]+)/);
+  const dockerRunImage = extractDockerRunImage(line);
+  if (yamlImage) references.push(yamlImage[1]);
+  if (dockerfileImage) references.push(dockerfileImage[1]);
+  if (commandImage) references.push(commandImage[1]);
+  if (dockerRunImage) references.push(dockerRunImage);
+  return references.map(unquote);
+}
+
+function isMutableImageReference(reference) {
+  if (reference.includes('@sha256:')) return false;
+  const lastSlash = reference.lastIndexOf('/');
+  const lastColon = reference.lastIndexOf(':');
+  if (lastColon <= lastSlash) return true;
+  return reference.slice(lastColon + 1).toLowerCase() === 'latest';
+}
+
 function findMutableImageReferences(content) {
   return content.split('\n').flatMap((line, index) => (
-    UNSAFE_REFERENCE_PATTERNS.some((pattern) => pattern.test(line))
+    extractImageReferences(line).some(isMutableImageReference)
       ? [{ line: index + 1, text: line.trim() }]
       : []
   ));
@@ -41,7 +80,7 @@ function extractPinningContract(content) {
       || /^TRIVY_VERSION:/.test(line)
       || /^(?:-\s*)?image:/.test(line)
       || /\bdocker\s+(?:container\s+)?run\b/.test(line)
-      || /--image=/.test(line)
+      || /--image(?:=|\s+)/.test(line)
     ));
 }
 
@@ -71,11 +110,15 @@ function main() {
 
   const unsafeFixture = [
     'image: example.invalid/app:latest',
+    'image: example.invalid/app',
     'FROM example.invalid/base:latest',
+    'FROM example.invalid/base',
     'kubectl run test --image=example.invalid/test:latest',
+    'kubectl run test --image example.invalid/test',
     'docker run --rm example.invalid/tool:latest scan',
+    'docker run --rm example.invalid/tool scan',
   ].join('\n');
-  if (findMutableImageReferences(unsafeFixture).length !== 4) {
+  if (findMutableImageReferences(unsafeFixture).length !== 8) {
     errors.push('checker self-test failed to detect all supported mutable image reference forms');
   }
 
