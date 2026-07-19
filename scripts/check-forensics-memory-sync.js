@@ -19,11 +19,24 @@ function extractMemorySnippet(content, label) {
 
 function validateSnippet(snippet, label) {
   const errors = [];
-  if (!snippet.includes('if [ -r /dev/mem ]; then')) {
+  const requiredOrder = [
+    'if [ "$1" == "--memory-dump" ]; then',
+    'if [ -r /dev/mem ]; then',
+    'dd if=/dev/mem',
+  ];
+  const positions = requiredOrder.map((marker) => snippet.indexOf(marker));
+  if (positions[0] < 0) {
+    errors.push(`${label}: memory acquisition must remain explicitly gated by --memory-dump`);
+  }
+  if (positions[1] < 0) {
     errors.push(`${label}: the actual input /dev/mem must be checked for readability`);
   }
-  if (!snippet.includes('dd if=/dev/mem')) {
+  if (positions[2] < 0) {
     errors.push(`${label}: /dev/mem must remain the declared acquisition input`);
+  }
+  if (positions.every((position) => position >= 0)
+      && !(positions[0] < positions[1] && positions[1] < positions[2])) {
+    errors.push(`${label}: opt-in, readability check, and acquisition must remain in safe order`);
   }
   if (snippet.includes('/proc/kcore')) {
     errors.push(`${label}: /proc/kcore must not be used as the /dev/mem precondition`);
@@ -46,6 +59,13 @@ function main() {
   const unsafeFixture = docsSnippet.replace('if [ -r /dev/mem ]; then', 'if [ -f /proc/kcore ]; then');
   if (validateSnippet(unsafeFixture, 'unsafe regression fixture').length === 0) {
     errors.push('checker self-test failed to detect the /proc/kcore regression fixture');
+  }
+  const unguardedFixture = docsSnippet.replace(
+    'if [ "$1" == "--memory-dump" ]; then',
+    '# --memory-dump opt-in guard removed',
+  );
+  if (validateSnippet(unguardedFixture, 'unguarded regression fixture').length === 0) {
+    errors.push('checker self-test failed to detect removal of the --memory-dump opt-in guard');
   }
 
   if (errors.length > 0) {
