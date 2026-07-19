@@ -14,9 +14,27 @@ const POLICY_MARKERS = [
   '`<VERSION>`/`<TAG>` は固定のまま使わず、組織の基準（検証済み/サポート範囲）に置き換える',
   'ベースイメージ/依存パッケージはタグを固定し、可能ならダイジェストでピン留めする（`:latest` を避ける）',
 ];
+// Options that consume the following token. Audited against the Docker run CLI reference on 2026-07-19.
+// https://docs.docker.com/reference/cli/docker/container/run/
 const DOCKER_RUN_OPTIONS_WITH_VALUE = new Set([
-  '-e', '--env', '--entrypoint', '--mount', '--name', '--network', '-p', '--platform',
-  '--publish', '--pull', '-u', '--user', '-v', '--volume', '-w', '--workdir',
+  '-a', '--add-host', '--annotation', '--attach', '--blkio-weight', '--blkio-weight-device',
+  '-c', '--cap-add', '--cap-drop', '--cgroup-parent', '--cgroupns', '--cidfile', '--cpu-count',
+  '--cpu-percent', '--cpu-period', '--cpu-quota', '--cpu-rt-period', '--cpu-rt-runtime',
+  '--cpu-shares', '--cpus', '--cpuset-cpus', '--cpuset-mems', '--device',
+  '--detach-keys', '--device-cgroup-rule', '--device-read-bps', '--device-read-iops',
+  '--device-write-bps', '--device-write-iops', '--dns', '--dns-option', '--dns-search',
+  '--domainname', '-e',
+  '--entrypoint', '--env', '--env-file', '--expose', '--gpus', '--group-add', '--health-cmd',
+  '--health-interval', '--health-retries', '--health-start-interval', '--health-start-period',
+  '--health-timeout', '-h', '--hostname', '--init-path', '--io-maxbandwidth', '--io-maxiops',
+  '--ip', '--ip6', '--ipc', '--isolation', '--kernel-memory', '-l', '--label', '--label-file',
+  '--link', '--link-local-ip', '--log-driver',
+  '--log-opt', '-m', '--mac-address', '--memory', '--memory-reservation', '--memory-swap',
+  '--memory-swappiness', '--mount', '--name', '--network', '--network-alias', '--oom-score-adj',
+  '-p', '--pid', '--pids-limit', '--platform', '--publish', '--pull', '--restart', '--runtime',
+  '--security-opt', '--shm-size', '--stop-signal', '--stop-timeout', '--storage-opt', '--sysctl',
+  '--tmpfs', '--ulimit', '-u', '--user', '--userns', '--uts', '-v', '--volume',
+  '--volume-driver', '--volumes-from', '-w', '--workdir',
 ]);
 
 function read(relativePath) {
@@ -140,6 +158,23 @@ function main() {
   ].join('\n');
   if (findMutableImageReferences(unsafeFixture).length !== 9) {
     errors.push('checker self-test failed to detect all supported mutable image reference forms');
+  }
+
+  const safeOptionFixture = [
+    'docker run --label team=security example.invalid/tool:1 scan',
+    'docker run --detach-keys ctrl-x example.invalid/tool:1 scan',
+    'docker run --io-maxbandwidth 10mb example.invalid/tool:1 scan',
+    'docker run --io-maxiops 1000 example.invalid/tool:1 scan',
+  ].join('\n');
+  if (findMutableImageReferences(safeOptionFixture).length !== 0) {
+    errors.push('checker self-test misidentified a value-taking docker run option as an image');
+  }
+
+  const maskedOptionFixture = [
+    'docker run --label source=registry.example/tool:1 example.invalid/tool:latest scan',
+  ].join('\n');
+  if (findMutableImageReferences(maskedOptionFixture).length !== 1) {
+    errors.push('checker self-test allowed a docker run option value to mask a mutable image');
   }
 
   const runnerFixture = 'runs-on: ubuntu-latest';
