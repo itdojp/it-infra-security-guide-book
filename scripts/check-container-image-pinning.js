@@ -76,7 +76,7 @@ function extractImageReferences(line) {
 
 function isMutableImageReference(reference) {
   if (reference.includes('@sha256:')) return false;
-  if (/\$(?:\{[A-Z][A-Z0-9_]*\}|[A-Z][A-Z0-9_]*)/.test(reference)) return true;
+  if (/\$(?:\{[A-Za-z_][A-Za-z0-9_]*\}|[A-Za-z_][A-Za-z0-9_]*)/.test(reference)) return true;
   const lastSlash = reference.lastIndexOf('/');
   const lastColon = reference.lastIndexOf(':');
   if (lastColon <= lastSlash) return true;
@@ -88,12 +88,14 @@ function extractVariables(content) {
   for (const line of content.split('\n')) {
     const assignment = line.match(/^\s*([A-Z][A-Z0-9_]*):\s*['"]?([^#\s'"]+)/);
     if (assignment) variables.set(assignment[1], assignment[2]);
+    const dockerArg = line.match(/^\s*ARG\s+([A-Za-z_][A-Za-z0-9_]*)=([^#\s]+)/i);
+    if (dockerArg) variables.set(dockerArg[1], dockerArg[2]);
   }
   return variables;
 }
 
 function resolveImageReference(reference, variables) {
-  return reference.replace(/\$(?:\{([A-Z][A-Z0-9_]*)\}|([A-Z][A-Z0-9_]*))/g, (match, braced, bare) => (
+  return reference.replace(/\$(?:\{([A-Za-z_][A-Za-z0-9_]*)\}|([A-Za-z_][A-Za-z0-9_]*))/g, (match, braced, bare) => (
     variables.get(braced || bare) || match
   ));
 }
@@ -164,6 +166,14 @@ function main() {
   const unresolvedVariableFixture = 'image: example.invalid/app:$IMAGE_TAG';
   if (findMutableImageReferences(unresolvedVariableFixture).length !== 1) {
     errors.push('checker self-test failed to reject an unresolved image tag variable');
+  }
+
+  const lowercaseVariableFixture = [
+    'ARG tag=latest',
+    'FROM example.invalid/base:${tag}',
+  ].join('\n');
+  if (findMutableImageReferences(lowercaseVariableFixture).length !== 1) {
+    errors.push('checker self-test failed to reject a mutable lowercase Docker build argument');
   }
 
   const safeOptionFixture = [
