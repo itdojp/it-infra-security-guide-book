@@ -76,6 +76,7 @@ function extractImageReferences(line) {
 
 function isMutableImageReference(reference) {
   if (reference.includes('@sha256:')) return false;
+  if (/\$(?:\{[A-Z][A-Z0-9_]*\}|[A-Z][A-Z0-9_]*)/.test(reference)) return true;
   const lastSlash = reference.lastIndexOf('/');
   const lastColon = reference.lastIndexOf(':');
   if (lastColon <= lastSlash) return true;
@@ -158,6 +159,11 @@ function main() {
   ].join('\n');
   if (findMutableImageReferences(unsafeFixture).length !== 9) {
     errors.push('checker self-test failed to detect all supported mutable image reference forms');
+  }
+
+  const unresolvedVariableFixture = 'image: example.invalid/app:$IMAGE_TAG';
+  if (findMutableImageReferences(unresolvedVariableFixture).length !== 1) {
+    errors.push('checker self-test failed to reject an unresolved image tag variable');
   }
 
   const safeOptionFixture = [
